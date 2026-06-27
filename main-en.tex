@@ -9,7 +9,7 @@
 \PassOptionsToPackage{cmyk}{xcolor}% 解决设置 CMYK 颜色时生成 PDF 的色彩偏移
 \documentclass[hyperref, UTF8, CJK, aspectratio=169]{beamer}
 
-% --------SCU Beamer 模板宏包--------
+% --------BIT Beamer 模板宏包--------
 % ----------------
 \usetheme[
 	ColorDisplay=BSblue, % JXred ⚙️ | BSblue | Custom → 主题色显示设置
@@ -24,8 +24,8 @@
 	% BIBMode=none, % biber ⚙️ | none → 参考文献引擎设置
 	% BIBStyle=biber-gb7714, % biber-gb7714 ⚙️ → 参考文献样式设置 (设置 BIBMode=none 时无效)
 	% ContentMuticols=true, % true ⚙️ | false → 目录帧双栏显示设置
-	Background=SCU-Lite, % SCU-Full ⚙️ | SCU-Lite | Custom | none → 背景显示设置
-]{scu}
+	Background=BIT-Lite, % BIT-Full ⚙️ | BIT-Lite | Custom | none → 背景显示设置
+]{bit}
 
 % --------宏包调用--------
 % ----------------
@@ -43,7 +43,7 @@
 \usepackage{subcaption}
 \usepackage{varioref,cleveref}
 %\usepackage[active,tightpage]{preview}
-%\PreviewEnvironment{scucode}
+%\PreviewEnvironment{bitcode}
 
 % --------newcommand 区--------
 % 建议在此定义常用命令.
@@ -53,13 +53,13 @@
 % --------封面信息输入--------
 % [<in footline>], {<in title page>} 方括号内容显示在页脚, 花括号内容为全称显示在封面.
 % ----------------
-\title[A brief example in English for SCU Beamer Theme]{A brief example in English}
-\subtitle{For SCU Beamer Theme} % subtitle 未设置页脚显示项, 请在 title 中设置.
+\title[A brief example in English for BIT Beamer Theme]{A brief example in English}
+\subtitle{For BIT Beamer Theme} % subtitle 未设置页脚显示项, 请在 title 中设置.
 \author[LR Wu]{LR Wu}
 \institute{%
 	Management Science\\
 	Business School, Sichuan University\\
-	\mailscu{lr.wu.interact@outlook.com}
+	\mailbit{lr.wu.interact@outlook.com}
 }
 \date{\today}
 
@@ -81,8 +81,8 @@
 \section{Introduction}
 \subsection{The Project}
 \begin{frame}{Info.}
-	\faShare*\enspace{\color{scublue}lr.wu.interact@outlook.com}
-	\faGithub\enspace{\color{scublue}\url{https://github.com/FvNCCR228/SCU-Beamer-Theme}}
+	\faShare*\enspace{\color{bitb}lr.wu.interact@outlook.com}
+	\faGithub\enspace{\color{bitb}\url{https://github.com/FvNCCR228/SCU-Beamer-Theme}}
 
 	
 \end{frame}
@@ -92,18 +92,18 @@
 \section{Blocks}
 \subsection{Math Blocks}
 \begin{frame}[fragile,allowframebreaks]{Math Blocks}
-	\begin{scutheorem}{A Theorem}[theorem1]
+	\begin{bittheorem}{A Theorem}[theorem1]
 		\begin{equation}
 		\dfrac{1}{n} \sum_{k=1}^{n} X_k - \dfrac{1}{n} \sum_{k=1}^{n} E(X_k) \stackrel{\;P\;}{\longrightarrow} 0
 		\end{equation}
-	\end{scutheorem}
-	\begin{scuproof}{}
+	\end{bittheorem}
+	\begin{bitproof}{}
 		A proof block.
-	\end{scuproof}
-	\begin{scuexample}{An Example}[example1]
+	\end{bitproof}
+	\begin{bitexample}{An Example}[example1]
 		An example block.
-	\end{scuexample}
-	\begin{scualgorithm}{An Algorithm}[algorithm1]
+	\end{bitexample}
+	\begin{bitalgorithm}{An Algorithm}[algorithm1]
 		\begin{algorithmic}[1]
 			\REQUIRE \LaTeX{}
 			\ENSURE Computer
@@ -112,81 +112,81 @@
 			\STATE TE
 			\RETURN Beamer
 		\end{algorithmic}
-	\end{scualgorithm}
-	\begin{scudefinition}{A Defintion}[defintion1]
+	\end{bitalgorithm}
+	\begin{bitdefinition}{A Defintion}[defintion1]
 		A definition block.
-	\end{scudefinition}
-	\begin{scuaxiom}{An Axiom}[axiom1]
+	\end{bitdefinition}
+	\begin{bitaxiom}{An Axiom}[axiom1]
 		An axiom block. Reference to~\Vref{def:defintion1}
-	\end{scuaxiom}
-	\begin{scuproperty}{A Property}[property1]
+	\end{bitaxiom}
+	\begin{bitproperty}{A Property}[property1]
 		A property block. Reference to~\Cref{axio:axiom1}
-	\end{scuproperty}
-	\begin{scuproposition}{A Proposition}[proposition1]
+	\end{bitproperty}
+	\begin{bitproposition}{A Proposition}[proposition1]
 		A proposition block. Reference to~\vref{prope:property1}
 		\begin{equation}
 		\Delta x \Delta p \geq \dfrac{h}{4\pi}
 		\end{equation}
 		其中$h$为普朗克常数.
-	\end{scuproposition}
-	\begin{sculemma}{A lemma}[lemma1]
+	\end{bitproposition}
+	\begin{bitlemma}{A lemma}[lemma1]
 		A lemma block. Reference to~\cref{propo:proposition1}
-	\end{sculemma}
-	\begin{scucorollary}{A Corollary}[corollary1]
+	\end{bitlemma}
+	\begin{bitcorollary}{A Corollary}[corollary1]
 		A corollary block.
-	\end{scucorollary}
-	\begin{scuremark}{}[remark1]
+	\end{bitcorollary}
+	\begin{bitremark}{}[remark1]
 		A remark block.
-	\end{scuremark}
-	\begin{scucondition}{A Condition}[condition1]
+	\end{bitremark}
+	\begin{bitcondition}{A Condition}[condition1]
 		A condition block.
-	\end{scucondition}
-	\begin{scuconclusion}{A Conclusion}[conclusion1]
+	\end{bitcondition}
+	\begin{bitconclusion}{A Conclusion}[conclusion1]
 		A conclusion block.
-	\end{scuconclusion}
-	\begin{scuassumption}{An Assumption}[assumption]
+	\end{bitconclusion}
+	\begin{bitassumption}{An Assumption}[assumption]
 		An assumption block.
-	\end{scuassumption}
+	\end{bitassumption}
 \end{frame}
 
 \begin{frame}{A Stared Block}
-\begin{scutheorem}*<1-4>[after title=(after title: Theorem)]{A Stared Theorem Block}[staredblock1]
+\begin{bittheorem}*<1-4>[after title=(after title: Theorem)]{A Stared Theorem Block}[staredblock1]
 	\begin{itemize}[<+->]
 		\item One
 		\item Two~\only<2>{Two}
 		\item \alert<3>{Three}
 		\item Four
 	\end{itemize}
-\end{scutheorem}
-\begin{scutheorem}<2-5>[after title=(after title: Theorem)]{Another Stared Theorem Block}*[staredblock2]
+\end{bittheorem}
+\begin{bittheorem}<2-5>[after title=(after title: Theorem)]{Another Stared Theorem Block}*[staredblock2]
 	\begin{itemize}
 		\item Five
 		\item Six~\only<3>{Six}
 		\item \alert<3>{Seven}
 		\item Eight
 	\end{itemize}
-\end{scutheorem}
+\end{bittheorem}
 \end{frame}
 
 \subsection{Source Code Block}
 \begin{frame}[fragile]{Source Code Block}{With frame option ``fragile''}
 	\onslide<2>
-	\begin{scucode}{A Cpp Program.}[cppcode]{c}
+	\begin{bitcode}{A Cpp Program.}[cppcode]{c}
 		#include <iostream>
 		int main()
 		{
 			std::cout << "Hello World!" << std::endl;
 			std::cin.get();
 		}
-	\end{scucode}
+	\end{bitcode}
 	\onslide<1>
-	\begin{scucode}{A Python Program.}[pythoncode]{python}
+	\begin{bitcode}{A Python Program.}[pythoncode]{python}
 		for i in range(1,5):
 			for j in range(1,5):
 				for k in range(1,5):
 					if( i != k ) and (i != j) and (j != k):
 						print (i,j,k)
-	\end{scucode}
+	\end{bitcode}
 \end{frame}
 
 \begin{frame}[fragile]{A Stared Source Code Block}
@@ -198,69 +198,69 @@
 			std::cin.get();
 		}
 	\end{scucode*}
-	\begin{scucode}{Another Stared Theorem Block.}*[pythoncode]{python}
+	\begin{bitcode}{Another Stared Theorem Block.}*[pythoncode]{python}
 		for i in range(1,5):
 			for j in range(1,5):
 				for k in range(1,5):
 					if( i != k ) and (i != j) and (j != k):
 						print (i,j,k)
-	\end{scucode}
+	\end{bitcode}
 \end{frame}
 
 \begin{frame}[fragile]{Highlight Line}
-	\begin{scucode}{Highlight Line.}[Highlight1]{c}[highlightlines={2,5}]
+	\begin{bitcode}{Highlight Line.}[Highlight1]{c}[highlightlines={2,5}]
 		#include <iostream>
 		int main()
 		{
 			std::cout << "Hello World！" << std::endl;
 			std::cin.get();
 		}
-	\end{scucode}
-	\begin{scucode}{Highlight Line.}[pythoncode]{python}[highlightlines={2-3,5}]
+	\end{bitcode}
+	\begin{bitcode}{Highlight Line.}[pythoncode]{python}[highlightlines={2-3,5}]
 		for i in range(1,5):
 			for j in range(1,5):
 				for k in range(1,5):
 					if( i != k ) and (i != j) and (j != k):
 						print (i,j,k)
-	\end{scucode}
+	\end{bitcode}
   refer \vref{code:Highlight1,code:pythoncode}
 \end{frame}
 
 \begin{frame}[fragile]{\LaTeX{} Comment}{Escapeinline}
 	If you wanna add comments to the back of the line, it is recommended to use the corresponding language comment directly.
-	\begin{scucode}{Comment.}[Comment1]{c}
+	\begin{bitcode}{Comment.}[Comment1]{c}
 		#include <iostream>
 		int main()
 		{// $\pi$
 			std::cout << "Hello World！" << std::endl; |\# \textsf{\LaTeX{} out hEllo wOrld}|
 			|\colorbox{scugreen!60}{$\sum_\pi^\phi \alpha + \Gamma$}| std::cin.get(); 
 		}
-	\end{scucode}
-	\begin{scucode}{Comment}[Comment2]{python}'@@'
+	\end{bitcode}
+	\begin{bitcode}{Comment}[Comment2]{python}'@@'
 		for i in range(1,5):
 			for j in range(1,5): @$\sum_\pi^\phi \alpha + \Gamma$@
 				for k in range(1,5): # $\sum_\pi^\phi \alpha + \Gamma$
 					if( i != k ) and (i != j) and (j != k):
 						print (i,j,k)
-	\end{scucode}
+	\end{bitcode}
 \end{frame}
 
 \begin{frame}[fragile]{Overlay \& Label}{Escapeinline}
-	\begin{scucode}{Comment.}[Escapeinline1]{c}
+	\begin{bitcode}{Comment.}[Escapeinline1]{c}
 		#include <iostream>
 		int main()
 		{
 			std::cout << "Hello World！" << std::endl; // \only<1>{Value 1}\only<2>{Value 2}
 			std::cin.get();
 		}
-	\end{scucode}
-	\begin{scucode}{Comment}[Escapeinline2]{python}[highlightlines={4}]'@@'
+	\end{bitcode}
+	\begin{bitcode}{Comment}[Escapeinline2]{python}[highlightlines={4}]'@@'
 		for i in range(1,5):
 			for j in range(1,5): 
 				for k in range(1,5):
 					if( i != k ) and (i != j) and (j != k): @\label{line:qg}@
 						print (i,j,k)
-	\end{scucode}
+	\end{bitcode}
   Reference to Line~\ref{line:qg}, the if statement.
 \end{frame}
 

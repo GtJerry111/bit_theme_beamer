@@ -1,4 +1,4 @@
-# 四川大学Beamer模板
+# 北京理工大学Beamer模板
 
 [![GitHub stars](https://img.shields.io/github/stars/FvNCCR228/SCU-Beamer-Theme?style=social)](https://github.com/FvNCCR228/SCU-Beamer-Theme)
 [![GitHub forks](https://img.shields.io/github/forks/FvNCCR228/SCU-Beamer-Theme?style=social)](https://github.com/FvNCCR228/SCU-Beamer-Theme)
@@ -69,7 +69,7 @@ git clone https://gitee.com/NCCR/SCU_Beamer_Slide-demo.git
   hyperref, UTF8, CJK%
 ]{beamer}
 
-% -------- SCU Beamer Theme Config --------
+% -------- BIT Beamer Theme Config --------
 \usetheme[
 	% ColorDisplay=, % JXred ⚙️ | BSblue | Custom → 主题色显示设置
 	% BlockDisplay=, % colorful ⚙️ | followtheme | allgrey → 区块颜色显示设置
@@ -84,7 +84,7 @@ git clone https://gitee.com/NCCR/SCU_Beamer_Slide-demo.git
 	% BIBStyle=, % biber-gb7714 ⚙️ → 参考文献样式设置 (设置 BIBMode=none 时无效)
 	% ContentMuticols=, % true ⚙️ | false → 目录帧双栏显示设置
 	% Background=, % SCU-Full ⚙️ | SCU-Lite | Custom | none → 背景显示设置
-]{scu}
+]{bit}
 
 % -------- Packages --------
 % \usepackage[xx]{xx}
@@ -185,7 +185,7 @@ include-sec/
 └── sec-conclusion.tex
 ```
 
-> `include-sec/` 是 SCU Beamer Theme 预设的章节 `.tex` 文件存放目录. 本模板通过 latexmk 将编译中间文件 (aux 文件等) 输出至 `tmp/build/`, 而由于 latexmk 迁移 aux 输出目录时出于安全考虑不会自动创建子目录, 本模板已提前在 `tmp/build/` 下创建好对应的子目录.
+> `include-sec/` 是 BIT Beamer Theme 预设的章节 `.tex` 文件存放目录. 本模板通过 latexmk 将编译中间文件 (aux 文件等) 输出至 `tmp/build/`, 而由于 latexmk 迁移 aux 输出目录时出于安全考虑不会自动创建子目录, 本模板已提前在 `tmp/build/` 下创建好对应的子目录.
 
 **每个章节文件只需包含帧内容** (无需 `\documentclass` 和 `\begin{document}`), 例如:
 
@@ -270,7 +270,7 @@ latexmk -C exp.tex    # 清除指定文件的全部生成文件
 
 采用双行设计;
 
-首行为节标题导航栏, 显示幻灯整体思路, 还附带四川大学校名; 
+首行为节标题导航栏, 显示幻灯整体思路, 还附带北京理工大学校名; 
 
 次行为标题栏, 左侧显示小节标题与迷你帧(圆点)形式的当前小节帧进度}, 右侧显示当前幻灯标题. (编者认为小节迷你帧能在较清晰呈现进度的同时, 节约大量空间, 也能避免某节中幻灯页数过多, 导致标题导航挤压溢出)
 

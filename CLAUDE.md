@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-SCU Beamer Theme — 四川大学 Beamer 演示文稿模板。基于 LaTeX Beamer 构建，提供完整的四川大学视觉识别（VI）配色、字体、背景和布局。
+BIT Beamer Theme — 北京理工大学 Beamer 演示文稿模板。基于 LaTeX Beamer 构建，提供完整的北京理工大学视觉识别（VI）配色、字体、背景和布局。
 
 ## Build Commands
 
@@ -26,19 +26,19 @@ latexmk -C main.tex
 
 ## Theme Architecture
 
-模板按 Beamer 主题系统拆分为 5 个 `.sty` 文件，通过 `\usetheme[options]{scu}` 统一加载：
+模板按 Beamer 主题系统拆分为 5 个 `.sty` 文件，通过 `\usetheme[options]{bit}` 统一加载：
 
 | 文件 | 职责 |
 |------|------|
-| `beamerthemescu.sty` | 主入口：声明所有选项键值，加载子主题，定义通用命令和环境（定理框、代码框、目录等） |
-| `beamercolorthemescu.sty` | 颜色主题：定义 JXred/BSblue/Custom 三套配色，所有颜色变量 |
-| `beamerfontthemescu.sty` | 字体主题：管理 Auto/Ubuntu/Win/Mac/Fandol/Source-Han 等字体方案和数学字体 |
-| `beamerinnerthemescu.sty` | 内部主题：封面页、目录页、itemize/enumerate、block 环境、脚注等内部元素样式 |
-| `beamerouterthemescu.sty` | 外部主题：页眉双栏（节导航+标题栏）、页脚双栏（导航+信息行）、侧边栏、徽标 |
+| `beamerthemebit.sty` | 主入口：声明所有选项键值，加载子主题，定义通用命令和环境（定理框、代码框、目录等） |
+| `beamercolorthemebit.sty` | 颜色主题：定义 JXred/BSblue/Custom 三套配色，所有颜色变量 |
+| `beamerfontthemebit.sty` | 字体主题：管理 Auto/Ubuntu/Win/Mac/Fandol/Source-Han 等字体方案和数学字体 |
+| `beamerinnerthemebit.sty` | 内部主题：封面页、目录页、itemize/enumerate、block 环境、脚注等内部元素样式 |
+| `beamerouterthemebit.sty` | 外部主题：页眉双栏（节导航+标题栏）、页脚双栏（导航+信息行）、侧边栏、徽标 |
 
 ### Key Theme Options
 
-所有选项通过 `\usetheme[<key>=<value>,...]{scu}` 传入：
+所有选项通过 `\usetheme[<key>=<value>,...]{bit}` 传入：
 - `ColorDisplay` — JXred（默认）| BSblue | Custom
 - `BlockDisplay` — colorful（默认）| followtheme | allgrey
 - `CodeTheme` — listing（默认）| minted | minted2
@@ -54,11 +54,11 @@ latexmk -C main.tex
 
 ```
 .
-├── beamerthemescu.sty          # 主宏包
-├── beamercolorthemescu.sty     # 颜色主题
-├── beamerfontthemescu.sty      # 字体主题
-├── beamerinnerthemescu.sty     # 内部主题
-├── beamerouterthemescu.sty     # 外部主题
+├── beamerthemebit.sty          # 主宏包
+├── beamercolorthemebit.sty     # 颜色主题
+├── beamerfontthemebit.sty      # 字体主题
+├── beamerinnerthemebit.sty     # 内部主题
+├── beamerouterthemebit.sty     # 外部主题
 ├── main.tex                    # 中文示例文档
 ├── main-en.tex                 # 英文示例文档
 ├── ref.bib                     # 参考文献数据库
@@ -83,6 +83,6 @@ latexmk -C main.tex
 
 - 修改 `.sty` 文件前请备份，改动后需重新编译主文档验证
 - `.latexmkrc` 中 `$aux_dir = 'tmp/build'`，若新增 `include-sec/` 子目录需在 `tmp/build/include-sec/` 下创建对应目录
-- 字体相关改动需在 `beamerfontthemescu.sty` 中进行
-- 颜色相关改动需在 `beamercolorthemescu.sty` 中进行
+- 字体相关改动需在 `beamerfontthemebit.sty` 中进行
+- 颜色相关改动需在 `beamercolorthemebit.sty` 中进行
 - 不使用 `pstricks`（与 `adjustbox` 冲突）

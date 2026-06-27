@@ -1,4 +1,4 @@
-% This is file `beamerfontthemescu.sty'.
+% This is file `beamerfontthemebit.sty'.
 % Copyright (C) 2021-2026 by Linrong Wu.
 % Version: 2026/05/20 v2.1c (Original Version: 2026/05/20 v2.1c).
 %
@@ -9,11 +9,11 @@
 %
 % See the file doc/licenses/LICENSE for more details.
 %
-% 本文件为 SCU Beamer Theme 字体主题宏包文件.
+% 本文件为 BIT Beamer Theme 字体主题宏包文件.
 % !请勿轻易改动此文档中代码.
 %%%% ----------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesPackage{beamerfontthemescu}[2026/05/20 v2.1c, SCU Beamer Theme(Font Theme)]
+\ProvidesPackage{beamerfontthemebit}[2026/05/20 v2.1c, BIT Beamer Theme(Font Theme)]
 %%%% ----------------------------------------------------------------
 
 
@@ -28,10 +28,10 @@
 % ----------------
 % KEY:: FontTheme.
 % VALUE:: Auto | Ubuntu | Win | Mac | Fandol | Source-Han | Source-Han(Local) | ZhongYi(Local) | Custom.
-\DeclareOptionBeamer{FontTheme}{\def\beamer@scu@FontTheme{#1}}
+\DeclareOptionBeamer{FontTheme}{\def\beamer@bit@FontTheme{#1}}
 % KEY:: MathFont.
 % VALUE:: XITS | LM | <custom>.
-\DeclareOptionBeamer{MathFont}{\def\beamer@scu@MathFont{#1}}
+\DeclareOptionBeamer{MathFont}{\def\beamer@bit@MathFont{#1}}
 
 \ExecuteOptionsBeamer{
   FontTheme=Auto,%
@@ -54,12 +54,12 @@
 % 自动检测操作系统 (Auto), 无需手动设置.
 \if\EqualOptionsBeamer{FontTheme}{Auto}%
   \IfFileExists{/Library/Keychains/System.keychain}{%
-    \def\beamer@scu@FontTheme{Mac}%
+    \def\beamer@bit@FontTheme{Mac}%
   }{%
     \IfFileExists{C:/Windows/System32/cmd.exe}{%
-      \def\beamer@scu@FontTheme{Win}%
+      \def\beamer@bit@FontTheme{Win}%
     }{%
-      \def\beamer@scu@FontTheme{Ubuntu}%
+      \def\beamer@bit@FontTheme{Ubuntu}%
     }%
   }%
 \fi
@@ -244,12 +244,12 @@
   \setCJKmonofont{simfang.ttf}%                        CJKmono   - 仿宋
     [Path = "fonts/,"]%
 \else\if\EqualOptionsBeamer{FontTheme}{Custom}%
-  \ifcsname beamer@scu@fontextend\endcsname%
-    \beamer@scu@fontextend%
+  \ifcsname beamer@bit@fontextend\endcsname%
+    \beamer@bit@fontextend%
   \else%
-    \PackageError{beamerfontthemescu}{%
+    \PackageError{beamerfontthemebit}{%
       Option [FontTheme=Custom] is loaded. %
-      To extend the theme, define the command \string\beamer@scu@fontextend}%
+      To extend the theme, define the command \string\beamer@bit@fontextend}%
   \fi%
 \fi\fi\fi\fi\fi\fi\fi\fi
 
@@ -258,9 +258,9 @@
   \setmathfont{XITS Math}%                         math      - XITS
 \else\if\EqualOptionsBeamer{MathFont}{LM}%
   \setmathfont{Latin Modern Math}%                 math      - Latin Modern
-\else\if\EqualOptionsBeamer{MathFont}{\beamer@scu@MathFont}%
+\else\if\EqualOptionsBeamer{MathFont}{\beamer@bit@MathFont}%
   \edef\set@MathFont{\noexpand%
-    \setmathfont{\beamer@scu@MathFont}}%
+    \setmathfont{\beamer@bit@MathFont}}%
   \set@MathFont%
 \fi\fi\fi
 % ----------------
@@ -307,4 +307,4 @@
 %%%% ----------------------------------------------------------------
 \endinput
 %%%% ----------------------------------------------------------------
-% End of file `beamerfontthemescu.sty'.
+% End of file `beamerfontthemebit.sty'.

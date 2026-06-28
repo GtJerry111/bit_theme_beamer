@@ -1,33 +1,33 @@
 % !TeX encoding = UTF-8
 % !TeX TS-program = latexmk
 % This is file `main-en.tex'.
-% !使用前请阅读用户手册. Copyright (C) 2021-2026 by Linrong Wu.
+% !Read the user manual before use. Copyright (C) 2021-2026 by Linrong Wu.
 
 % ================ %
-%      导言区      %
+%      Preamble    %
 % ================ %
-\PassOptionsToPackage{cmyk}{xcolor}% 解决设置 CMYK 颜色时生成 PDF 的色彩偏移
+\PassOptionsToPackage{cmyk}{xcolor}% Avoid color drift when generating PDFs with CMYK colors.
 \documentclass[hyperref, UTF8, CJK, aspectratio=169]{beamer}
 
-% --------BIT Beamer 模板宏包--------
+% --------BIT Beamer theme package--------
 % ----------------
 \usetheme[
-	ColorDisplay=BITB, % BITA ⚙️ | BITB | Custom → 主题色显示设置
-	% BlockDisplay=colorful, % colorful ⚙️ | followtheme | allgrey → 区块颜色显示设置
-	CodeTheme=listing, % listing ⚙️ | minted | minted2 → 代码高亮显示设置
-	% MintedStyle=dracula, % lightmode ⚙️ | darkmode | ⟨custom⟩ → minted 样式设置 (需优先设置 CodeTheme = minted | minted2)
-	LanguageMode=en, % cn ⚙️ | en → 语言模式设置
-	Miniframes=follow, % follow ⚙️ | separate | none → 页眉小节迷你帧设置
-	% NavigationTool=1-2-3, % 1-2-3 ⚙️ | ⟨参考 Manual 设置⟩ | none → 页脚导航工具栏设置
-	% FontTheme=Auto, % Auto ⚙️ | Ubuntu | Win | Mac | Fandol | Source-Han | ... | Custom → 字体主题设置
-	% MathFont=LM, % LM ⚙️ | XITS | ⟨custom⟩ → 数学字体设置
-	% BIBMode=none, % biber ⚙️ | none → 参考文献引擎设置
-	% BIBStyle=biber-gb7714, % biber-gb7714 ⚙️ → 参考文献样式设置 (设置 BIBMode=none 时无效)
-	% ContentMuticols=true, % true ⚙️ | false → 目录帧双栏显示设置
-	Background=BIT-Lite, % BIT-Full ⚙️ | BIT-Lite | Custom | none → 背景显示设置
+	ColorDisplay=BITB, % BITA ⚙️ | BITB | Custom → theme color display
+	% BlockDisplay=colorful, % colorful ⚙️ | followtheme | allgrey → block color display
+	CodeTheme=listing, % listing ⚙️ | minted | minted2 → code highlighting engine
+	% MintedStyle=dracula, % lightmode ⚙️ | darkmode | ⟨custom⟩ → minted style; active only with CodeTheme=minted or minted2
+	LanguageMode=en, % cn ⚙️ | en → language mode
+	Miniframes=follow, % follow ⚙️ | separate | none → headline mini-frame behavior
+	% NavigationTool=1-2-3, % 1-2-3 ⚙️ | ⟨see manual⟩ | none → footline navigation tools
+	% FontTheme=Auto, % Auto ⚙️ | Ubuntu | Win | Mac | Fandol | Source-Han | ... | Custom → font theme
+	% MathFont=LM, % LM ⚙️ | XITS | ⟨custom⟩ → math font
+	% BIBMode=none, % biber ⚙️ | none → bibliography engine
+	% BIBStyle=numeric-comp, % numeric-comp ⚙️ | ⟨custom⟩ → bibliography style; inactive when BIBMode=none
+	% ContentMuticols=true, % true ⚙️ | false → two-column table of contents
+	Background=BIT-Lite, % BIT-Full ⚙️ | BIT-Lite | Custom | none → background display
 ]{bit}
 
-% --------宏包调用--------
+% --------Package imports--------
 % ----------------
 \usepackage{array}
 \usepackage{algorithm,algorithmic}
@@ -35,7 +35,7 @@
 \usepackage{color}      % color content
 \usepackage{url}        % hyperlinks
 \usepackage{multicol,multirow}
-\usepackage{ulem} % ulem: 添加线.
+\usepackage{ulem} % ulem: underline and strikeout helpers.
 \usepackage{booktabs}
 \usepackage{cprotect}
 \usepackage{makecell}
@@ -45,17 +45,17 @@
 %\usepackage[active,tightpage]{preview}
 %\PreviewEnvironment{bitcode}
 
-% --------newcommand 区--------
-% 建议在此定义常用命令.
+% --------Custom commands--------
+% Define frequently used commands here.
 % ----------------
 \newcommand{\fverb}[1]{\texttt{#1}}
 
-% --------封面信息输入--------
-% [<in footline>], {<in title page>} 方括号内容显示在页脚, 花括号内容为全称显示在封面.
+% --------Title page metadata--------
+% [<in footline>] is shown in the footline; {<in title page>} is shown on the cover.
 % ----------------
-\title[A brief example in English for BIT Beamer Theme]{A brief example in English}
-\subtitle{For BIT Beamer Theme} % subtitle 未设置页脚显示项, 请在 title 中设置.
-\author[LR Wu]{LR Wu}
+\title[A brief English demo for BIT Beamer Theme]{A brief English demo}
+\subtitle{BIT Beamer Theme}
+\author[BIT Beamer Theme]{BIT Beamer Theme}
 \institute{%
 	School of Management and Economics\\
 	Beijing Institute of Technology\\
@@ -64,19 +64,19 @@
 \date{\today}
 
 % ---------------- %
-%      正文区      %
+%      Content     %
 % ---------------- %
 \begin{document}
 
-% --------总目录--------
-% 可注释.
+% --------Table of contents--------
+% Optional.
 % ----------------
-%	\begin{frame}{目录}
-%		%\transfade%淡入淡出 
-%		\tableofcontents % 显示目录.
+%	\begin{frame}{Contents}
+%		%\transfade
+%		\tableofcontents
 %	\end{frame}
 
-% --------节: 介绍--------
+% --------Section: Introduction--------
 % ----------------
 \section{Introduction}
 \subsection{The Project}
@@ -84,10 +84,15 @@
 	\faShare*\enspace{\color{bitb}lr.wu.interact@outlook.com}
 	\faGithub\enspace{\color{bitb}\url{https://github.com/FvNCCR228/bit_beamer_theme}}
 
-	
+	\vspace{2ex}
+	\begin{itemize}
+		\item A compact English demo for BIT Beamer Theme.
+		\item Built with XeLaTeX and the Beamer theme system.
+		\item Derived from SCU Beamer Theme with BIT visual identity.
+	\end{itemize}
 \end{frame}
 
-% --------节: 区块示例--------
+% --------Section: Block examples--------
 % ----------------
 \section{Blocks}
 \subsection{Math Blocks}
@@ -113,11 +118,11 @@
 			\RETURN Beamer
 		\end{algorithmic}
 	\end{bitalgorithm}
-	\begin{bitdefinition}{A Defintion}[defintion1]
+	\begin{bitdefinition}{A Definition}[definition1]
 		A definition block.
 	\end{bitdefinition}
 	\begin{bitaxiom}{An Axiom}[axiom1]
-		An axiom block. Reference to~\Vref{def:defintion1}
+		An axiom block. Reference to~\Vref{def:definition1}
 	\end{bitaxiom}
 	\begin{bitproperty}{A Property}[property1]
 		A property block. Reference to~\Cref{axio:axiom1}
@@ -127,9 +132,9 @@
 		\begin{equation}
 		\Delta x \Delta p \geq \dfrac{h}{4\pi}
 		\end{equation}
-		其中$h$为普朗克常数.
+		where $h$ is Planck's constant.
 	\end{bitproposition}
-	\begin{bitlemma}{A lemma}[lemma1]
+	\begin{bitlemma}{A Lemma}[lemma1]
 		A lemma block. Reference to~\cref{propo:proposition1}
 	\end{bitlemma}
 	\begin{bitcorollary}{A Corollary}[corollary1]
@@ -149,8 +154,8 @@
 	\end{bitassumption}
 \end{frame}
 
-\begin{frame}{A Stared Block}
-\begin{bittheorem}*<1-4>[after title=(after title: Theorem)]{A Stared Theorem Block}[staredblock1]
+\begin{frame}{A Starred Block}
+\begin{bittheorem}*<1-4>[after title=(after title: Theorem)]{A Starred Theorem Block}[staredblock1]
 	\begin{itemize}[<+->]
 		\item One
 		\item Two~\only<2>{Two}
@@ -158,7 +163,7 @@
 		\item Four
 	\end{itemize}
 \end{bittheorem}
-\begin{bittheorem}<2-5>[after title=(after title: Theorem)]{Another Stared Theorem Block}*[staredblock2]
+\begin{bittheorem}<2-5>[after title=(after title: Theorem)]{Another Starred Theorem Block}*[staredblock2]
 	\begin{itemize}
 		\item Five
 		\item Six~\only<3>{Six}
@@ -189,16 +194,16 @@
 	\end{bitcode}
 \end{frame}
 
-\begin{frame}[fragile]{A Stared Source Code Block}
-	\begin{bitcode*}{A Stared Block.}[staredblock3]{c}
+\begin{frame}[fragile]{A Starred Source Code Block}
+	\begin{bitcode*}{A Starred Block.}[starredcode]{c}
 		#include <iostream>
 		int main()
 		{
-			std::cout << "Hello World！" << std::endl;
+			std::cout << "Hello World!" << std::endl;
 			std::cin.get();
 		}
 	\end{bitcode*}
-	\begin{bitcode}{Another Stared Theorem Block.}*[pythoncode2]{python}
+	\begin{bitcode}{Another Starred Theorem Block.}*[starredpythoncode]{python}
 		for i in range(1,5):
 			for j in range(1,5):
 				for k in range(1,5):
@@ -207,36 +212,37 @@
 	\end{bitcode}
 \end{frame}
 
-\begin{frame}[fragile]{Highlight Line}
-	\begin{bitcode}{Highlight Line.}[Highlight1]{c}
+\begin{frame}[fragile]{Line Emphasis}
+	\begin{bitcode}{Emphasized C++ lines.}[highlightcpp]{c}[emph={main,cin},emphstyle=\color{PrimaryC}\bfseries]
 		#include <iostream>
 		int main()
 		{
-			std::cout << "Hello World！" << std::endl;
+			std::cout << "Hello World!" << std::endl;
 			std::cin.get();
 		}
 	\end{bitcode}
-	\begin{bitcode}{Highlight Line.}[pythoncodeb]{python}
+	\begin{bitcode}{Emphasized Python lines.}[highlightpython]{python}[emph={range,print},emphstyle=\color{PrimaryC}\bfseries]
 		for i in range(1,5):
 			for j in range(1,5):
 				for k in range(1,5):
 					if( i != k ) and (i != j) and (j != k):
-						print (i,j,k)
+						print(i,j,k)
 	\end{bitcode}
-  refer \vref{code:Highlight1,code:pythoncodeb}
+	References to~\cref{code:highlightcpp} and~\cref{code:highlightpython}.
 \end{frame}
 
 \begin{frame}[fragile]{\LaTeX{} Comment}{Escapeinline}
-	If you wanna add comments to the back of the line, it is recommended to use the corresponding language comment directly.
-	\begin{bitcode}{Comment.}[Comment1]{c}
+	{\footnotesize Use native comments for ordinary notes; use escape delimiters only for inline \LaTeX{}.}
+	\vspace{-.5ex}
+	\begin{bitcode}{Comment.}[commentcpp]{c}
 		#include <iostream>
 		int main()
 		{// $\pi$
-			std::cout << "Hello World！" << std::endl; |\# \textsf{\LaTeX{} out hEllo wOrld}|
+			std::cout << "Hello World!" << std::endl; |\# \textsf{\LaTeX{} out hEllo wOrld}|
 			|\colorbox{bitc!60}{$\sum_\pi^\phi \alpha + \Gamma$}| std::cin.get(); 
 		}
 	\end{bitcode}
-	\begin{bitcode}{Comment}[Comment2]{python}'@@'
+	\begin{bitcode}{Comment}[commentpython]{python}'@@'
 		for i in range(1,5):
 			for j in range(1,5): @$\sum_\pi^\phi \alpha + \Gamma$@
 				for k in range(1,5): # $\sum_\pi^\phi \alpha + \Gamma$
@@ -246,15 +252,15 @@
 \end{frame}
 
 \begin{frame}[fragile]{Overlay \& Label}{Escapeinline}
-	\begin{bitcode}{Comment.}[Escapeinline1]{c}
+	\begin{bitcode}{Comment.}[overlaycpp]{c}
 		#include <iostream>
 		int main()
 		{
-			std::cout << "Hello World！" << std::endl; // \only<1>{Value 1}\only<2>{Value 2}
+			std::cout << "Hello World!" << std::endl; // \only<1>{Value 1}\only<2>{Value 2}
 			std::cin.get();
 		}
 	\end{bitcode}
-	\begin{bitcode}{Comment}[Escapeinline2]{python}'@@'
+	\begin{bitcode}{Comment}[overlaypython]{python}[emph={if},emphstyle=\color{PrimaryC}\bfseries]'@@'
 		for i in range(1,5):
 			for j in range(1,5): 
 				for k in range(1,5):
@@ -268,7 +274,7 @@
 	\bitcodeinput{Source Code From File}{c}{A cpp.cpp}
 \end{frame}
 
-% --------节: 参考文献--------
+% --------Section: References--------
 % ----------------
 % \section{Reference}
 % \subsection{Reference}
@@ -277,15 +283,15 @@
 % 	\printbibliography[heading=none]
 % \end{frame}
 
-% --------节: 致谢--------
+% --------Section: Acknowledgement--------
 % ----------------
 \section{Acknowledgement}
 \subsection{Acknowledgement}
 \begin{frame}{Acknowledgement}
 	\begin{center}
-		BIT Beamer Theme is derived from SCU Beamer Theme, and this sample keeps \texttt{SCU-Version} as lineage attribution\\[1ex]
-		Thanks to the authors and maintainers of Beamer, Tcolorbox, and the other packages referenced in this template\\[1ex]
-		Thanks to the contributors who answered questions on Stack Overflow and related forums\\[1ex]
+		BIT Beamer Theme is derived from SCU Beamer Theme, and this sample keeps \texttt{SCU-Version} as source-lineage attribution.\\[1ex]
+		Thanks to the authors and maintainers of Beamer, Tcolorbox, BibLaTeX, FontAwesome, and related packages.\\[1ex]
+		Thanks to the community discussions that helped shape the original template behavior.\\[1ex]
 	\end{center}
 \end{frame}
 

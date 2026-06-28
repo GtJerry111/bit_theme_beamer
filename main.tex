@@ -59,17 +59,14 @@
 % --------封面信息输入--------
 % [<in footline>], {<in title page>} 方括号内容显示在页脚, 花括号内容为全称显示在封面.
 % ----------------
-\title[四川大学虚拟偶像研究 | Beamer模板使用答辩]{四川大学虚拟偶像研究}
-\subtitle{Beamer模板使用答辩} % subtitle 未设置页脚显示项, 请在 title 中设置.
-\author[我不卷, 你才卷]{马老卷\inst{1} \and 马小卷\inst{2}}
+\title[北京理工大学 Beamer 模板 | 使用说明]{北京理工大学 Beamer 模板}
+\subtitle{BIT Beamer Theme 使用说明} % subtitle 未设置页脚显示项, 请在 title 中设置.
+\author[BIT Beamer Theme]{模板维护者\inst{1}}
 \institute{%
-	\inst{1} 混元形翼太极门
-	\mailbit{MaLJFake@taichi.hunyuan}
-	\vspace*{-6pt} \and
-	\inst{2} ~Management Science, Business School, Sichuan University
-	\\\mailbit{MaXJFake@scu.edu.cn}
+	\inst{1} 北京理工大学
+	\\\mailbit{your.name@bit.edu.cn}
 }
-\date{2026年6月24日}
+\date{\today}
 
 % ---------------- %
 %      正文区      %
@@ -92,46 +89,44 @@
 	\begin{itemize}
 		\item 创建初衷:
 		\begin{itemize}
-			\item 编者本人对\LaTeX{} 稍有涉足, 这也是编者的首个Beamer模板, 模板创建源于本学院李璐老师提出的PPT修改意见;
-			\item 项目也源于制作者本人的兴趣, 但本人对\LaTeX{} 的了解仍处在较浅层次, 故编写的模板可能会存在不兼容、编译后版式错位等现象;
+			\item 本模板基于原版 Beamer 版式骨架重构为 BIT 主题示例, 用于展示北理工 Beamer 主题的结构、配色和字体策略;
+			\item 当前内容以模板说明为主, 不是学术报告成稿; 若需投影汇报, 请替换为自己的题目与机构信息;
 		\end{itemize}
 		\item 项目地址:
 		\begin{itemize}
-			\item 使用前请前往下列地址中查看模板版本!
-			\item \faGithub\enspace{\color{bitb}\url{https://github.com/FvNCCR228/SCU-Beamer-Theme}}
-			\item Gitee: \color{bitb}\url{https://gitee.com/NCCR/SCU_Beamer_Slide-demo}
+			\item 本仓库即当前示例的维护位置, 不再引用旧版模板地址;
+			\item 若你要基于它继续改版, 直接从这里分支即可.
 		\end{itemize}
 		%			\framebreak
 		%		\pagebreak
-		\item 联系方式:
-		\begin{itemize}
-			\item 制作者: lr.wu.interact@outlook.com
+			\item 联系方式:
+			\begin{itemize}
+				\item 维护者: lr.wu.interact@outlook.com
+			\end{itemize}
 		\end{itemize}
-	\end{itemize}
-\end{frame}
+	\end{frame}
 
-\begin{frame}{使用注意}{雪豹闭嘴}
-	\begin{itemize}
-		\item<1-> \LaTeX 编辑器:
+	\begin{frame}{使用注意}{编译与字体}
 		\begin{itemize}
-			\item<1-> 本地: TeX Live (推荐\href{https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/Images/}{\color{bitb}清华大学开源软件镜像站}安装最新版)配合TeXstudio或VS Code使用. TeX Live安装时间极长, 请各位做好心理准备. 此外Apple设备IDE平台建议知乎;
-			\item<1-> 在线: Overleaf平台, TeXPage平台.
+			\item<1-> \LaTeX 编辑器:
+			\begin{itemize}
+				\item<1-> 本地: TeX Live + XeLaTeX, 配合 TeXstudio 或 VS Code 使用;
+				\item<1-> 在线: Overleaf 或 TeXPage.
+			\end{itemize}
+			\item<2-> \LaTeX 相关插件:
+			\begin{itemize}
+				\item<2-> 表格转换: Excel2\LaTeX;
+				\item<2-> 在线公式: LaTeXLive / Mathpix / 其他工具均可.
+			\end{itemize}
+			\item<3-> \color{bita}!! 编译相关:
+			\begin{itemize}
+				\item<3-> \alert{!! 请使用 UTF-8 格式, 编译引擎用 XeLaTeX};
+				\item<3-> 修改 `.sty` 前先备份, 主题层改动后要重新编译验证;
+				\item<3-> 需要参考文档时, 先看 `docs/plan.md` 和注释.
+			\end{itemize}
+			\item<4-> \color{bita} 建议使用支持跳转的 PDF 浏览器.
 		\end{itemize}
-		\item<2-> \LaTeX 相关插件:
-		\begin{itemize}
-			\item<2-> 表格转换: Excel2\LaTeX~(\href{https://www.ctan.org/tex-archive/support/excel2latex/}{\color{bitb}CTAN Excel2\LaTeX});
-			\item<2-> 在线公式: \href{https://www.latexlive.com/}{\color{bitb}LaTeX公式编辑器}, \href{https://mathpix.com/}{\color{bitb}
-				Mathpix}~\&~\href{https://mathf.itewqq.cn/}{\color{bitb}图片在线转LaTeX}.
-		\end{itemize}
-		\item<3-> \color{bita}!! 编译相关:
-		\begin{itemize}
-			\item<3-> \alert{!! 请使用UTF-8格式, 设置XeLaTeX和Biber进行编译};
-			\item<3-> 在线编辑请上传整个工作文件夹, 否则会出现严重错误(Bug遍地飞);
-			\item<3-> \color{bita}!! 对\LaTeX 不熟悉的情况下, 请勿轻易改动".sty"文件(宏包文件)中代码, 也可按照文件中注释进行实验性修改(注意保留备份).
-		\end{itemize}
-		\item<4-> \color{bita} 建议使用Adobe Acrobat作为PDF浏览器(Ctrl+L全屏食用效果良好).
-	\end{itemize}
-\end{frame}
+	\end{frame}
 
 % --------节: 研究分析--------
 % ----------------
@@ -214,7 +209,7 @@
 				\swatchC{bitd90} \\
 			\end{tabular}\\[.5ex]
 			\scriptsize
-			本模板依据四川大学 VIS 手册定义了 \textcolor{bita}{\texttt{bita}} \textcolor{bite}{\texttt{bite}} \textcolor{bitb}{\texttt{bitb}} \textcolor{bitc}{\texttt{bitc}} \textcolor{bitd}{\texttt{bitd}} 5个颜色系列, 添加后缀 \texttt{10}--\texttt{90} , 如 \textcolor{bita70}{\texttt{bita70}} \textcolor{bitb80}{\texttt{bitb80}} 为各系列浅色变体.
+			本模板参考北京理工大学视觉识别系统中的标准色阶, 定义了 \textcolor{bita}{\texttt{bita}}、\textcolor{bitb}{\texttt{bitb}}、\textcolor{bitc}{\texttt{bitc}}、\textcolor{bitd}{\texttt{bitd}} 和 \textcolor{bite}{\texttt{bite}} 5 个颜色系列, 并提供 \texttt{10}--\texttt{90} 的浅色变体.
 		\end{column}
 	\end{columns}
 \end{frame}
@@ -410,11 +405,11 @@ int main()
 			这里是栏一
 			\begin{figure}[h]
 				\begin{center}
-					\includegraphics[width=.8\columnwidth]{logo_name}
-					\\四川大学校徽及校名\\
+					\includegraphics[width=.8\columnwidth]{BITlogo+name.png}
+					\\北京理工大学校徽及校名\\
 					\vspace{1ex}
-					\includegraphics[width=.4\columnwidth]{Fy}
-					\\四川大学飞扬俱乐部
+					\includegraphics[width=.4\columnwidth]{BITemblem_Color.png}
+					\\北京理工大学校徽示例
 				\end{center}
 			\end{figure}
 		\end{column}
@@ -437,10 +432,10 @@ int main()
 		\begin{column}[t]{0.25\linewidth}
 			这里是栏三
 			\par\vskip1ex
-			四川大学校训\\
+			北京理工大学校训\\
 			\vskip2ex
-			海纳百川\\[.5ex]
-			有容乃大
+			德以明理\\[.5ex]
+			学以精工
 		\end{column}
 	\end{columns}
 \end{frame}
@@ -499,9 +494,8 @@ int main()
 	\begin{center}
 		本模板参考了Beamer, Tcolorbox等手册, 感谢宏包原作者及维护者\\[1ex]
 		本模板参考了知乎, Stack Overflow等平台回答, 感谢相关问题解答者\\[1ex]
-		本模板使用了开源字体——楷体: 霞鹜文楷(Github \href{https://github.com/lxgw/LxgwWenKai/}{\color{bitb}LxgwWenKai} 项目), 黑体: Source Han Sans (Github \href{https://github.com/adobe-fonts/source-han-sans/}{\color{bitb}source-han-sans} 项目), 感谢字体设计师设计的优秀字体\\[1ex]
-		本模板参考了中国科学技术大学Beamer模板(Github \href{https://github.com/ysx2000/USTCBeamerSX/}{\color{bitb}USTCBeamerSX} 项目), 感谢原作者提供部分设计思路\\[1ex]
-		本模板参考了清华大学Beamer模板(Github \href{https://github.com/tuna/THU-Beamer-Theme/}{\color{bitb}THU-Beamer-Theme} 项目), 中国科学技术大学Beamer模板(Github \href{https://github.com/ustctug/ustcbeamer/}{\color{bitb}ustcbeamer} 项目), 感谢原作者设计的优秀模板\\[1ex]
+			本模板使用了开源字体——楷体: 霞鹜文楷(GitHub \href{https://github.com/lxgw/LxgwWenKai/}{\color{bitb}LxgwWenKai} 项目), 黑体: Source Han Sans (GitHub \href{https://github.com/adobe-fonts/source-han-sans/}{\color{bitb}source-han-sans} 项目), 感谢字体设计师设计的优秀字体\\[1ex]
+		本模板参考了多个高校 Beamer 模板的排版思路, 感谢原作者公开的设计经验\\[1ex]
 		
 		若在使用过程中发现些许Bug, 感谢诸位理解, 在此也希望诸位能先行尝试多次编译\\[1ex]
 		万分感谢诸位批评指正, 感谢诸位对模板及对制作者的支持!

@@ -22,7 +22,7 @@
 %               Source-Han(Local) | ZhongYi(Local) | Custom
 %   MathFont = XITS | LM | <custom>
 %   BIBMode = biber | none
-%   BIBStyle = biber-gb7714
+%   BIBStyle = numeric-comp | <custom>
 %   ContentMuticols = true | false
 %   Background = BIT-Full | BIT-Lite | none | Custom
 %   VI = BIT | Custom
@@ -130,7 +130,7 @@
 % VALUE:: biber | none.
 \DeclareOptionBeamer{BIBMode}{\def\beamer@bit@BIBMode{#1}}
 % KEY:: BIBStyle [BASED:: BIBMode].
-% VALUE:: biber-gb7714.
+% VALUE:: numeric-comp | <custom>.
 \DeclareOptionBeamer{BIBStyle}{\def\beamer@bit@BIBStyle{#1}}
 \DeclareOptionBeamer{ContentMuticols}{\csname beamer@bit@contentmuticols#1\endcsname}
 % KEY:: Background.
@@ -163,7 +163,7 @@
   \ExecuteOptionsBeamer{MintedStyle=lightmode}%
 \fi
 \if\EqualOptionsBeamer{BIBMode}{biber}%
-  \ExecuteOptionsBeamer{BIBStyle=biber-gb7714}
+  \ExecuteOptionsBeamer{BIBStyle=numeric-comp}
 \fi
 \ProcessOptionsBeamer
 % ----------------
@@ -217,17 +217,9 @@
 \RequirePackage{tabularx}% tabularx: 智能表格环境.
 \if\EqualOptionsBeamer{BIBMode}{biber}%
   \PassOptionsToPackage{backend=biber}{biblatex}% 后端 biber 引擎.
-  \if\EqualOptionsBeamer{BIBStyle}{biber-gb7714}%
-    \PassOptionsToPackage{autolang=hyphen,%
-      style=gb7714-2015,%
-      gbalign=gb7714-2015,%style=gb7714-2015ms
-      gbstyle=false, url=false, doi=false, isbn=false,%
-      sorting=none}{biblatex}%
-  \fi
+  \PassOptionsToPackage{style=numeric-comp,sorting=none,url=false,doi=false,isbn=false}{biblatex}%
   \RequirePackage{biblatex}% biblatex: 参考文献.
-\else\if\EqualOptionsBeamer{BIBMode}{none}%
-  \RequirePackage{xstring}
-\fi\fi
+\fi
 
 \RequirePackage{calc}% biblatex: 参考文献.
 % ----------------
@@ -268,7 +260,7 @@
 % ----------------
 % 设置图片路径宏.
 \if\EqualOptionsBeamer{Background}{BIT-Full}%
-  \def\bit@path@bg{./resources/background.png}% 带 Logo 的背景图.
+  \def\bit@path@bg{./resources/backgroundoftitlepage(Empty).png}% 空白背景图.
   \def\bit@path@bgoftitle{./resources/backgroundoftitlepage(Empty).png}% 空白背景图.
   \def\bit@path@bgofsubsectoc{./resources/backgroundofsubsectiontocpage.png}% 带 Verify 的背景图.
 \else\if\EqualOptionsBeamer{Background}{BIT-Lite}%
@@ -290,6 +282,15 @@
 \ifcsname bit@path@bgofsubsectoc\endcsname%
   \pgfdeclareimage[width=\paperwidth]{bgofsubsectoc}{\bit@path@bgofsubsectoc}%
 \fi
+\pgfdeclareimage[width=.24\paperwidth]{emblem}{./resources/BITemblem.png}%
+\addtobeamertemplate{background}{%
+  \ifbeamer@plainframe\else%
+    \begin{tikzpicture}[remember picture,overlay]%
+      \node[anchor=south east, inner sep=0pt, outer sep=0pt, opacity=0.12]%
+        at ([xshift=-5mm,yshift=-22mm]current page.south east) {\pgfuseimage{emblem}};%
+    \end{tikzpicture}%
+  \fi%
+}{}%
 % ----------------
 
 
@@ -300,7 +301,7 @@
 % Updated in v1.1a(2021/12/31), v1.2a(2022/03/10), v1.3a(2022/03/16), v1.3b(2022/04/13), v1.3c(2024/04/16), v2.1c(2026/05/20), v2.1e(2026/06/16), v2.1g(2026/06/26).
 % ----------------
 % 于 v2.1c(2026/05/20) 新增选项 VI, 可设置视觉识别内容, 支持自定义.
-% 于 v2.1e(2026/06/16) 修改 SCU logo+name 文件名为 BITlogo+name.pdf, 修复 draft 模式下原文件名 SCUlogo_name.pdf 中下划线被识别为数学环境字符, 报错 Missing $ inserted.
+% 于 v2.1e(2026/06/16) 修改 logo+name 文件名为 BITlogo+name.pdf, 修复 draft 模式下原文件名中下划线被识别为数学环境字符, 报错 Missing $ inserted.
 % ----------------
 % THEME:: 颜色主题 - bit | 外部主题 - bit | 内部主题 - bit | 字体主题 - bit.
 % ----------------
@@ -311,9 +312,9 @@
   % Logo+Name:: BIT logo+name.
   \pgfdeclareimage[height=36pt]{lg-name}{./resources/BITlogo+name.png}%
   % Landmark:: BIT building.
-  \pgfdeclareimage[width=.35\paperwidth]{landmark}{./resources/BITbuilding.png}%
+  \pgfdeclareimage[width=.2625\paperwidth]{landmark}{./resources/BITbuilding.png}%
   % Verify:: (not used in BIT theme)
-  % \pgfdeclareimage[height=30pt]{verify}{./resources/SCUverify.png}
+  % \pgfdeclareimage[height=30pt]{verify}{./resources/BITverify.png}
 \else\if\EqualOptionsBeamer{VI}{Custom}%
   \ifcsname beamer@bit@viextend\endcsname%
     \beamer@bit@viextend%
@@ -579,7 +580,7 @@
 % Established in v1.0a(2021/12/03).
 % Updated in v1.1a(2021/12/30), v1.2a(2022/03/10), v1.3a(2022/03/16).
 % ----------------
-% 使用 tcolorbox 重定义定理环境, 原始的不带 scu 前缀的定理环境仍可使用.
+% 使用 tcolorbox 重定义定理环境, 原始的不带 bit 前缀的定理环境仍可使用.
 % ----------------
 % 定理区块名称设置.
 \if\EqualOptionsBeamer{LanguageMode}{cn}%
@@ -731,7 +732,7 @@
 \beamer@bit@theo{conclusion} {tcblem} {conc}
 \beamer@bit@theo{assumption} {tcbcond}{assu}
 
-% scuremark 设置.
+% bitremark 设置.
 % 计数器 - 定理环境.
 \newcounter{beamer@bit@remark@count}
 % 定理区块参数设置.
@@ -756,7 +757,7 @@
     \begin{beamberitoriginalremark}[#2]{#3}[#4]%
 }{\end{beamberitoriginalremark}\end{actionenv}}%
 
-% scuproof 设置.
+% bitproof 设置.
 % 计数器 - 定理环境.
 \newcounter{beamer@bit@proof@count}
 % 定理区块参数设置.
@@ -853,7 +854,7 @@
   \def\beamer@bit@codename@pl{Source Codes}
 \fi\fi
 
-% scucode 设置.
+% bitcode 设置.
 % 计数器 - 定理环境.
 \newcounter{beamer@bit@code@count}
 % 定理区块参数设置.

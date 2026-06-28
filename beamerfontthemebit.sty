@@ -86,41 +86,33 @@
     ]%
 \else\if\EqualOptionsBeamer{FontTheme}{Mac}%
   \setsansfont{Helvetica}%                             sans      - Helvetica
-    [%
-      UprightFeatures = {%
-        SmallCapsFont = {TeX Gyre Heros},%             (sc)      - TeX Gyre Heros
-        SmallCapsFeatures = {Letters = SmallCaps}%
-      },%
-      ItalicFeatures = {%
-        SmallCapsFont = {TeX Gyre Heros Italic},%      (it-sc)   - TeX Gyre Heros Italic
-        SmallCapsFeatures = {Letters = SmallCaps}%
-      },%
-      BoldFeatures = {%
-        SmallCapsFont = {TeX Gyre Heros Bold},%        (bold-sc) - TeX Gyre Heros Bold
-        SmallCapsFeatures = {Letters = SmallCaps}%
-      },%
-      BoldItalicFeatures = {%
-        SmallCapsFont = {TeX Gyre Heros Bold Italic},% (bf-itsc) - TeX Gyre Heros Bold Italic
-        SmallCapsFeatures = {Letters = SmallCaps}%
-      }%
-    ]%
   \setmonofont{Menlo}%                                 mono      - Menlo
-  \IfFileExists{/System/Library/Fonts/PingFang.ttc}%
-    {%
-      \ctexset{fontset=macnew}%                        CJK       - 苹方(CTeX)
-      \setCJKsansfont{PingFang SC}%                    CJKsans   - 苹方(简体中文)
+  \IfFontExistsTF{Songti SC}{%
+    \setCJKmainfont{Songti SC}%                          CJKmain   - 宋体(简体中文)
+      [%
+        BoldFont   = {Songti SC Bold}%                   (bold)    - 宋体 Bold
+      ]%
+  }{%
+    \setCJKmainfont{STSong}%                            CJKmain   - 宋体替代
+  }%
+  \IfFontExistsTF{PingFang SC}{%
+    \setCJKsansfont{PingFang SC}%                        CJKsans   - 苹方(简体中文)
+      [%
+        BoldFont       = {PingFang SC Medium}%           (bold)    - 苹方中粗
+      ]%
+    \setCJKmonofont{PingFang SC}%                        CJKmono   - 苹方(简体中文)
+  }{%
+    \IfFontExistsTF{Heiti SC}{%
+      \setCJKsansfont{Heiti SC}%                         CJKsans   - 黑体(简体中文)
         [%
-          ItalicFont     = {Kaiti SC}%                 (italic)  - 华文楷体
-          BoldItalicFont = {Kaiti SC Bold}%            (bold-it) - 华文楷体 Bold
+          BoldFont = {Heiti SC Medium}%
         ]%
+      \setCJKmonofont{Heiti SC}%                         CJKmono   - 黑体(简体中文)
     }{%
-      \ctexset{fontset=macold}%                        CJK       - 华文(CTeX)
-      \setCJKsansfont{STXihei}%                        CJKsans   - 华文细黑
-        [%
-          BoldFont       = {STHeiti},%                 (bold)    - 华文黑体
-          ItalicFont     = {STKaiti}%                  (italic)  - 华文楷体
-        ]%
+      \setCJKsansfont{Hiragino Sans GB}%                 CJKsans   - 冬青黑体(简体中文)
+      \setCJKmonofont{Hiragino Sans GB}%                 CJKmono   - 冬青黑体(简体中文)
     }%
+  }%
 \else\if\EqualOptionsBeamer{FontTheme}{Fandol}%
   \setsansfont{Latin Modern Sans}%                     sans      - Latin Modern Sans
     [%
@@ -257,7 +249,7 @@
 \if\EqualOptionsBeamer{MathFont}{XITS}%
   \setmathfont{XITS Math}%                         math      - XITS
 \else\if\EqualOptionsBeamer{MathFont}{LM}%
-  \setmathfont{Latin Modern Math}%                 math      - Latin Modern
+  \setmathfont{latinmodern-math.otf}%              math      - Latin Modern
 \else\if\EqualOptionsBeamer{MathFont}{\beamer@bit@MathFont}%
   \edef\set@MathFont{\noexpand%
     \setmathfont{\beamer@bit@MathFont}}%

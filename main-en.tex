@@ -12,10 +12,10 @@
 % --------BIT Beamer 模板宏包--------
 % ----------------
 \usetheme[
-	ColorDisplay=BSblue, % JXred ⚙️ | BSblue | Custom → 主题色显示设置
+	ColorDisplay=BITB, % BITA ⚙️ | BITB | Custom → 主题色显示设置
 	% BlockDisplay=colorful, % colorful ⚙️ | followtheme | allgrey → 区块颜色显示设置
-	CodeTheme=minted, % listing ⚙️ | minted | minted2 → 代码高亮显示设置
-	MintedStyle=dracula, % lightmode ⚙️ | darkmode | ⟨custom⟩ → minted 样式设置 (需优先设置 CodeTheme = minted | minted2)
+	CodeTheme=listing, % listing ⚙️ | minted | minted2 → 代码高亮显示设置
+	% MintedStyle=dracula, % lightmode ⚙️ | darkmode | ⟨custom⟩ → minted 样式设置 (需优先设置 CodeTheme = minted | minted2)
 	LanguageMode=en, % cn ⚙️ | en → 语言模式设置
 	Miniframes=follow, % follow ⚙️ | separate | none → 页眉小节迷你帧设置
 	% NavigationTool=1-2-3, % 1-2-3 ⚙️ | ⟨参考 Manual 设置⟩ | none → 页脚导航工具栏设置
@@ -57,8 +57,8 @@
 \subtitle{For BIT Beamer Theme} % subtitle 未设置页脚显示项, 请在 title 中设置.
 \author[LR Wu]{LR Wu}
 \institute{%
-	Management Science\\
-	Business School, Sichuan University\\
+	School of Management and Economics\\
+	Beijing Institute of Technology\\
 	\mailbit{lr.wu.interact@outlook.com}
 }
 \date{\today}
@@ -82,7 +82,7 @@
 \subsection{The Project}
 \begin{frame}{Info.}
 	\faShare*\enspace{\color{bitb}lr.wu.interact@outlook.com}
-	\faGithub\enspace{\color{bitb}\url{https://github.com/FvNCCR228/SCU-Beamer-Theme}}
+	\faGithub\enspace{\color{bitb}\url{https://github.com/FvNCCR228/bit_beamer_theme}}
 
 	
 \end{frame}
@@ -190,15 +190,15 @@
 \end{frame}
 
 \begin{frame}[fragile]{A Stared Source Code Block}
-	\begin{scucode*}{A Stared Block.}[staredblock3]{c}
+	\begin{bitcode*}{A Stared Block.}[staredblock3]{c}
 		#include <iostream>
 		int main()
 		{
 			std::cout << "Hello World！" << std::endl;
 			std::cin.get();
 		}
-	\end{scucode*}
-	\begin{bitcode}{Another Stared Theorem Block.}*[pythoncode]{python}
+	\end{bitcode*}
+	\begin{bitcode}{Another Stared Theorem Block.}*[pythoncode2]{python}
 		for i in range(1,5):
 			for j in range(1,5):
 				for k in range(1,5):
@@ -208,7 +208,7 @@
 \end{frame}
 
 \begin{frame}[fragile]{Highlight Line}
-	\begin{bitcode}{Highlight Line.}[Highlight1]{c}[highlightlines={2,5}]
+	\begin{bitcode}{Highlight Line.}[Highlight1]{c}
 		#include <iostream>
 		int main()
 		{
@@ -216,14 +216,14 @@
 			std::cin.get();
 		}
 	\end{bitcode}
-	\begin{bitcode}{Highlight Line.}[pythoncode]{python}[highlightlines={2-3,5}]
+	\begin{bitcode}{Highlight Line.}[pythoncodeb]{python}
 		for i in range(1,5):
 			for j in range(1,5):
 				for k in range(1,5):
 					if( i != k ) and (i != j) and (j != k):
 						print (i,j,k)
 	\end{bitcode}
-  refer \vref{code:Highlight1,code:pythoncode}
+  refer \vref{code:Highlight1,code:pythoncodeb}
 \end{frame}
 
 \begin{frame}[fragile]{\LaTeX{} Comment}{Escapeinline}
@@ -233,7 +233,7 @@
 		int main()
 		{// $\pi$
 			std::cout << "Hello World！" << std::endl; |\# \textsf{\LaTeX{} out hEllo wOrld}|
-			|\colorbox{scugreen!60}{$\sum_\pi^\phi \alpha + \Gamma$}| std::cin.get(); 
+			|\colorbox{bitc!60}{$\sum_\pi^\phi \alpha + \Gamma$}| std::cin.get(); 
 		}
 	\end{bitcode}
 	\begin{bitcode}{Comment}[Comment2]{python}'@@'
@@ -254,7 +254,7 @@
 			std::cin.get();
 		}
 	\end{bitcode}
-	\begin{bitcode}{Comment}[Escapeinline2]{python}[highlightlines={4}]'@@'
+	\begin{bitcode}{Comment}[Escapeinline2]{python}'@@'
 		for i in range(1,5):
 			for j in range(1,5): 
 				for k in range(1,5):
@@ -265,7 +265,7 @@
 \end{frame}
 
 \begin{frame}[fragile]{Source Code From File}
-	\scucodeinput{Source Code From File}{c}{A cpp.cpp}
+	\bitcodeinput{Source Code From File}{c}{A cpp.cpp}
 \end{frame}
 
 % --------节: 参考文献--------

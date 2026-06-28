@@ -1,21 +1,21 @@
-# 北京理工大学Beamer模板
+# 北京理工大学 Beamer 模板
 
-[![GitHub stars](https://img.shields.io/github/stars/FvNCCR228/SCU-Beamer-Theme?style=social)](https://github.com/FvNCCR228/SCU-Beamer-Theme)
-[![GitHub forks](https://img.shields.io/github/forks/FvNCCR228/SCU-Beamer-Theme?style=social)](https://github.com/FvNCCR228/SCU-Beamer-Theme)
-[![Gitee](https://img.shields.io/badge/-Gitee-C71D23?logo=gitee&logoColor=white&style=flat)](https://gitee.com/NCCR/SCU_Beamer_Slide-demo)
+[![GitHub stars](https://img.shields.io/github/stars/FvNCCR228/bit_beamer_theme?style=social)](https://github.com/FvNCCR228/bit_beamer_theme)
+[![GitHub forks](https://img.shields.io/github/forks/FvNCCR228/bit_beamer_theme?style=social)](https://github.com/FvNCCR228/bit_beamer_theme)
+[![Gitee](https://img.shields.io/badge/-Gitee-C71D23?logo=gitee&logoColor=white&style=flat)](https://gitee.com/NCCR/bit_beamer_theme)
 [![LaTeX](https://img.shields.io/badge/-LaTeX%20Beamer-008080?logo=latex&logoColor=white&style=flat)](https://www.latex-project.org/)
 [![知乎](https://img.shields.io/badge/-知乎-0066FF?logo=zhihu&logoColor=white&style=flat)](https://www.zhihu.com/column/c_1498346349729361920)
 [![TeXPage](https://img.shields.io/badge/-TeXPage-2e5090?logo=tex&logoColor=white&style=flat)](https://www.texpage.com/zh/template/91b96607-7702-4a85-b696-658d260db5b9)
 
-![Version](https://img.shields.io/github/v/release/FvNCCR228/SCU-Beamer-Theme?label=Version)
-[![Skill](https://img.shields.io/badge/Skill-beamer--scu-blue)](https://github.com/FvNCCR228/SCU-Beamer-Theme/tree/skill)
-![Discussions](https://img.shields.io/github/discussions/FvNCCR228/SCU-Beamer-Theme?label=Discussions)
-![Issues](https://img.shields.io/github/issues-raw/FvNCCR228/SCU-Beamer-Theme?label=Issues)
+![Version](https://img.shields.io/github/v/release/FvNCCR228/bit_beamer_theme?label=Version)
+[![Skill](https://img.shields.io/badge/Skill-beamer--bit-blue)](https://github.com/FvNCCR228/bit_beamer_theme/tree/skill)
+![Discussions](https://img.shields.io/github/discussions/FvNCCR228/bit_beamer_theme?label=Discussions)
+![Issues](https://img.shields.io/github/issues-raw/FvNCCR228/bit_beamer_theme?label=Issues)
 ![License](https://img.shields.io/badge/License-LPPL--1.3c-green)
 
-本项目参考了Beamer, Tcolorbox等官方文档, 参考了stackoverflow中的诸多问题；
+本项目参考了 Beamer、Tcolorbox 等官方文档，参考了 Stack Overflow 中的诸多问题。
 
-主要参考了中国科学技术大学Beamer模板 [USTCBeamerSX](https://github.com/ysx2000/USTCBeamerSX/), 少量参考了清华大学Beamer模板 [THU-Beamer-Theme](https://github.com/tuna/THU-Beamer-Theme/) 及其衍生的各大学的Beamer模板, 还参考了中国科学技术大学Beamer模板 [ustcbeamer](https://github.com/ustctug/ustcbeamer/).
+本仓库基于原版 Beamer 模板骨架改造而来，保留了成熟的页眉页脚与版式节奏，并替换为北京理工大学视觉识别、字体和示例内容。
 
 
 <img width="750" alt="image" src="./docs/assert/assert-1.png" />
@@ -30,18 +30,18 @@
 **Git 克隆:**
 
 ```bash
-git clone https://github.com/FvNCCR228/SCU-Beamer-Theme.git
+git clone https://github.com/FvNCCR228/bit_beamer_theme.git
 ```
 
 国内用户可使用 Gitee 镜像 (更新可能略有延迟):
 
 ```bash
-git clone https://gitee.com/NCCR/SCU_Beamer_Slide-demo.git
+git clone https://gitee.com/NCCR/bit_beamer_theme.git
 ```
 
 **从 Release 下载:**
 
-前往 [GitHub Releases](https://github.com/FvNCCR228/SCU-Beamer-Theme/releases) 或 [Gitee Releases](https://gitee.com/NCCR/SCU_Beamer_Slide-demo/releases) 下载.
+前往 [GitHub Releases](https://github.com/FvNCCR228/bit_beamer_theme/releases) 或 [Gitee Releases](https://gitee.com/NCCR/bit_beamer_theme/releases) 下载。
 
 ### 2. 创建主 `.tex` 文件
 
@@ -71,7 +71,7 @@ git clone https://gitee.com/NCCR/SCU_Beamer_Slide-demo.git
 
 % -------- BIT Beamer Theme Config --------
 \usetheme[
-	% ColorDisplay=, % JXred ⚙️ | BSblue | Custom → 主题色显示设置
+	% ColorDisplay=, % BITA ⚙️ | BITB | Custom → 主题色显示设置
 	% BlockDisplay=, % colorful ⚙️ | followtheme | allgrey → 区块颜色显示设置
 	% CodeTheme=, % listing ⚙️ | minted | minted2 → 代码高亮显示设置
 	% MintedStyle=, % lightmode ⚙️ | darkmode | ⟨custom⟩ → minted 样式设置 (需优先设置 CodeTheme = minted | minted2)
@@ -83,7 +83,7 @@ git clone https://gitee.com/NCCR/SCU_Beamer_Slide-demo.git
 	% BIBMode=, % biber ⚙️ | none → 参考文献引擎设置
 	% BIBStyle=, % biber-gb7714 ⚙️ → 参考文献样式设置 (设置 BIBMode=none 时无效)
 	% ContentMuticols=, % true ⚙️ | false → 目录帧双栏显示设置
-	% Background=, % SCU-Full ⚙️ | SCU-Lite | Custom | none → 背景显示设置
+	% Background=, % BIT-Full ⚙️ | BIT-Lite | Custom | none → 背景显示设置
 ]{bit}
 
 % -------- Packages --------
@@ -98,11 +98,11 @@ git clone https://gitee.com/NCCR/SCU_Beamer_Slide-demo.git
 \subtitle{副标题}% subtitle 未设置页脚显示项, 请在 title 中设置.
 \author[页脚作者]{作者一\inst{1}\inst{a} \and 作者二\inst{2}\inst{b}}
 \institute{%
-	\inst{1} 机构一
+	\inst{1} 北京理工大学
 	\vspace*{-6pt} \and
 	\inst{2} ~Institution Two
 	\vspace*{-6pt} \and
-	\inst{a} \mailscu{author1@example.com} ~\inst{b} \mailscu{author2@example.com}
+	\inst{a} \mailbit{author1@example.com} ~\inst{b} \mailbit{author2@example.com}
 }
 \date{\today}
 
@@ -255,9 +255,9 @@ latexmk -C exp.tex    # 清除指定文件的全部生成文件
    npm install -g @anthropic-ai/claude-code
    ```
 2. 安装 [CC Switch](https://github.com/farion1231/cc-switch), 在 Skills 面板中安装本模板的 Skill:
-   - URL: `https://github.com/FvNCCR228/SCU-Beamer-Theme`
+   - URL: `https://github.com/FvNCCR228/bit_beamer_theme`
    - 分支: `skill`
-3. 在项目目录下启动 Claude Code, 输入 `/beamer-scu` 或用自然语言描述需求即可触发 Skill (如 "帮我用 SCU beamer 做一个答辩 Slides")
+3. 在项目目录下启动 Claude Code, 输入 `/beamer-bit` 或用自然语言描述需求即可触发 Skill (如 "帮我用 BIT beamer 做一个答辩 Slides")
 
 
 ## 模板设计

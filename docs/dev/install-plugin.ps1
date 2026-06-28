@@ -1,4 +1,4 @@
-﻿# install-plugin.ps1: SCU Beamer Theme 扩展主题插件安装脚本 (Windows)
+﻿# install-plugin.ps1: BIT Beamer Theme 扩展主题插件安装脚本 (Windows)
 #                     支持从 GitHub 仓库下载指定文件到项目中
 # 用法: .\install-plugin.ps1 -e <插件名> [-nogit]
 # 示例: .\install-plugin.ps1 -e example

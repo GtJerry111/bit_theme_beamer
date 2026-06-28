@@ -1,15 +1,15 @@
 [中文](CONTRIBUTING.md) | [English](CONTRIBUTING.en.md)
 
-以下是 SCU Beamer Theme 扩展主题插件贡献指南, SCU Beamer Theme 贡献指南请查看 [#13](https://github.com/FvNCCR228/SCU-Beamer-Theme/discussions/13)
+以下是 BIT Beamer Theme 扩展主题插件贡献指南. 如需查看通用贡献说明, 请参考仓库的相关讨论区或文档索引.
 
-## SCU Beamer Theme 扩展主题插件贡献指南
+## BIT Beamer Theme 扩展主题插件贡献指南
 ### 插件系统简介
-SCU Beamer Theme 支持通过插件机制加载扩展主题
-可参考 [#12](https://github.com/FvNCCR228/SCU-Beamer-Theme/discussions/12) 相关指南定义 SCU Beamer Theme 扩展主题插件. 合并插件信息到本项目 GitHub 仓库后, 用户可通过 `docs/install-plugin.sh` (Linux/MacOS) 或 `docs/install-plugin.bat` (Windows) 脚本一键下载安装所需插件
+BIT Beamer Theme 支持通过插件机制加载扩展主题
+可参考仓库中的插件配置格式定义 BIT 扩展主题插件. 合并插件信息到本项目 GitHub 仓库后, 用户可通过 `docs/install-plugin.sh` (Linux/MacOS) 或 `docs/install-plugin.bat` (Windows) 脚本一键下载安装所需插件
 
 ### 前提条件
 1. 你需要创建一个公开的 GitHub 仓库, 用于存放扩展主题插件文件
-2. 你可以自定义插件相关的文件 (例如 `.sty`、`.tex`、`.pdf` `.png` 等), 并可以上传独立于 SCU Beamer Theme 的最小示例和说明文档. 请注意, 尽量避免与 SCU Beamer Theme 项目的文件命名冲突. 且若想避免与其他插件存在重复文件, 也可创建 2 级文件夹, 如 `resources/mytheme/image.png`
+2. 你可以自定义插件相关的文件 (例如 `.sty`、`.tex`、`.pdf` `.png` 等), 并可以上传独立的最小示例和说明文档. 请注意, 尽量避免与本项目的文件命名冲突. 且若想避免与其他插件存在重复文件, 也可创建 2 级文件夹, 如 `resources/mytheme/image.png`
 3. 插件名不得与已有插件重复，可通过以下命令查看：
 
   Linux/MacOS:
@@ -41,7 +41,7 @@ name = 插件显示名称
 
 | 字段 | 说明 | 示例 |
 |------|------|------|
-| `repo` | 仓库地址, 格式为 `user/repo` | `FvNCCR228/SCU-Beamer-Theme` |
+| `repo` | 仓库地址, 格式为 `user/repo` | `FvNCCR228/bit_beamer_theme` |
 | `branch` | 分支名 | `main` |
 | `files` | 需要下载的文件列表(文件命名避免存在空格), 条目间空格分隔, 存在子目录时请列出目录中所有文件路径 | `theme.sty slides.tex resources/image.png` |
 | `name` | 插件的显示名称 | `新三国天意爷主题` |

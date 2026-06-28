@@ -1,18 +1,18 @@
 [中文](CONTRIBUTING.md) | [English](CONTRIBUTING.en.md)
 
-This is the extension plugin contribution guide for SCU Beamer Theme. For the general contribution guide, see [#13](https://github.com/FvNCCR228/SCU-Beamer-Theme/discussions/13).
+This is the extension plugin contribution guide for BIT Beamer Theme. For the general contribution guide, see the repository documentation index.
 
-## SCU Beamer Theme Extension Plugin Contribution Guide
+## BIT Beamer Theme Extension Plugin Contribution Guide
 
 ### Plugin System Overview
 
-SCU Beamer Theme supports loading extension themes through a plugin mechanism.
-Refer to [#12](https://github.com/FvNCCR228/SCU-Beamer-Theme/discussions/12) for guidance on defining SCU Beamer Theme extension plugins. Once your plugin information is merged into this project's GitHub repository, users can download and install plugins with one click using `docs/install-plugin.sh` (Linux/MacOS) or `docs/install-plugin.bat` (Windows).
+BIT Beamer Theme supports loading extension themes through a plugin mechanism.
+Refer to the plugin configuration format in this repository for guidance on defining BIT extension plugins. Once your plugin information is merged into this project's GitHub repository, users can download and install plugins with one click using `docs/install-plugin.sh` (Linux/MacOS) or `docs/install-plugin.bat` (Windows).
 
 ### Prerequisites
 
 1. You need to create a public GitHub repository to host your extension plugin files
-2. You can customize plugin-related files (e.g. `.sty`, `.tex`, `.pdf`, `.png`, etc.) and upload standalone minimal examples and documentation independent of SCU Beamer Theme. Please try to avoid file naming conflicts with the SCU Beamer Theme project. To avoid duplicate files with other plugins, you can create a second-level folder, e.g. `resources/mytheme/image.png`
+2. You can customize plugin-related files (e.g. `.sty`, `.tex`, `.pdf`, `.png`, etc.) and upload standalone minimal examples and documentation. Please try to avoid file naming conflicts with this project. To avoid duplicate files with other plugins, you can create a second-level folder, e.g. `resources/mytheme/image.png`
 3. Plugin names must not duplicate existing ones. Check with:
 
   Linux/MacOS:
@@ -46,7 +46,7 @@ name = Display Name
 
 | Field | Description | Example |
 |-------|-------------|---------|
-| `repo` | Repository address in `user/repo` format | `FvNCCR228/SCU-Beamer-Theme` |
+| `repo` | Repository address in `user/repo` format | `FvNCCR228/bit_beamer_theme` |
 | `branch` | Branch name | `main` |
 | `files` | List of files to download (avoid spaces in filenames), space-separated, list all files in subdirectories | `theme.sty slides.tex resources/image.png` |
 | `name` | Plugin display name | `My Custom Theme` |

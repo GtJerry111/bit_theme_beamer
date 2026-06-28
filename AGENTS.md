@@ -31,7 +31,7 @@ latexmk -C main.tex
 | 文件 | 职责 |
 |------|------|
 | `beamerthemebit.sty` | 主入口：声明所有选项键值，加载子主题，定义通用命令和环境（定理框、代码框、目录等） |
-| `beamercolorthemebit.sty` | 颜色主题：定义 JXred/BSblue/Custom 三套配色，所有颜色变量 |
+| `beamercolorthemebit.sty` | 颜色主题：定义 BITA/BITB/Custom 三套配色，所有颜色变量 |
 | `beamerfontthemebit.sty` | 字体主题：管理 Auto/Ubuntu/Win/Mac/Fandol/Source-Han 等字体方案和数学字体 |
 | `beamerinnerthemebit.sty` | 内部主题：封面页、目录页、itemize/enumerate、block 环境、脚注等内部元素样式 |
 | `beamerouterthemebit.sty` | 外部主题：页眉双栏（节导航+标题栏）、页脚双栏（导航+信息行）、侧边栏、徽标 |
@@ -39,7 +39,7 @@ latexmk -C main.tex
 ### Key Theme Options
 
 所有选项通过 `\usetheme[<key>=<value>,...]{bit}` 传入：
-- `ColorDisplay` — JXred（默认）| BSblue | Custom
+- `ColorDisplay` — BITA（默认）| BITB | Custom
 - `BlockDisplay` — colorful（默认）| followtheme | allgrey
 - `CodeTheme` — listing（默认）| minted | minted2
 - `LanguageMode` — cn（默认）| en
@@ -48,7 +48,7 @@ latexmk -C main.tex
 - `FontTheme` — Auto（默认）| Ubuntu | Win | Mac | Fandol | Source-Han | ...
 - `MathFont` — LM（默认）| XITS
 - `BIBMode` — biber（默认）| none
-- `Background` — SCU-Full（默认）| SCU-Lite | Custom | none
+- `Background` — BIT-Full（默认）| BIT-Lite | Custom | none
 
 ### Project Structure
 

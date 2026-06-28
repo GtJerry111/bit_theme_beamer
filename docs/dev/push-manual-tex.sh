@@ -2,7 +2,7 @@
 set -e
 
 # push-manual-tex.sh: 将用户手册的 LaTeX 文件推送到
-#                     SCU Beamer Theme 仓库 manual 分支
+#                     manual 分支
 
 # 配置工作树目录和文件列表
 WORKTREE_DIR="../worktree-manual"

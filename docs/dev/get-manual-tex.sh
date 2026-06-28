@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# get-manual-tex.sh: 从 SCU Beamer Theme 仓库 manual 分支
+# get-manual-tex.sh: 从 manual 分支
 #                    获取用户手册的 LaTeX 文件
 
 # 配置原分支和文件列表

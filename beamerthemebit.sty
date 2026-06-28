@@ -262,7 +262,7 @@
 \if\EqualOptionsBeamer{Background}{BIT-Full}%
   \def\bit@path@bg{./resources/backgroundoftitlepage(Empty).png}% 空白背景图.
   \def\bit@path@bgoftitle{./resources/backgroundoftitlepage(Empty).png}% 空白背景图.
-  \def\bit@path@bgofsubsectoc{./resources/backgroundofsubsectiontocpage.png}% 带 Verify 的背景图.
+  \def\bit@path@bgofsubsectoc{./resources/backgroundofsubsectiontocpage.png}% 小节目录背景图.
 \else\if\EqualOptionsBeamer{Background}{BIT-Lite}%
   \def\bit@path@bgoftitle{./resources/backgroundoftitlepage(Empty).png}%
 \else\if\EqualOptionsBeamer{Background}{Custom}%
@@ -312,9 +312,9 @@
   % Logo+Name:: BIT logo+name.
   \pgfdeclareimage[height=36pt]{lg-name}{./resources/BITlogo+name.png}%
   % Landmark:: BIT building.
-  \pgfdeclareimage[width=.2625\paperwidth]{landmark}{./resources/BITbuilding.png}%
-  % Verify:: (not used in BIT theme)
-  % \pgfdeclareimage[height=30pt]{verify}{./resources/BITverify.png}
+  \pgfdeclareimage[width=.20\paperwidth]{landmark}{./resources/BITbuilding.png}%
+  % Verify:: cover page only.
+  \pgfdeclareimage[height=110pt]{verify}{./resources/BITverify.png}
 \else\if\EqualOptionsBeamer{VI}{Custom}%
   \ifcsname beamer@bit@viextend\endcsname%
     \beamer@bit@viextend%

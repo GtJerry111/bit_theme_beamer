@@ -83,10 +83,10 @@
       % 绘制 视觉识别标识.
       \node[anchor=north west, inner sep=0pt, outer sep=0pt]%
         at (\bit@wd@titleskip, \bit@ht@titlelogo) {\pgfuseimage{lg-name}};% logo-name
+      \node[anchor=north east, inner sep=0pt, outer sep=0pt]%
+        at (\paperwidth-22pt, \bit@ht@titlelogo+5pt) {\pgfuseimage{verify}};% verify 校训
       \node[anchor=south east, inner sep=0pt, outer sep=0pt, opacity=.3]%
         at (\paperwidth, 2*\bit@ht@titlecurve) {\pgfuseimage{landmark}};% 特色标识
-      % \node[anchor=north east, inner sep=0pt, outer sep=0pt]%
-      %   at (\paperwidth, \bit@ht@titlelogo) {\pgfuseimage{verify}};% verify 校训
       % 绘制 底栏图形.
       \fill[IntersperseC, path fading=south, fading transform={rotate=96}]%
         plot[smooth, domain=0:1.02, samples=30]%

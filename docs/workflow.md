@@ -187,3 +187,41 @@ include-sec/
 ---
 
 > **相关模块**：[config-overview.md](config-overview.md)（配置速查）| [config-detail.md](config-detail.md)（选项详情）| [templates.md](templates.md)（代码模板）| [mwe.md](mwe.md)（完整 MWE）| [typography.md](typography.md)（排版规则）| [customization.md](customization.md)（高级定制）| [troubleshooting.md](troubleshooting.md)（问题排查）| [入口 SKILL.md](../SKILL.md)
+
+---
+
+## 任务 5：论文转 Slides
+
+> 将学术论文 PDF 转换为 BIT Beamer Theme 风格的 slides。
+> 配合 paper2beamer skill 使用，BIT ISA manifest 位于 `isa/BIT.yaml`。
+
+### 触发条件
+
+用户要求"论文转 slides"、"paper to slides"、"用 BIT 模板做论文报告"。
+
+### 步骤
+
+1. **确认 paper2beamer skill 已安装**：如未安装，提示用户安装（位于 `/Users/jerry/.cc-switch/skills/paper2beamer/` 或通过 CC Switch 从 GitHub 安装）。
+
+2. **拷贝 BIT ISA 到工作目录**：
+   ```bash
+   cp isa/BIT.yaml ./isa/BIT.yaml
+   ```
+
+3. **按 paper2beamer 的 8 步 pipeline 执行**：
+   - Intent → Ingest → Narrative IR → Review gate → Slide IR → Emission → Compile → Repair
+
+4. **在 Slide IR 和 Emission 阶段**，严格遵守 `docs/paper-conversion.md` 中的 BIT 专属规则：
+   - 使用 `bittheorem`/`bitlemma` 等 BIT 定理环境
+   - 使用 `bitcode`/`bitcode*` 等 BIT 代码环境
+   - 使用 `bita`/`bitb` 等语义颜色
+   - 编译前添加 `\PassOptionsToPackage{cmyk}{xcolor}`
+
+5. **容量校准**（可选，首次使用时建议运行）：
+   ```bash
+   uv run python -m scripts.capacity_probe --theme BIT
+   ```
+
+### 详细指南
+
+见 `docs/paper-conversion.md`。

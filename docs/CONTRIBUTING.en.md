@@ -46,7 +46,7 @@ name = Display Name
 
 | Field | Description | Example |
 |-------|-------------|---------|
-| `repo` | Repository address in `user/repo` format | `FvNCCR228/bit_beamer_theme` |
+| `repo` | Repository address in `user/repo` format | `GtJerry111/bit_theme_beamer` |
 | `branch` | Branch name | `main` |
 | `files` | List of files to download (avoid spaces in filenames), space-separated, list all files in subdirectories | `theme.sty slides.tex resources/image.png` |
 | `name` | Plugin display name | `My Custom Theme` |

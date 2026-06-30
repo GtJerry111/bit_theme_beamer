@@ -41,7 +41,7 @@ name = 插件显示名称
 
 | 字段 | 说明 | 示例 |
 |------|------|------|
-| `repo` | 仓库地址, 格式为 `user/repo` | `FvNCCR228/bit_beamer_theme` |
+| `repo` | 仓库地址, 格式为 `user/repo` | `GtJerry111/bit_theme_beamer` |
 | `branch` | 分支名 | `main` |
 | `files` | 需要下载的文件列表(文件命名避免存在空格), 条目间空格分隔, 存在子目录时请列出目录中所有文件路径 | `theme.sty slides.tex resources/image.png` |
 | `name` | 插件的显示名称 | `新三国天意爷主题` |

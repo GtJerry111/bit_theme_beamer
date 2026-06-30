@@ -14,17 +14,18 @@
 
 ## 前置步骤：拷贝 ISA 到工作目录
 
-如果用户的工作目录中没有 `isa/BIT.yaml`，需要从 skill 分支拷贝：
+如果用户的工作目录中没有 `isa/BIT.yaml`，需要从仓库的 skill 分支提取：
 
 ```bash
-# 从 skill 分支的 isa/BIT.yaml 拷贝到当前工作目录
-cp /Users/jerry/Projects/bit_beamer_theme/isa/BIT.yaml ./isa/BIT.yaml
+# 从 skill 分支提取 ISA manifest 到当前工作目录
+mkdir -p isa
+git show skill:isa/BIT.yaml > isa/BIT.yaml
 ```
 
-或在 skill 分支内直接引用：
+或从已克隆的仓库直接拷贝：
 
 ```bash
-cp isa/BIT.yaml ./isa/BIT.yaml
+cp <repo>/isa/BIT.yaml ./isa/BIT.yaml
 ```
 
 ## BIT 专属环境选择规则

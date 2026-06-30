@@ -29,12 +29,11 @@ options:
   - { name: VI, values: [BIT, Custom], default: BIT }
   - { name: overflowguard, values: [on, off], default: off, required_value: on }
 
-# 待 capacity_probe 校准：首次论文转换后应运行
+# capacity_probe 已校准（2026-06-29）：
 #   uv run python -m scripts.capacity_probe --theme BIT
-# 并更新此处数值。
+# BIT 不支持 density 选项，仅提供 normal 值。
 capacity:
-  normal: { bullets_per_frame: 8, figure_plus_bullets: 3, blocks_per_frame: 2 }
-  dense:  { bullets_per_frame: 8, figure_plus_bullets: 3, blocks_per_frame: 2 }
+  normal: { bullets_per_frame: 11, figure_plus_bullets: 4, blocks_per_frame: 4 }
   measured_at: { bullet_words: 8 }
 
 custom_instructions:

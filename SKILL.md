@@ -24,6 +24,7 @@ description: >
 | [typography.md](docs/typography.md) | 排版规则 + 内容压缩策略 | 检查排版质量 |
 | [customization.md](docs/customization.md) | 自定义颜色/字体/背景/VI + 配色基色 + 扩展宏包 | 进阶定制需求 |
 | [troubleshooting.md](docs/troubleshooting.md) | 问题排查 + 编译规则 + latexmk 配置 | 编译报错或效果异常 |
+| 论文转 Slides | `docs/paper-conversion.md` + paper2beamer skill | 用户要求论文/报告 PDF 转 BIT 风格 slides 时 |
 
 ---
 
@@ -78,6 +79,15 @@ latexmk -C exp.tex    # 清除指定文件的全部生成文件
 ```
 
 > `-c` 仅清除 `.aux`、`.log`、`.toc` 等中间文件，保留 PDF；`-C` 连同 PDF 一并清除。
+
+---
+
+## 论文转 Slides
+
+本 skill 配合 `paper2beamer` skill 提供学术论文 PDF 到 BIT 风格 slides 的转换能力。
+BIT ISA manifest 位于 `isa/BIT.yaml`，工作流详见 `docs/paper-conversion.md`。
+
+使用前请确认 `paper2beamer` skill 已安装。
 
 ---
 

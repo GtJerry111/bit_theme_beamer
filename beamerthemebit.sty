@@ -95,6 +95,7 @@
 % ----------------
 % 定义新的 if.
 \newif\ifbeamer@bit@contentmuticols
+\newif\ifbeamer@bit@overflowguard
 
 % KEY:: ColorDisplay [PASSTO:: beamercolorthemebit.sty].
 % VALUE:: BITA | BITB.
@@ -139,6 +140,11 @@
 % KEY:: VI.
 % VALUE:: BIT | Custom.
 \DeclareOptionBeamer{VI}{\def\beamer@bit@VI{#1}}
+% KEY:: overflowguard.
+% VALUE:: on | off.
+\DeclareOptionBeamer{overflowguard}{%
+  \ifstrequal{#1}{on}{\beamer@bit@overflowguardtrue}{\beamer@bit@overflowguardfalse}%
+}
 
 \ExecuteOptionsBeamer{%
   ColorDisplay=BITA,%
@@ -153,7 +159,8 @@
   BIBMode=biber,%
   ContentMuticols=true,%
   Background=BIT-Full,%
-  VI=BIT%
+  VI=BIT,%
+  overflowguard=off%
 }
 \ProcessOptionsBeamer
 \if\EqualOptionsBeamer{CodeTheme}{minted}%
@@ -166,6 +173,40 @@
   \ExecuteOptionsBeamer{BIBStyle=numeric-comp}
 \fi
 \ProcessOptionsBeamer
+
+% ----------------
+% Overflow guard: 当 overflowguard=on 时，检测每帧内容是否超出可用高度。
+% 超出时抛出硬错误（而非仅 Overfull vbox 警告），供 paper2beamer 流水线识别。
+% 跳过 [plain] 和 [allowframebreaks] 帧。
+% 实现：patch Beamer 内部的 \beamer@autobreakframebox，在帧输出前检查
+% \beamer@framebox 高度是否超过可用文本高度。
+% ----------------
+\ifbeamer@bit@overflowguard
+  \RequirePackage{etoolbox}
+  \newlength\beamer@bit@availableht
+  \AtBeginDocument{%
+    \setlength\beamer@bit@availableht{\textheight}%
+    \ifdim\beamer@headheight>0pt\relax
+      \addtolength\beamer@bit@availableht{-\beamer@headheight}%
+    \fi
+    \ifdim\beamer@footheight>0pt\relax
+      \addtolength\beamer@bit@availableht{-\beamer@footheight}%
+    \fi
+    \pretocmd{\beamer@autobreakframebox}{%
+      \ifbeamer@plainframe\else
+        \ifdim\ht\beamer@framebox>\beamer@bit@availableht\relax
+          \PackageError{beamerthemebit}{%
+            BIT overflow guard: frame \theframenumber\space content exceeds available height\MessageBreak
+            (content: \the\ht\beamer@framebox, available: \the\beamer@bit@availableht)%
+          }{%
+            The frame body overflows into the footer area.\MessageBreak
+            Split this frame, reduce its content, or use [allowframebreaks].%
+          }
+        \fi
+      \fi
+    }{}{}
+  }
+\fi
 % ----------------
 
 

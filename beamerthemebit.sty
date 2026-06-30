@@ -186,17 +186,17 @@
   \newlength\beamer@bit@availableht
   \AtBeginDocument{%
     \setlength\beamer@bit@availableht{\textheight}%
-    \ifdim\beamer@headheight>0pt\relax
-      \addtolength\beamer@bit@availableht{-\beamer@headheight}%
+    \ifdim\headheight>0pt\relax
+      \addtolength\beamer@bit@availableht{-\headheight}%
     \fi
-    \ifdim\beamer@footheight>0pt\relax
-      \addtolength\beamer@bit@availableht{-\beamer@footheight}%
+    \ifdim\footheight>0pt\relax
+      \addtolength\beamer@bit@availableht{-\footheight}%
     \fi
     \pretocmd{\beamer@autobreakframebox}{%
       \ifbeamer@plainframe\else
         \ifdim\ht\beamer@framebox>\beamer@bit@availableht\relax
           \PackageError{beamerthemebit}{%
-            BIT overflow guard: frame \theframenumber\space content exceeds available height\MessageBreak
+            Frame body overflows the safe area on slide \theframenumber\MessageBreak
             (content: \the\ht\beamer@framebox, available: \the\beamer@bit@availableht)%
           }{%
             The frame body overflows into the footer area.\MessageBreak
@@ -399,7 +399,7 @@
 % ----------------
 \if\EqualOptionsBeamer{BIBMode}{biber}%
   % 参考文献 bib 库.
-  \addbibresource[location=local]{ref.bib}
+  \IfFileExists{ref.bib}{\addbibresource[location=local]{ref.bib}}{}%
   % 参考文献设置.
   \beamertemplatetextbibitems
   % 设置 bibliography 列表为 text 显示模式.

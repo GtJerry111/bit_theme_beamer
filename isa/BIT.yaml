@@ -1,0 +1,96 @@
+meta:
+  theme: BIT
+  sty: beamerthemebit.sty
+  isa_version: 2
+  engine: xelatex
+  aspectratio: "169"
+
+provides: [Base@1, Zsem@1, SpecialFrames@1, Density@1, OverflowGuard@1, Theorems@1, Columns@1]
+
+options:
+  - { name: ColorDisplay, values: [BITA, BITB, Custom], default: BITA }
+  - { name: BlockDisplay, values: [colorful, followtheme, allgrey], default: colorful }
+  - { name: CodeTheme, values: [listing, minted, minted2], default: listing }
+  - { name: MintedStyle, values: [lightmode, darkmode], default: lightmode }
+  - { name: LanguageMode, values: [cn, en], default: cn }
+  - { name: Miniframes, values: [follow, separate, none], default: follow }
+  - { name: NavigationTool, values: [1-2-3, 1-2, 1-3, 2-3, 1, 2, 3, none], default: 1-2-3 }
+  - { name: LogoWidth, type: dimen, default: 48pt }
+  - { name: FontTheme, values: [Auto, Ubuntu, Win, Mac, Fandol, Source-Han, Source-Han(Local), ZhongYi(Local), Custom], default: Auto }
+  - { name: MathFont, values: [LM, XITS], default: LM }
+  - { name: BIBMode, values: [biber, none], default: biber }
+  - { name: BIBStyle, values: [biber-gb7714], default: biber-gb7714 }
+  - { name: ContentMuticols, values: [true, false], default: true }
+  - { name: Background, values: [BIT-Full, BIT-Lite, none, Custom], default: BIT-Full }
+  - { name: VI, values: [BIT, Custom], default: BIT }
+  - { name: overflowguard, values: [on, off], default: off }
+
+capacity:
+  normal: { bullets_per_frame: 11, figure_plus_bullets: 4, blocks_per_frame: 4 }
+  measured_at: { bullet_words: 8 }
+
+custom_instructions:
+  # 定理/证明环境
+  - { cmd: bittheorem, args: 2, optional_args: 1 }
+  - { cmd: bitlemma, args: 2, optional_args: 1 }
+  - { cmd: bitcorollary, args: 2, optional_args: 1 }
+  - { cmd: bitproposition, args: 2, optional_args: 1 }
+  - { cmd: bitdefinition, args: 2, optional_args: 1 }
+  - { cmd: bitproperty, args: 2, optional_args: 1 }
+  - { cmd: bitexample, args: 2, optional_args: 1 }
+  - { cmd: bitremark, args: 2, optional_args: 1 }
+  - { cmd: bitalgorithm, args: 2, optional_args: 1 }
+  - { cmd: bitproof, args: 2, optional_args: 1 }
+  - { cmd: bitaxiom, args: 2, optional_args: 1 }
+  - { cmd: bitcondition, args: 2, optional_args: 1 }
+  - { cmd: bitconclusion, args: 2, optional_args: 1 }
+  - { cmd: bitassumption, args: 2, optional_args: 1 }
+  # 代码环境
+  - { cmd: bitcode, args: 3, optional_args: 2 }
+  - { cmd: "bitcode*", args: 3, optional_args: 2 }
+  - { cmd: bitcodeinput, args: 4, optional_args: 2 }
+  - { cmd: bitcodeinputnocounter, args: 4, optional_args: 2 }
+  # 文档辅助命令
+  - { cmd: mailbit, args: 1 }
+  - { cmd: cmd, args: 1 }
+  - { cmd: env, args: 1 }
+  - { cmd: pkg, args: 1 }
+  - { cmd: cls, args: 1 }
+  - { cmd: marg, args: 1 }
+  - { cmd: oarg, args: 1 }
+  # 导航命令
+  - { cmd: bitgoto, args: 1 }
+  - { cmd: bitgoback, args: 1 }
+
+structural_idioms:
+  - { rule: deck_requires_short_title, severity: error }
+  - { rule: block_requires_title, severity: error }
+  - { rule: section_name_max_chars, value: 20, severity: warn }
+  - { rule: use_cmyk_xcolor, severity: error }
+
+prose: |
+  BIT Beamer Theme 是北京理工大学的专属模板。默认语言为中文（LanguageMode=cn），仅在用户明确要求时才切换为英文（LanguageMode=en）。
+
+  ## 编译约束
+  编译前必须在 \documentclass 之前添加：
+    \PassOptionsToPackage{cmyk}{xcolor}
+  以避免 PDF 色彩偏移。
+
+  ## 语义颜色
+  - bita（校徽红褐色）：主强调色，用于关键概念、核心结论
+  - bitb（校徽深蓝色）：用于定义类 block（BlockDefinitionC）
+  - bitc（校徽叶绿色）：用于引理类 block（BlockLemmaC）
+  - bitd（校徽描边金褐色）：用于条件类 block（BlockConditionC）
+  - bite（中性灰）：用于辅助/弱化内容
+
+  ## 定理与证明
+  永远使用 BIT 专属环境：bittheorem、bitlemma、bitcorollary、bitproposition、bitdefinition、bitproperty、bitexample、bitremark、bitalgorithm、bitproof、bitaxiom、bitcondition、bitconclusion、bitassumption。永远不要使用 Beamer 的通用 theorem/definition 环境。
+
+  ## 代码高亮
+  永远使用 BIT 专属环境：bitcode、bitcode*、bitcodeinput、bitcodeinputnocounter。默认 CodeTheme=listing，不需要 -shell-escape。仅在用户明确要求时才切换为 minted。
+
+  ## 参考文献
+  默认使用 BIBMode=biber + BIBStyle=biber-gb7714（GB/T 7714-2015 国标）。
+
+  ## 帧密度
+  每帧保持一个核心观点。节标题控制在 20 字符以内。每个 block 必须有标题。

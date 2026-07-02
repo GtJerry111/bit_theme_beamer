@@ -294,3 +294,5 @@ tmp/build/include-sec/*
 # plug
 tmp/plug/*
 !tmp/plug/.gitkeep
+# review/debug artifacts
+tmp/review/

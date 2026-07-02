@@ -170,7 +170,7 @@
   \ExecuteOptionsBeamer{MintedStyle=lightmode}%
 \fi
 \if\EqualOptionsBeamer{BIBMode}{biber}%
-  \ExecuteOptionsBeamer{BIBStyle=numeric-comp}
+  \ExecuteOptionsBeamer{BIBStyle=biber-gb7714}
 \fi
 \ProcessOptionsBeamer
 
@@ -258,7 +258,13 @@
 \RequirePackage{tabularx}% tabularx: 智能表格环境.
 \if\EqualOptionsBeamer{BIBMode}{biber}%
   \PassOptionsToPackage{backend=biber}{biblatex}% 后端 biber 引擎.
-  \PassOptionsToPackage{style=numeric-comp,sorting=none,url=false,doi=false,isbn=false}{biblatex}%
+  \if\EqualOptionsBeamer{BIBStyle}{biber-gb7714}%
+    \PassOptionsToPackage{autolang=hyphen,%
+      style=gb7714-2015,%
+      gbalign=gb7714-2015,%
+      gbstyle=false, url=false, doi=false, isbn=false,%
+      sorting=none}{biblatex}%
+  \fi
   \RequirePackage{biblatex}% biblatex: 参考文献.
 \fi
 

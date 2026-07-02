@@ -49,7 +49,7 @@ git clone https://github.com/GtJerry111/bit_theme_beamer.git
 ```latex
 % !TeX encoding = UTF-8
 % !TeX TS-program = latexmk
-% UTF-8 格式 + latexmk 编译, 使用前请阅读用户手册!
+% UTF-8 格式 + latexmk 编译
 
 % ---------------- %
 %      导言区      %
@@ -225,7 +225,7 @@ latexmk -C exp.tex    # 清除指定文件的全部生成文件
 
 > **!! 注意事项:**
 > - 在线平台 (如 TeXPage, Overleaf) 编译时, 请上传整个工作文件夹, 否则可能出现因文件缺失导致的编译异常;
-> - 模板已内置丰富的配置选项, 建议先查阅用户手册 (配置选项见「基础设置」章节, 项目结构见「附录B」); 如确需修改 `.sty` 文件, 请先了解模板结构, 保留备份后参照文件内注释进行实验性修改;
+> - 模板已内置丰富的配置选项; 如确需修改 `.sty` 文件, 请先了解模板结构, 保留备份后参照文件内注释进行实验性修改;
 > - 推荐使用 `latexmk` 编译; 若无法使用 latexmk, 可在编辑器中配置编译引擎为 XeLaTeX, 参考文献引擎为 Biber, 并按 XeLaTeX → Biber → XeLaTeX → XeLaTeX 的顺序编译四轮.
 
 

@@ -12,16 +12,16 @@
 ![Issues](https://img.shields.io/github/issues-raw/GtJerry111/bit_theme_beamer?label=Issues)
 ![License](https://img.shields.io/badge/License-LPPL--1.3c-green)
 
-本项目参考了 Beamer、Tcolorbox 等官方文档，参考了 Stack Overflow 中的诸多问题。
+## 致谢
 
-BIT Beamer Theme 由 SCU Beamer Theme 派生而来, 保留了成熟的页眉页脚与版式节奏, 并替换为北京理工大学视觉识别、字体和示例内容。为保留来源脉络, 本仓库在文档中继续显示 `SCU-Version` 作为来源标识。
+本模板基于 [SCU Beamer Theme](https://github.com/FvNCCR228/SCU-Beamer-Theme) 开发，保留了其成熟的页眉页脚设计，并适配北京理工大学的视觉识别系统。
 
+同时感谢 [USTC Beamer Theme](https://github.com/ustctug/ustcbeamer) 和 [THU Beamer Theme](https://github.com/tuna/THU-Beamer-Theme) 提供的设计参考。
 
-<img width="750" alt="image" src="./docs/assert/assert-1.png" />
+## 预览
 
-<img width="750" alt="image" src="./docs/assert/assert-2.png" />
-
-<img width="750" alt="image" src="./docs/assert/assert-10.png" />
+<img width="750" alt="封面页" src="./docs/assert/cover-page.png" />
+<img width="750" alt="内容页" src="./docs/assert/content-page.png" />
 
 ## 编译依赖
 
@@ -53,7 +53,7 @@ git clone https://github.com/GtJerry111/bit_theme_beamer.git
 
 ### 2. 创建主 `.tex` 文件
 
-「以下假设主文件命名为 `exp.tex` 」创建方式有两种:
+「以下假设主文件命名为 `exp.tex`」创建方式有两种:
 
 - **基于 MWE 修改:** 展开下方 MWE (最小工作示例), 保存为 `exp.tex` 即可编译;
 - **参考示例:** 直接参考仓库中的 `main.tex` 或 `main-en.tex` 示例文件创建 `exp.tex`.
@@ -268,19 +268,37 @@ latexmk -C exp.tex    # 清除指定文件的全部生成文件
 3. 在项目目录下启动 Claude Code, 输入 `/beamer-bit` 或用自然语言描述需求即可触发 Skill (如 "帮我用 BIT beamer 做一个答辩 Slides")
 
 
+## 论文转 Slides (paper2beamer)
+
+本模板已适配 [paper2beamer](https://github.com/Haouo/PaperTalk-IR-Skills) 工具，可将学术论文 PDF 自动转换为 BIT 风格的 Beamer 幻灯片。
+
+### 使用方法
+
+1. 安装 paper2beamer skill
+2. 在项目中创建 `isa/BIT.yaml` 配置文件（已包含在本仓库中）
+3. 运行转换命令
+
+```bash
+# 示例：将论文 PDF 转换为 BIT 风格的 slides
+paper2beamer paper.pdf --theme BIT
+```
+
+`isa/BIT.yaml` 定义了 BIT 模板的主题配置，包括颜色方案、字体设置、定理环境等，确保生成的 slides 符合 BIT 视觉规范。
+
+
 ## 模板设计
 
 ### 背景
 
 封面与正文板块采用不同背景, 正文背景采用低透明度淡色, 增强正文文本等辨识性; verify 仅用于封面页, 不参与小节目录背景或页脚装饰.
-	
+
 ### 页眉
 
 采用双行设计;
 
-首行为节标题导航栏, 显示幻灯整体思路, 还附带北京理工大学校名; 
+首行为节标题导航栏, 显示幻灯整体思路, 还附带北京理工大学校名;
 
-次行为标题栏, 左侧显示小节标题与迷你帧(圆点)形式的当前小节帧进度}, 右侧显示当前幻灯标题. (编者认为小节迷你帧能在较清晰呈现进度的同时, 节约大量空间, 也能避免某节中幻灯页数过多, 导致标题导航挤压溢出)
+次行为标题栏, 左侧显示小节标题与迷你帧(圆点)形式的当前小节帧进度, 右侧显示当前幻灯标题. (编者认为小节迷你帧能在较清晰呈现进度的同时, 节约大量空间, 也能避免某节中幻灯页数过多, 导致标题导航挤压溢出)
 
 ### 页脚
 
@@ -290,12 +308,18 @@ latexmk -C exp.tex    # 清除指定文件的全部生成文件
 
 ### 环境
 
-模板定义了定理, 代码等多种环境演示.
+模板定义了丰富的环境支持:
+
+- **14 个定理环境**：theorem, lemma, corollary, proposition, definition, property, example, remark, algorithm, proof, axiom, condition, conclusion, assumption
+- **代码高亮**：支持 listing（默认）和 minted（需安装 Pygments）两种高亮引擎
+- **多种字体方案**：Auto（自动检测）、Ubuntu、Win、Mac、Fandol、Source-Han、ZhongYi 等
+- **双栏目录**：支持 `\tableofcontents` 双栏显示
+- **Overlay 动画**：支持 `\pause`、`\only`、`\onslide` 等逐步展示效果
 
 
 ### 关于修改
 
-若有修改意见欢迎邮件联系编者, 当然, 编者不一定有时间, 请谅解.
+若有修改意见欢迎邮件联系编者: zirui.chen1214@qq.com
 
 若本校的 LaTeX 大佬百忙之中能对本模板提出批评指正, 鄙人在此万分感谢各位的支持.
 

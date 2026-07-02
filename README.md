@@ -18,9 +18,10 @@ BIT Beamer Theme 由 SCU Beamer Theme 派生而来, 保留了成熟的页眉页�
 
 
 <img width="750" alt="image" src="./docs/assert/assert-1.png" />
-<img width="750" alt="image" src="https://github.com/user-attachments/assets/a9c2518c-c3f6-4298-86d3-376833a110e5" />
-<img width="750" alt="image" src="https://github.com/user-attachments/assets/5086df2b-462a-44bd-be9c-a897655eb7dd" />
 
+<img width="750" alt="image" src="./docs/assert/assert-2.png" />
+
+<img width="750" alt="image" src="./docs/assert/assert-10.png" />
 
 ## 编译依赖
 

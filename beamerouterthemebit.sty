@@ -36,6 +36,12 @@
 % KEY:: LogoWidth.
 % VALUE:: <dimen>.
 \DeclareOptionBeamer{LogoWidth}{\def\beamer@bit@LogoWidth{#1}}
+% KEY:: SectionNavStyle.
+% VALUE:: full | current | none.
+\DeclareOptionBeamer{SectionNavStyle}{\def\beamer@bit@SectionNavStyle{#1}}
+% KEY:: SecBarWidth.
+% VALUE:: <dimen>.
+\DeclareOptionBeamer{SecBarWidth}{\def\beamer@bit@SecBarWidth{#1}}
 
 \ExecuteOptionsBeamer{%
   Miniframes=follow,%
@@ -89,11 +95,7 @@
 \bit@wd@headlineskip=9pt
 % DIMEN:: 章节导航栏宽度 - wd@secbar.
 \newdimen\bit@wd@secbar
-\if\EqualOptionsBeamer{LanguageMode}{cn}%
-  \bit@wd@secbar=0.64\paperwidth%
-\else\if\EqualOptionsBeamer{LanguageMode}{en}%
-  \bit@wd@secbar=0.52\paperwidth%
-\fi\fi
+\bit@wd@secbar=\beamer@bit@SecBarWidth\relax
 % DIMEN:: 小节-标题分隔线宽度 - wd@sectotitleline.
 \newdimen\bit@wd@sectotitleline
 \bit@wd@sectotitleline=\dimexpr\the\paperwidth-\bit@wd@secbar-30pt\relax
@@ -159,11 +161,13 @@
   % #1:: en LanguageMode 下尾部距离.
   \usebeamerfont{section in head/foot}%
   \usebeamercolor[fg]{section in head/foot}%
-  \if\EqualOptionsBeamer{LanguageMode}{cn}%
+  \if\EqualOptionsBeamer{SectionNavStyle}{full}%
     \insertsectionnavigationhorizontal{\bit@wd@secbar}{}{}%
-  \else\if\EqualOptionsBeamer{LanguageMode}{en}%
+  \else\if\EqualOptionsBeamer{SectionNavStyle}{current}%
     \insertsectionhead\hspace*{#1}%
-  \fi\fi%
+  \else\if\EqualOptionsBeamer{SectionNavStyle}{none}%
+    \relax%
+  \fi\fi\fi%
 }
 
 % 插入小节标题.

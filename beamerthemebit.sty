@@ -145,6 +145,12 @@
 \DeclareOptionBeamer{overflowguard}{%
   \ifstrequal{#1}{on}{\beamer@bit@overflowguardtrue}{\beamer@bit@overflowguardfalse}%
 }
+% KEY:: SectionNavStyle [PASSTO:: beamerouterthemebit.sty].
+% VALUE:: full | current | none.
+\DeclareOptionBeamer{SectionNavStyle}{\PassOptionsToPackage{SectionNavStyle={#1}}{beamerouterthemebit}}
+% KEY:: SecBarWidth [PASSTO:: beamerouterthemebit.sty].
+% VALUE:: <dimen> | auto.
+\DeclareOptionBeamer{SecBarWidth}{\PassOptionsToPackage{SecBarWidth={#1}}{beamerouterthemebit}}
 
 \ExecuteOptionsBeamer{%
   ColorDisplay=BITA,%
@@ -160,7 +166,9 @@
   ContentMuticols=true,%
   Background=BIT-Full,%
   VI=BIT,%
-  overflowguard=off%
+  overflowguard=off,
+  SectionNavStyle=full,
+  SecBarWidth=0.4\paperwidth%
 }
 \ProcessOptionsBeamer
 \if\EqualOptionsBeamer{CodeTheme}{minted}%
@@ -306,12 +314,18 @@
 % Custom:: 用户通过 \beamer@bit@backgroundextend 自行设置.
 % ----------------
 % 设置图片路径宏.
+% Resource path resolution: try ./resources/ first, then fall back to bare filename
+% (which TeX will search via TEXINPUTS / \input@path).
+\newcommand{\bit@def@resource}[2]{%
+  % #1 = control sequence to define, #2 = resource filename
+  \IfFileExists{./resources/#2}{\def#1{./resources/#2}}{\def#1{#2}}%
+}
 \if\EqualOptionsBeamer{Background}{BIT-Full}%
-  \def\bit@path@bg{./resources/backgroundoftitlepage(Empty).png}% 空白背景图.
-  \def\bit@path@bgoftitle{./resources/backgroundoftitlepage(Empty).png}% 空白背景图.
-  \def\bit@path@bgofsubsectoc{./resources/backgroundofsubsectiontocpage.png}% 小节目录背景图.
+  \bit@def@resource\bit@path@bg{backgroundoftitlepage(Empty).png}% 空白背景图.
+  \bit@def@resource\bit@path@bgoftitle{backgroundoftitlepage(Empty).png}% 空白背景图.
+  \bit@def@resource\bit@path@bgofsubsectoc{backgroundofsubsectiontocpage.png}% 小节目录背景图.
 \else\if\EqualOptionsBeamer{Background}{BIT-Lite}%
-  \def\bit@path@bgoftitle{./resources/backgroundoftitlepage(Empty).png}%
+  \bit@def@resource\bit@path@bgoftitle{backgroundoftitlepage(Empty).png}%
 \else\if\EqualOptionsBeamer{Background}{Custom}%
   \relax%
 \else\if\EqualOptionsBeamer{Background}{none}%
@@ -329,7 +343,8 @@
 \ifcsname bit@path@bgofsubsectoc\endcsname%
   \pgfdeclareimage[width=\paperwidth]{bgofsubsectoc}{\bit@path@bgofsubsectoc}%
 \fi
-\pgfdeclareimage[width=.24\paperwidth]{emblem}{./resources/BITemblem.png}%
+\bit@def@resource\bit@tmp@emblem{BITemblem.png}%
+\pgfdeclareimage[width=.24\paperwidth]{emblem}{\bit@tmp@emblem}%
 \addtobeamertemplate{background}{%
   \ifbeamer@plainframe\else%
     \begin{tikzpicture}[remember picture,overlay]%
@@ -355,13 +370,17 @@
 % VI 视觉识别图像设置.
 \if\EqualOptionsBeamer{VI}{BIT}%
   % Logo:: BIT name.
-  \pgfdeclareimage[width=40pt]{lg}{./resources/BITname.pdf}%
+  \bit@def@resource\bit@tmp@lg{BITname.pdf}%
+  \pgfdeclareimage[width=40pt]{lg}{\bit@tmp@lg}%
   % Logo+Name:: BIT logo+name.
-  \pgfdeclareimage[height=36pt]{lg-name}{./resources/BITlogo+name.png}%
+  \bit@def@resource\bit@tmp@lgname{BITlogo+name.png}%
+  \pgfdeclareimage[height=36pt]{lg-name}{\bit@tmp@lgname}%
   % Landmark:: BIT building.
-  \pgfdeclareimage[width=.20\paperwidth]{landmark}{./resources/BITbuilding.png}%
+  \bit@def@resource\bit@tmp@landmark{BITbuilding.png}%
+  \pgfdeclareimage[width=.20\paperwidth]{landmark}{\bit@tmp@landmark}%
   % Verify:: cover page only.
-  \pgfdeclareimage[height=110pt]{verify}{./resources/BITverify.png}
+  \bit@def@resource\bit@tmp@verify{BITverify.png}%
+  \pgfdeclareimage[height=110pt]{verify}{\bit@tmp@verify}
 \else\if\EqualOptionsBeamer{VI}{Custom}%
   \ifcsname beamer@bit@viextend\endcsname%
     \beamer@bit@viextend%

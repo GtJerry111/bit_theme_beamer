@@ -385,6 +385,82 @@ A: 检查 frame 中是否使用了大量 overlay（`\item<1->` 等）。每个 o
 - **Overlay 动画**：支持 `\pause`、`\only`、`\onslide` 等逐步展示效果
 
 
+### 资源文件部署
+
+BIT Beamer 主题需要 `resources/` 和 `image/` 目录中的图片资源来渲染封面页、背景和视觉识别元素。
+
+**问题：** `\pgfdeclareimage` 不遵循 `\graphicspath`。从子目录编译时，硬编码的 `./resources/...` 路径会解析到错误位置。
+
+**三种解决方案：**
+
+1. **复制资源到项目目录**（最简单）
+   ```bash
+   cp -r /path/to/bit_beamer_theme/resources ./
+   cp -r /path/to/bit_beamer_theme/image ./
+   ```
+
+2. **使用 TEXINPUTS 环境变量**
+   ```bash
+   export TEXINPUTS="/path/to/bit_beamer_theme//:./"
+   latexmk main.tex
+   ```
+   `//` 后缀告诉 TeX 递归搜索子目录。主题的 `\bit@def@resource` 宏首先检查 `./resources/`（本地），然后回退到裸文件名，TeX 会通过 `TEXINPUTS` 找到它。
+
+3. **安装到 TeX 树**（适合重复使用）
+   ```bash
+   ./scripts/install-resources.sh
+   sudo mktexlsr  # 更新 TeX 文件数据库
+   ```
+   这将资源安装到 `$TEXMF_HOME/tex/latex/bit-beamer-theme/resources/`，使所有项目无需逐项目复制即可使用。
+
+**故障排除：** 如果出现 "I can't find image file" 错误，请验证 `resources/` 和 `image/` 目录存在于项目根目录，或设置 `TEXINPUTS`，或运行 `scripts/install-resources.sh`。
+
+### SectionNavStyle 选项
+
+`SectionNavStyle` 选项控制页眉中章节导航的显示方式。它独立于 `LanguageMode`，后者现在仅控制文本本地化（日期格式、目录标题等）。
+
+**用法：**
+```latex
+\usetheme[SectionNavStyle=full]{bit}    % 默认
+\usetheme[SectionNavStyle=current]{bit}
+\usetheme[SectionNavStyle=none]{bit}
+```
+
+| 模式 | 行为 |
+|------|------|
+| `full` | 在页眉中显示所有章节名称，用 PrimaryC 背景高亮当前章节 |
+| `current` | 仅显示当前章节名称 |
+| `none` | 完全隐藏章节导航 |
+
+**默认值：** `SectionNavStyle=full` — 匹配之前的 `LanguageMode=cn` 行为。
+
+**向后兼容性：** 之前，`LanguageMode=cn` 显示完整章节导航，`LanguageMode=en` 仅显示当前章节。现在：
+- `LanguageMode` 仅控制文本本地化（中文字符串 vs 英文字符串）
+- `SectionNavStyle` 控制导航渲染
+
+默认 `SectionNavStyle=full` 保留之前的中文模式行为。偏好英文模式导航样式的用户可以设置 `SectionNavStyle=current`。
+
+### SecBarWidth 选项
+
+章节栏宽度可以独立配置：
+
+```latex
+\usetheme[SecBarWidth=0.4\paperwidth]{bit}   % 默认
+\usetheme[SecBarWidth=0.3\paperwidth]{bit}   % 更窄
+```
+
+默认值为 `0.4\paperwidth`。当有多个章节且名称较长时使用更宽的值。
+
+### overflowguard 选项
+
+`overflowguard` 选项用于 paper2beamer 集成和密集幻灯片：
+
+```latex
+\usetheme[overflowguard=on]{bit}
+```
+
+启用时，主题会对帧内容应用溢出保护，防止内容超出帧边界。这对于自动生成的幻灯片特别有用，因为内容密度可能不可预测。
+
 ### 关于修改
 
 若有修改意见欢迎邮件联系编者: zirui.chen1214@qq.com
@@ -397,6 +473,14 @@ A: 检查 frame 中是否使用了大量 overlay（`\item<1->` 等）。每个 o
 
 
 ## 更新记录
+
+### v2.1h (2026-07-03)
+- 修复当前章节在页眉中未高亮的问题：添加 `section in head/foot highlighted` 颜色定义
+- 修复资源路径解析问题：使用 `\bit@def@resource` 在定义时解析路径，支持从子目录编译
+- 解耦 `LanguageMode` 与章节导航样式：新增 `SectionNavStyle` 选项（full/current/none）
+- 新增 `SecBarWidth` 选项：可配置章节栏宽度
+- 添加 `scripts/install-resources.sh`：将资源安装到 TeX 树
+- 完善文档：添加资源部署指南、SectionNavStyle 说明、overflowguard 说明
 
 ### v2.1g (2026-06-26)
 - 重新设计封面底栏图形与标题布局

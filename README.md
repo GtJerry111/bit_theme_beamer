@@ -3,11 +3,8 @@
 [![GitHub stars](https://img.shields.io/github/stars/GtJerry111/bit_theme_beamer?style=social)](https://github.com/GtJerry111/bit_theme_beamer)
 [![GitHub forks](https://img.shields.io/github/forks/GtJerry111/bit_theme_beamer?style=social)](https://github.com/GtJerry111/bit_theme_beamer)
 [![LaTeX](https://img.shields.io/badge/-LaTeX%20Beamer-008080?logo=latex&logoColor=white&style=flat)](https://www.latex-project.org/)
-[![知乎](https://img.shields.io/badge/-知乎-0066FF?logo=zhihu&logoColor=white&style=flat)](https://www.zhihu.com/column/c_1498346349729361920)
-[![TeXPage](https://img.shields.io/badge/-TeXPage-2e5090?logo=tex&logoColor=white&style=flat)](https://www.texpage.com/zh/template/91b96607-7702-4a85-b696-658d260db5b9)
-
 ![Version](https://img.shields.io/github/v/release/GtJerry111/bit_theme_beamer?label=Version)
-[![Skill](https://img.shields.io/badge/Skill-beamer--bit-blue)](https://github.com/GtJerry111/bit_theme_beamer/tree/skill)
+[![Skill](https://img.shields.io/badge/Skill-beamer--bit-blue)](https://github.com/GtJerry111/bit_theme_beamer)
 ![Discussions](https://img.shields.io/github/discussions/GtJerry111/bit_theme_beamer?label=Discussions)
 ![Issues](https://img.shields.io/github/issues-raw/GtJerry111/bit_theme_beamer?label=Issues)
 ![License](https://img.shields.io/badge/License-LPPL--1.3c-green)

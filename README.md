@@ -269,26 +269,67 @@ latexmk -C exp.tex    # 清除指定文件的全部生成文件
 
 本模板已适配 [paper2beamer](https://github.com/Haouo/PaperTalk-IR-Skills) 工具，可将学术论文 PDF 自动转换为 BIT 风格的 Beamer 幻灯片。
 
-### 使用方法
+### 前置条件
 
-1. 安装 paper2beamer skill
-2. 运行安装脚本，将本仓库的 BIT ISA 链接到 paper2beamer：
+- **paper2beamer skill**：需要在 Codex 中安装 paper2beamer skill。参考 [PaperTalk-IR-Skills](https://github.com/Haouo/PaperTalk-IR-Skills) 仓库。
+- **编译工具链**：`xelatex`、`latexmk`、`uv` 需在 PATH 中可用。
+- **BIT 主题**：本仓库即为 BIT 主题源码。
+
+### 安装与集成
+
+在 `bit_beamer_theme` 仓库根目录下运行安装脚本：
 
 ```bash
-# 在 bit_beamer_theme 仓库根目录下执行
 ./docs/setup-paper2beamer.sh
 ```
 
-此脚本会创建符号链接，使 paper2beamer 自动使用本仓库的 `isa/BIT.yaml`。之后任何对 ISA 的更新都会立即生效，无需手动同步。
+**脚本做了什么：**
 
-3. 运行转换命令
+1. 检测 paper2beamer 的 ISA 目录（默认 `~/.cc-switch/skills/paper2beamer/isa/`）
+2. 将本仓库的 `isa/BIT.yaml` 通过符号链接（symlink）链接到该目录
+3. 如果目标已存在旧文件，先删除再创建链接
 
-```bash
-# 示例：将论文 PDF 转换为 BIT 风格的 slides
-paper2beamer paper.pdf --theme BIT
+**效果：** paper2beamer 在生成 slides 时会读取本仓库的 `isa/BIT.yaml`，获取 BIT 主题的完整配置信息。由于使用符号链接，本仓库的 ISA 更新后 paper2beamer 自动生效，无需手动同步。
+
+### 使用流程
+
+1. **在 Codex 中启动对话**，输入类似指令：
+
+```
+使用 paper2beamer 将 paper.pdf 转换为 BIT 主题的 slides。
+15 分钟的 talk，中文。
 ```
 
-`isa/BIT.yaml` 定义了 BIT 模板的主题配置，包括自动封面行为、必需宏包、推荐选项、overlay 页数预算等，确保生成的 slides 符合 BIT 视觉规范。
+2. **paper2beamer pipeline 自动执行：**
+   - Intent 阶段：根据你的描述确定页数预算（考虑 overlay 膨胀）
+   - Ingest 阶段：Docling 提取论文内容和图片
+   - Narrative IR → Slide IR → Emission → Compile
+
+3. **验证生成的 slides：**
+
+```bash
+# 检查生成的 main.tex 是否包含必需的宏包
+grep -c "\\\\usepackage" slides/<slug>/build/preamble.tex
+
+# 检查是否设置了推荐选项
+grep "NavigationTool" slides/<slug>/build/preamble.tex
+
+# 编译并检查页数
+cd slides/<slug> && latexmk main.tex
+grep "Output written" main.log
+```
+
+### BIT ISA 提供的配置
+
+`isa/BIT.yaml` 的 `prose` 字段包含以下关键指导：
+
+| Section | 作用 |
+|---------|------|
+| 自动封面 | BIT 通过 `\AtBeginDocument` 自动生成封面，pipeline 不应生成 S00 title frame |
+| 必需的宏包 | 列出 13 个必需 `\usepackage`，确保 preamble 完整 |
+| 推荐的 \usetheme 选项 | 推荐 `NavigationTool=1-2-3`、`BIBMode=none` 等 |
+| 帧密度与页数预算 | 说明 overlay 膨胀因子，页数按 PDF 物理页计算 |
+| 图片命名 | 建议将 Docling 哈希文件名重命名为 `figure-NNN.png` |
 
 ### 自定义 paper2beamer ISA 路径
 
@@ -297,6 +338,20 @@ paper2beamer paper.pdf --theme BIT
 ```bash
 PAPER2BEAMER_ISA=/path/to/paper2beamer/isa ./docs/setup-paper2beamer.sh
 ```
+
+### 故障排除
+
+**Q: 运行脚本提示 "Operation not permitted"**
+A: 检查 paper2beamer ISA 目录的写权限。如果是 Codex skill 目录，可能需要在终端中手动运行。
+
+**Q: 生成的 slides 封面是白底**
+A: 确认 `isa/BIT.yaml` 已正确链接。运行 `ls -l ~/.cc-switch/skills/paper2beamer/isa/BIT.yaml` 检查符号链接是否指向本仓库。
+
+**Q: 编译报错 `\beamer@bit@authorbox already defined`**
+A: 确认使用的是最新版本的 `beamerinnerthemebit.sty`（已修复此 bug）。
+
+**Q: 页数远超预期（如 15 分钟 talk 生成了 46 页）**
+A: 检查 frame 中是否使用了大量 overlay（`\item<1->` 等）。每个 overlay 产生一个独立 PDF 页。ISA 已包含 overlay 膨胀说明，agent 应在 Intent 阶段考虑此因素。
 
 
 ## 模板设计

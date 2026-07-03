@@ -65,10 +65,10 @@
 \bit@wd@titlesep=.08\paperwidth
 
 % 封面样式定义.
+\newsavebox{\beamer@bit@authorbox}
 \defbeamertemplate*{title page}{BIT title page theme}{%
   \begin{beamercolorbox}[wd=\paperwidth,ht=\paperheight]{}%
-    % Author savebox.
-    \newsavebox{\beamer@bit@authorbox}%
+    % Author savebox (defined once above, reused here).
     \sbox{\beamer@bit@authorbox}{\parbox{\bit@wd@author}{%
       \setlength{\baselineskip}{10pt}%
       {\usebeamerfont{author}\insertauthor\par}%

@@ -71,6 +71,37 @@ structural_idioms:
 prose: |
   BIT Beamer Theme 是北京理工大学的专属模板。默认语言为中文（LanguageMode=cn），仅在用户明确要求时才切换为英文（LanguageMode=en）。
 
+  ## 自动封面（重要）
+  BIT 主题在 \AtBeginDocument 中自动生成封面页（使用 \titlepage 和完整的 BIT 视觉设计：校徽、装饰曲线、背景）。
+  因此：
+  - order.txt 中 **不要** 包含 title frame（S00）
+  - 第一个 frame 应该是第一个内容帧（如报告提纲）
+  - 不要在 frame 中手动构建封面布局
+  - 不要使用 \titlepage 命令（会导致 \newsavebox 重复定义错误）
+  - 只需在 preamble 中正确设置 \title、\author、\institute、\date 即可
+
+  ## 必需的宏包
+  以下宏包是 BIT 主题正常运作所必需的，必须在 preamble 中加载（在 \usetheme 之后、\begin{document} 之前）：
+  \usepackage{array}
+  \usepackage{algorithm,algorithmic}
+  \usepackage[english]{babel}
+  \usepackage{color}
+  \usepackage{url}
+  \usepackage{multicol,multirow}
+  \usepackage{ulem}
+  \usepackage{booktabs}
+  \usepackage{cprotect}
+  \usepackage{makecell}
+  \usepackage{listings}
+  \usepackage{subcaption}
+  \usepackage{varioref,cleveref}
+
+  ## 推荐的 \usetheme 选项
+  以下选项推荐在 paper2beamer 生成的 deck 中使用：
+  - NavigationTool=1-2-3：显示页脚导航工具栏（前进/后退/首页等）
+  - BIBMode=none：paper2beamer 不生成参考文献，避免 biber 依赖
+  - Background=BIT-Full：使用完整背景设计
+
   ## 编译约束
   编译前必须在 \documentclass 之前添加：
     \PassOptionsToPackage{cmyk}{xcolor}
@@ -90,7 +121,18 @@ prose: |
   永远使用 BIT 专属环境：bitcode、bitcode*、bitcodeinput、bitcodeinputnocounter。默认 CodeTheme=listing，不需要 -shell-escape。仅在用户明确要求时才切换为 minted。
 
   ## 参考文献
-  默认使用 BIBMode=biber + BIBStyle=biber-gb7714（GB/T 7714-2015 国标）。
+  默认使用 BIBMode=biber + BIBStyle=biber-gb7714（GB/T 7714-2015 国标）。paper2beamer 生成的 deck 建议设置 BIBMode=none。
 
-  ## 帧密度
+  ## 帧密度与页数预算
   每帧保持一个核心观点。节标题控制在 20 字符以内。每个 block 必须有标题。
+
+  **Overlay 膨胀：** Beamer overlay specs（<1->, <2-> 等）每个产生一个独立的 PDF 页。
+  在估算页数时，需要考虑 overlay 膨胀：
+  - 一个包含 5 个 \item<1-> 的 frame 产生 5 个 PDF 页，不是 1 个
+  - overlay_page_multiplier ≈ 1.0（每个 overlay spec 约产生 1 个额外 PDF 页）
+  - 页数预算指的是 **物理 PDF 页数**，不是逻辑帧数
+  - 15 分钟的 talk → 12-18 个 PDF 页（不是 12-18 个逻辑帧）
+
+  ## 图片命名
+  Docling 提取的图片使用哈希命名（如 image_000000_0d1f7423...png），在 LaTeX 中引用时行过长。
+  建议在 ingest 后处理中将图片重命名为 figure-001.png、figure-002.png 等格式，并同步更新 paper-content.md 中的引用。

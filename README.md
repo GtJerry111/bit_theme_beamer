@@ -272,7 +272,15 @@ latexmk -C exp.tex    # 清除指定文件的全部生成文件
 ### 使用方法
 
 1. 安装 paper2beamer skill
-2. 在项目中创建 `isa/BIT.yaml` 配置文件（已包含在本仓库中）
+2. 运行安装脚本，将本仓库的 BIT ISA 链接到 paper2beamer：
+
+```bash
+# 在 bit_beamer_theme 仓库根目录下执行
+./docs/setup-paper2beamer.sh
+```
+
+此脚本会创建符号链接，使 paper2beamer 自动使用本仓库的 `isa/BIT.yaml`。之后任何对 ISA 的更新都会立即生效，无需手动同步。
+
 3. 运行转换命令
 
 ```bash
@@ -280,7 +288,15 @@ latexmk -C exp.tex    # 清除指定文件的全部生成文件
 paper2beamer paper.pdf --theme BIT
 ```
 
-`isa/BIT.yaml` 定义了 BIT 模板的主题配置，包括颜色方案、字体设置、定理环境等，确保生成的 slides 符合 BIT 视觉规范。
+`isa/BIT.yaml` 定义了 BIT 模板的主题配置，包括自动封面行为、必需宏包、推荐选项、overlay 页数预算等，确保生成的 slides 符合 BIT 视觉规范。
+
+### 自定义 paper2beamer ISA 路径
+
+如果 paper2beamer 安装在非默认位置，可以通过环境变量指定：
+
+```bash
+PAPER2BEAMER_ISA=/path/to/paper2beamer/isa ./docs/setup-paper2beamer.sh
+```
 
 
 ## 模板设计

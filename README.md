@@ -89,6 +89,9 @@ git clone https://github.com/GtJerry111/bit_theme_beamer.git
 	% BIBStyle=, % biber-gb7714 ⚙️ → 参考文献样式设置 (设置 BIBMode=none 时无效)
 	% ContentMuticols=, % true ⚙️ | false → 目录帧双栏显示设置
 	% Background=, % BIT-Full ⚙️ | BIT-Lite | Custom | none → 背景显示设置
+	% SectionNavStyle=, % full ⚙️ | current | none → 页眉章节导航样式
+	% SecBarWidth=, % 0.4\paperwidth ⚙️ | <dimen> → 章节栏宽度
+	% overflowguard=, % off ⚙️ | on → 溢出保护 (paper2beamer 集成)
 ]{bit}
 
 % -------- Packages --------

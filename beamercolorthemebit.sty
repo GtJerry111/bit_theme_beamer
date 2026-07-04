@@ -30,8 +30,11 @@
 % KEY:: ColorDisplay.
 % VALUE:: BITA | BITB | Custom.
 \DeclareOptionBeamer{ColorDisplay}{\def\beamer@bit@ColorDisplay{#1}}
+% KEY:: ShadedIntensity.
+% VALUE:: <percent> (default: 60).
+\DeclareOptionBeamer{ShadedIntensity}{\def\beamer@bit@ShadedIntensity{#1}}
 
-\ExecuteOptionsBeamer{ColorDisplay=BITA}
+\ExecuteOptionsBeamer{ColorDisplay=BITA, ShadedIntensity=60}
 \ProcessOptionsBeamer
 % ----------------
 
@@ -213,6 +216,10 @@
 \setbeamercolor{author in head/foot}     {parent=palette secondary}
 \setbeamercolor{title in head/foot}      {parent=structure}
 \setbeamercolor{framenumber in head/foot}{parent=structure}
+
+% 自定义 TOC 中未选中项的灰色强度
+% 默认使用 60% 前景色 + 40% 背景色，比 Beamer 默认的 30% 更明显
+\setbeamercolor{beamer@shaded}{fg=NormalTextC!\beamer@bit@ShadedIntensity!BackgroundC}
 
 % 封页颜色设置.
 \setbeamercolor{title}          {bg=BackgroundC, fg=PrimaryC}

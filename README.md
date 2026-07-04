@@ -88,6 +88,8 @@ git clone https://github.com/GtJerry111/bit_theme_beamer.git
 	% BIBMode=, % biber ⚙️ | none → 参考文献引擎设置
 	% BIBStyle=, % biber-gb7714 ⚙️ → 参考文献样式设置 (设置 BIBMode=none 时无效)
 	% ContentMuticols=, % true ⚙️ | false → 目录帧双栏显示设置
+	% ShadedIntensity=, % 60 ⚙️ → TOC 灰色强度 (0-100)
+	% SubsectionTOC=, % on ⚙️ | off | first-only → 小节目录显示控制
 	% Background=, % BIT-Full ⚙️ | BIT-Lite | Custom | none → 背景显示设置
 	% SectionNavStyle=, % full ⚙️ | current | none → 页眉章节导航样式
 	% SecBarWidth=, % 0.4\paperwidth ⚙️ | <dimen> → 章节栏宽度
@@ -454,6 +456,46 @@ BIT Beamer 主题需要 `resources/` 和 `image/` 目录中的图片资源来渲
 
 默认值为 `0.4\paperwidth`。当有多个章节且名称较长时使用更宽的值。
 
+### ContentMuticols 选项
+
+控制目录是否双栏显示。
+
+```latex
+\usetheme[ContentMuticols=true]{bit}  % 双栏（默认）
+\usetheme[ContentMuticols=false]{bit} % 单栏
+```
+
+**默认值：** `ContentMuticols=true` — 启用双栏目录显示。
+
+### ShadedIntensity 选项
+
+`ShadedIntensity` 选项控制目录中未选中章节的灰色强度（0-100）。
+
+```latex
+\usetheme[ShadedIntensity=60]{bit}  % 60% 灰色（默认）
+\usetheme[ShadedIntensity=80]{bit}  % 80% 灰色（更明显）
+```
+
+**默认值：** `ShadedIntensity=60` — 比 Beamer 默认的 30% 更清晰可读。
+
+### SubsectionTOC 选项
+
+`SubsectionTOC` 选项控制小节目录的显示行为。
+
+```latex
+\usetheme[SubsectionTOC=on]{bit}         % 每个小节显示 TOC（默认）
+\usetheme[SubsectionTOC=off]{bit}        % 不显示小节 TOC
+\usetheme[SubsectionTOC=first-only]{bit} % 只在第一个小节显示 TOC
+```
+
+| 模式 | 行为 |
+|------|------|
+| `on` | 每个小节开始都显示目录（默认行为） |
+| `off` | 不显示小节目录 |
+| `first-only` | 只在第一个小节显示目录 |
+
+**默认值：** `SubsectionTOC=on` — 保持原有行为。
+
 ### overflowguard 选项
 
 `overflowguard` 选项用于 paper2beamer 集成和密集幻灯片：
@@ -463,6 +505,13 @@ BIT Beamer 主题需要 `resources/` 和 `image/` 目录中的图片资源来渲
 ```
 
 启用时，主题会对帧内容应用溢出保护，防止内容超出帧边界。这对于自动生成的幻灯片特别有用，因为内容密度可能不可预测。
+
+### 示例
+
+更多示例见 [docs/examples/](docs/examples/) 目录：
+- [multi-column-toc.tex](docs/examples/multi-column-toc.tex) - 双栏目录
+- [custom-shaded.tex](docs/examples/custom-shaded.tex) - 自定义灰色强度
+- [subsection-toc-control.tex](docs/examples/subsection-toc-control.tex) - 小节目录控制
 
 ### 关于修改
 
@@ -476,6 +525,11 @@ BIT Beamer 主题需要 `resources/` 和 `image/` 目录中的图片资源来渲
 
 
 ## 更新记录
+
+### v2.1i (2026-07-04)
+- 新增 `ShadedIntensity` 选项：控制 TOC 中未选中项的灰色强度（默认 60，比 Beamer 默认的 30% 更清晰）
+- 新增 `SubsectionTOC` 选项：控制小节目录显示行为（on/off/first-only）
+- 添加示例文件：`docs/examples/` 目录包含双栏目录、灰色强度、小节目录控制示例
 
 ### v2.1h (2026-07-03)
 - 修复当前章节在页眉中未高亮的问题：添加 `section in head/foot highlighted` 颜色定义

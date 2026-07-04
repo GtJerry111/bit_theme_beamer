@@ -100,6 +100,9 @@
 % KEY:: ColorDisplay [PASSTO:: beamercolorthemebit.sty].
 % VALUE:: BITA | BITB.
 \DeclareOptionBeamer{ColorDisplay}{\PassOptionsToPackage{ColorDisplay={#1}}{beamercolorthemebit}}
+% KEY:: ShadedIntensity [PASSTO:: beamercolorthemebit.sty].
+% VALUE:: <percent> (default: 60).
+\DeclareOptionBeamer{ShadedIntensity}{\PassOptionsToPackage{ShadedIntensity={#1}}{beamercolorthemebit}}
 % KEY:: BlockDisplay.
 % VALUE:: colorful | followtheme | allgrey.
 \DeclareOptionBeamer{BlockDisplay}{\def\beamer@bit@BlockDisplay{#1}}
@@ -151,6 +154,9 @@
 % KEY:: SecBarWidth [PASSTO:: beamerouterthemebit.sty].
 % VALUE:: <dimen> | auto.
 \DeclareOptionBeamer{SecBarWidth}{\PassOptionsToPackage{SecBarWidth={#1}}{beamerouterthemebit}}
+% KEY:: SubsectionTOC.
+% VALUE:: on | off | first-only (default: on).
+\DeclareOptionBeamer{SubsectionTOC}{\def\beamer@bit@SubsectionTOC{#1}}
 
 \ExecuteOptionsBeamer{%
   ColorDisplay=BITA,%
@@ -168,6 +174,8 @@
   VI=BIT,%
   overflowguard=off,
   SectionNavStyle=full,
+  ShadedIntensity=60,%
+  SubsectionTOC=on,%
   SecBarWidth=0.4\paperwidth%
 }
 \ProcessOptionsBeamer
@@ -1258,25 +1266,52 @@
       subsubsectionstyle=show/shaded/hide]%
   \fi%
 }
-% 小节前加目录.
-\AtBeginSubsection[]{%
-  \begingroup%
-    \ifcsname bit@path@bgofsubsectoc\endcsname%
-      \setbeamertemplate{background}{\pgfuseimage{bgofsubsectoc}}%
-    \else%
-      \setbeamertemplate{background}{}%
-    \fi% 定义小节背景.
-    \if\EqualOptionsBeamer{LanguageMode}{cn}
-	    \begin{frame}{目录}
-	      \inserttableofcontent%
-	    \end{frame}
-    \else\if\EqualOptionsBeamer{LanguageMode}{en}
-	    \begin{frame}{Outline}
-	    	\inserttableofcontent%
-	    \end{frame}
-    \fi\fi
-  \endgroup%
-}
+% 小节前加目录 (SubsectionTOC 选项控制).
+\if\EqualOptionsBeamer{SubsectionTOC}{on}%
+  \AtBeginSubsection[]{%
+    \begingroup%
+      \ifcsname bit@path@bgofsubsectoc\endcsname%
+        \setbeamertemplate{background}{\pgfuseimage{bgofsubsectoc}}%
+      \else%
+        \setbeamertemplate{background}{}%
+      \fi%
+      \if\EqualOptionsBeamer{LanguageMode}{cn}
+	\begin{frame}{目录}
+	  \inserttableofcontent%
+	\end{frame}
+      \else\if\EqualOptionsBeamer{LanguageMode}{en}
+	\begin{frame}{Outline}
+	  \inserttableofcontent%
+	\end{frame}
+      \fi\fi
+    \endgroup%
+  }
+\else\if\EqualOptionsBeamer{SubsectionTOC}{first-only}%
+  \newif\ifbit@first@subsection
+  \bit@first@subsectiontrue
+  \AtBeginSubsection[]{%
+    \ifbit@first@subsection%
+      \begingroup%
+        \ifcsname bit@path@bgofsubsectoc\endcsname%
+          \setbeamertemplate{background}{\pgfuseimage{bgofsubsectoc}}%
+        \else%
+          \setbeamertemplate{background}{}%
+        \fi%
+        \if\EqualOptionsBeamer{LanguageMode}{cn}
+	\begin{frame}{目录}
+	  \inserttableofcontent%
+	\end{frame}
+        \else\if\EqualOptionsBeamer{LanguageMode}{en}
+	\begin{frame}{Outline}
+	  \inserttableofcontent%
+	\end{frame}
+        \fi\fi
+      \endgroup%
+      \bit@first@subsectionfalse%
+    \fi%
+  }
+\fi\fi
+% SubsectionTOC=off: 不注册任何 \AtBeginSubsection 钩子
 % ----------------
 
 

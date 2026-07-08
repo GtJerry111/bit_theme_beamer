@@ -296,3 +296,8 @@ tmp/plug/*
 !tmp/plug/.gitkeep
 # review/debug artifacts
 tmp/review/
+
+## AI agent files:
+AGENTS.md
+CLAUDE.md
+.superpowers/

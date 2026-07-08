@@ -1,0 +1,1426 @@
+% This is file `beamerthemebit.sty'.
+% Copyright (C) 2021-2026 by Zirui Chen.
+% Version: 2026/06/26 v2.1g (Original Version: 2021/11/30 v1.0a).
+%
+% This file may be distributed and/or modified
+%
+% 1. under the LaTeX Project Public License and/or
+% 2. under the GNU Public License.
+%
+% See the file doc/licenses/LICENSE for more details.
+%
+% Provide options:
+%   ColorDisplay = BITA | BITB | Custom
+%   BlockDisplay = colorful | followtheme | allgrey
+%   CodeTheme = listing | minted | minted2
+%   MintedStyle = lightmode | darkmode | <custom>
+%   LanguageMode = cn | en
+%   Miniframes = follow | separate | none
+%   NavigationTool = none | 1 | 2 | 3 | 1-2 | 1-3 | 2-3 | 1-2-3
+%   LogoWidth = <dimen> (default: 48pt)
+%   FontTheme = Auto | Ubuntu | Win | Mac | Fandol | Source-Han |
+%               Source-Han(Local) | ZhongYi(Local) | Custom
+%   MathFont = XITS | LM | <custom>
+%   BIBMode = biber | none
+%   BIBStyle = biber-gb7714 | <custom>
+%   ContentMuticols = true | false
+%   Background = BIT-Full | BIT-Lite | none | Custom
+%   VI = BIT | Custom
+%
+% 本文件为 BIT Beamer Theme 宏包文件.
+% !请勿轻易改动此文档中代码.
+%%%% ----------------------------------------------------------------
+\NeedsTeXFormat{LaTeX2e}[1995/12/01]
+\ProvidesPackage{beamerthemebit}[2026/06/26 v2.1g, BIT Beamer Theme(Main Theme)]
+%%%% ----------------------------------------------------------------
+
+
+% ----------------
+% Declare of Commands
+% Confirmed in v2.1g(2026/06/26).
+% Established in v1.3b(2022/04/13).
+% Updated in v1.3e(2024/10/31), v2.1b(2025/10/06), v2.1g(2026/06/26).
+% ----------------
+\def\mycopyright{\vspace{2ex}Copyright\enspace\copyright\enspace2021-2026 by LR Wu.}% 版权声明.
+\def\myestablish#1#2{Establish: \textcolor{bitc}{#1 (#2)}}
+\def\myupdate#1#2{Update: \textcolor{bitc}{#1 (#2)}}
+\def\kvtcb@label@sep{:}% tcolorbox 中 label 分隔符.
+
+% 定义执行命令. 修改自 sjtubeamer.
+\def\EqualOptionsBeamer{%
+  \relax\fi\ifEqualOptionsBeamer%
+}
+\def\ifEqualOptionsBeamer#1#2{%
+% #1:: Option - Key.
+% #2:: Option - Value.
+  \newif\ifoption@tmp%
+  \edef\optionkey@tmp{%
+    \csname beamer@bit@#1\endcsname%
+  }%
+  \edef\optionvalue@tmp{#2}%
+  \ifx\optionkey@tmp\optionvalue@tmp\option@tmptrue%
+  \else\option@tmpfalse\fi%
+  \ifoption@tmp%
+}
+
+% 定义命令写法. 修改自 lshort-zh-cn.
+\DeclareRobustCommand*\cmd[1]{\alert{\texttt{\char`\\#1}}}
+\DeclareRobustCommand*\env[1]{\alert{\texttt{#1}}}
+\DeclareRobustCommand*\pkg[1]{\alert{\textsf{#1}}}
+\DeclareRobustCommand*\cls[1]{\alert{\textsf{#1}}}
+\DeclareRobustCommand*\marg{\@ifstar\@marg\@margmeta}
+\DeclareRobustCommand*\oarg{\@ifstar\@oarg\@oargmeta}
+\DeclareRobustCommand*\Arg[1]{\@meta{#1}}
+\def\@oarg#1{\textcolor{bite}{\texttt{[#1]}}}
+\def\@oargmeta#1{\@oarg{\@meta{#1}}}
+\def\@marg#1{\texttt{\{#1\}}}
+\def\@margmeta#1{\@marg{\@meta{#1}}}
+\def\@meta#1{$\m@th\langle$\textnormal{\textit{#1}}$\m@th\rangle$}
+
+% 定义字体命令.
+\def\setfontbit#1{\fontsize{#1}{4}\selectfont}% 切换字号
+\def\mailbit#1{\hspace{.5em}$\m@th\langle\thinspace$\texttt{#1}$\thinspace\m@th\rangle$}% 封面邮箱
+% ----------------
+
+
+% ----------------
+% Declare of Options
+% Confirmed in v2.1e(2026/06/16).
+% Established in v1.0a(2021/12/03).
+% Updated in v1.1a(2021/12/31), v1.2a(2022/03/10), v1.3a(2022/03/16), v1.3b(2022/04/13), v1.3c(2024/04/16), v1.3d(2024/05/18), v1.3e(2024/10/31), v2.1b(2025/10/06), v2.1c(2026/05/20), v2.1d(2026/06/15), v2.1e(2026/06/16).
+% ----------------
+% CMD:: \DeclareOptionBeamer  - 声明参数.
+% CMD:: \ExecuteOptionsBeamer - 预执行参数.
+% CMD:: \ProcessOptionsBeamer - 处理参数.
+% ----------------
+% 定义新的 if.
+\newif\ifbeamer@bit@contentmuticols
+\newif\ifbeamer@bit@overflowguard
+
+% KEY:: ColorDisplay [PASSTO:: beamercolorthemebit.sty].
+% VALUE:: BITA | BITB.
+\DeclareOptionBeamer{ColorDisplay}{\PassOptionsToPackage{ColorDisplay={#1}}{beamercolorthemebit}}
+% KEY:: ShadedIntensity [PASSTO:: beamercolorthemebit.sty].
+% VALUE:: <percent> (default: 60).
+\DeclareOptionBeamer{ShadedIntensity}{\PassOptionsToPackage{ShadedIntensity={#1}}{beamercolorthemebit}}
+% KEY:: BlockDisplay.
+% VALUE:: colorful | followtheme | allgrey.
+\DeclareOptionBeamer{BlockDisplay}{\def\beamer@bit@BlockDisplay{#1}}
+% KEY:: CodeTheme.
+% VALUE:: listing | minted | minted2.
+\DeclareOptionBeamer{CodeTheme}{\def\beamer@bit@CodeTheme{#1}}
+% KEY:: MintedStyle [BASED:: CodeTheme].
+% VALUE:: lightmode | darkmode | <custom>.
+\DeclareOptionBeamer{MintedStyle}{\def\beamer@bit@MintedStyle{#1}}
+% KEY:: LanguageMode.
+% VALUE:: cn | en.
+\DeclareOptionBeamer{LanguageMode}{\def\beamer@bit@LanguageMode{#1}}
+% KEY:: Miniframes [PASSTO:: beamerouterthemebit.sty].
+% VALUE:: follow | separate | none.
+\DeclareOptionBeamer{Miniframes}{\PassOptionsToPackage{Miniframes={#1}}{beamerouterthemebit}}
+% KEY:: NavigationTool [PASSTO:: beamerouterthemebit.sty].
+% VALUE:: none | 1 | 2 | 3 | 1-2 | 1-3 | 2-3 | 1-2-3.
+\DeclareOptionBeamer{NavigationTool}{\PassOptionsToPackage{NavigationTool={#1}}{beamerouterthemebit}}
+% KEY:: LogoWidth [PASSTO:: beamerouterthemebit.sty].
+% VALUE:: <dimen>.
+\DeclareOptionBeamer{LogoWidth}{\PassOptionsToPackage{LogoWidth={#1}}{beamerouterthemebit}}
+% KEY:: FontTheme [PASSTO:: beamerfontthemebit.sty].
+% VALUE:: Auto | Ubuntu | Win | Mac | Fandol | Source-Han | Source-Han(Local) | ZhongYi(Local) | Custom.
+\DeclareOptionBeamer{FontTheme}{\PassOptionsToPackage{FontTheme={#1}}{beamerfontthemebit}}
+% KEY:: MathFont [PASSTO:: beamerfontthemebit.sty].
+% VALUE:: XITS | LM | <custom>.
+\DeclareOptionBeamer{MathFont}{\PassOptionsToPackage{MathFont={#1}}{beamerfontthemebit}}
+% KEY:: BIBMode.
+% VALUE:: biber | none.
+\DeclareOptionBeamer{BIBMode}{\def\beamer@bit@BIBMode{#1}}
+% KEY:: BIBStyle [BASED:: BIBMode].
+% VALUE:: numeric-comp | <custom>.
+\DeclareOptionBeamer{BIBStyle}{\def\beamer@bit@BIBStyle{#1}}
+\DeclareOptionBeamer{ContentMuticols}{\csname beamer@bit@contentmuticols#1\endcsname}
+% KEY:: Background.
+% VALUE:: BIT-Full | BIT-Lite | none | Custom.
+\DeclareOptionBeamer{Background}{\def\beamer@bit@Background{#1}}
+% KEY:: VI.
+% VALUE:: BIT | Custom.
+\DeclareOptionBeamer{VI}{\def\beamer@bit@VI{#1}}
+% KEY:: overflowguard.
+% VALUE:: on | off.
+\DeclareOptionBeamer{overflowguard}{%
+  \ifstrequal{#1}{on}{\beamer@bit@overflowguardtrue}{\beamer@bit@overflowguardfalse}%
+}
+% KEY:: SectionNavStyle [PASSTO:: beamerouterthemebit.sty].
+% VALUE:: full | current | none.
+\DeclareOptionBeamer{SectionNavStyle}{\PassOptionsToPackage{SectionNavStyle={#1}}{beamerouterthemebit}}
+% KEY:: SecBarWidth [PASSTO:: beamerouterthemebit.sty].
+% VALUE:: <dimen> | auto.
+\DeclareOptionBeamer{SecBarWidth}{\PassOptionsToPackage{SecBarWidth={#1}}{beamerouterthemebit}}
+% KEY:: SubsectionTOC.
+% VALUE:: on | off | first-only (default: on).
+\DeclareOptionBeamer{SubsectionTOC}{\def\beamer@bit@SubsectionTOC{#1}}
+
+\ExecuteOptionsBeamer{%
+  ColorDisplay=BITA,%
+  BlockDisplay=colorful,%
+  CodeTheme=listing,%
+  LanguageMode=cn,%
+  Miniframes=follow,%
+  NavigationTool=1-2-3,%
+  LogoWidth=48pt,%
+  FontTheme=Auto,%
+  MathFont=LM,%
+  BIBMode=biber,%
+  ContentMuticols=true,%
+  Background=BIT-Full,%
+  VI=BIT,%
+  overflowguard=off,
+  SectionNavStyle=auto,
+  ShadedIntensity=60,%
+  SubsectionTOC=on,%
+  SecBarWidth=auto%
+}
+\ProcessOptionsBeamer
+\if\EqualOptionsBeamer{CodeTheme}{minted}%
+  \ExecuteOptionsBeamer{MintedStyle=lightmode}%
+\fi
+\if\EqualOptionsBeamer{CodeTheme}{minted2}%
+  \ExecuteOptionsBeamer{MintedStyle=lightmode}%
+\fi
+\if\EqualOptionsBeamer{BIBMode}{biber}%
+  \ExecuteOptionsBeamer{BIBStyle=biber-gb7714}
+\fi
+\ProcessOptionsBeamer
+
+% ----------------
+% Overflow guard: 当 overflowguard=on 时，检测每帧内容是否超出可用高度。
+% 超出时抛出硬错误（而非仅 Overfull vbox 警告），供 paper2beamer 流水线识别。
+% 跳过 [plain] 和 [allowframebreaks] 帧。
+% 实现：patch Beamer 内部的 \beamer@autobreakframebox，在帧输出前检查
+% \beamer@framebox 高度是否超过可用文本高度。
+% ----------------
+\ifbeamer@bit@overflowguard
+  \RequirePackage{etoolbox}
+  \newlength\beamer@bit@availableht
+  \AtBeginDocument{%
+    \setlength\beamer@bit@availableht{\textheight}%
+    \ifdim\headheight>0pt\relax
+      \addtolength\beamer@bit@availableht{-\headheight}%
+    \fi
+    \ifdim\footheight>0pt\relax
+      \addtolength\beamer@bit@availableht{-\footheight}%
+    \fi
+    \pretocmd{\beamer@autobreakframebox}{%
+      \ifbeamer@plainframe\else
+        \ifdim\ht\beamer@framebox>\beamer@bit@availableht\relax
+          \PackageError{beamerthemebit}{%
+            Frame body overflows the safe area on slide \theframenumber\MessageBreak
+            (content: \the\ht\beamer@framebox, available: \the\beamer@bit@availableht)%
+          }{%
+            The frame body overflows into the footer area.\MessageBreak
+            Split this frame, reduce its content, or use [allowframebreaks].%
+          }
+        \fi
+      \fi
+    }{}{}
+  }
+\fi
+% ----------------
+
+
+% ----------------
+% Declare of Packages
+% Confirmed in v2.1d(2026/06/15).
+% Established in v1.3b(2022/04/13).
+% Updated in v1.3c(2024/04/16), v1.3d(2024/05/18), v1.3e(2024/10/31), v2.1c(2026/05/20), v2.1d(2026/06/15).
+% ----------------
+% CMD:: \RequirePackage - 调用宏包.
+% ----------------
+\if\EqualOptionsBeamer{LanguageMode}{cn}
+  \RequirePackage[fontset=none]{ctex}% ctex: 提供统一的 LaTeX 中文文档框架.
+\else\if\EqualOptionsBeamer{LanguageMode}{en}
+  \RequirePackage[fontset=none, scheme=plain]{ctex}% ctex: 提供统一的 LaTeX 中文文档框架.
+\fi\fi
+\RequirePackage{amsmath,amsfonts,amssymb} % math equations, symbols
+\RequirePackage{mathtools}
+\RequirePackage{unicode-math}% unicode-math: OpenType 数学字体.
+\RequirePackage{tikz}% tikz: 绘制图像.
+\RequirePackage{comment}% comment: 提供注释环境.
+\RequirePackage{xparse}% xparse: 指定命令参数.
+\RequirePackage{varioref}% varioref: 交叉引用.
+\if\EqualOptionsBeamer{LanguageMode}{en}%
+  \PassOptionsToPackage{english}{cleveref}
+\fi
+\RequirePackage{cleveref}% cleveref: 交叉引用.
+\RequirePackage{tcolorbox}% tcolorbox: 绘制彩色文本框.
+\if\EqualOptionsBeamer{CodeTheme}{listing}%
+  \tcbuselibrary{skins, breakable, xparse, listings}
+  \PackageWarningNoLine{beamerthemebit}{%
+    Option [CodeTheme=listing] is loaded. %
+    It's recommended to set [CodeTheme=minted] option for powerful code highlighting}
+\else\if\EqualOptionsBeamer{CodeTheme}{minted}%
+  \RequirePackage{minted}% minted: 代码高亮.
+  \tcbuselibrary{skins, breakable, xparse, listings, minted}
+\else\if\EqualOptionsBeamer{CodeTheme}{minted2}%
+  % minted 临时文件存储在 ./tmp/build/_minted 文件夹
+  \PassOptionsToPackage{outputdir=./tmp/build/_minted}{minted}
+  \RequirePackage{minted}% minted: 代码高亮.
+  \tcbuselibrary{skins, breakable, xparse, listings, minted}
+  \PackageWarningNoLine{beamerthemebit}{%
+    Option [CodeTheme=minted2] is loaded. \MessageBreak%
+    This option corresponds to the legacy minted v2, which requires `-shell-escape' and poses potential security risks \MessageBreak%
+    It's recommended to set [CodeTheme=minted] with TeX Live 2024+ and minted v3+, which no longer requires `-shell-escape'}
+\fi\fi\fi
+\RequirePackage{ifthen}% ifthen: 控制结构语句.
+\RequirePackage{fontawesome5}% fontawesome5: 提供可缩放矢量图标.
+\RequirePackage{tabularx}% tabularx: 智能表格环境.
+\if\EqualOptionsBeamer{BIBMode}{biber}%
+  \PassOptionsToPackage{backend=biber}{biblatex}% 后端 biber 引擎.
+  \if\EqualOptionsBeamer{BIBStyle}{biber-gb7714}%
+    \PassOptionsToPackage{autolang=hyphen,%
+      style=gb7714-2015,%
+      gbalign=gb7714-2015,%
+      gbstyle=false, url=false, doi=false, isbn=false,%
+      sorting=none}{biblatex}%
+  \fi
+  \RequirePackage{biblatex}% biblatex: 参考文献.
+\fi
+
+\RequirePackage{calc}% biblatex: 参考文献.
+% ----------------
+
+
+\mode<presentation>
+
+
+% ----------------
+% Some Settings
+% ----------------
+%\hyperref{urlcolor=bitc}
+% 调整左右边距.
+\setbeamersize{text margin left=0.03\paperwidth, text margin right=0.03\paperwidth}% 0.036, 0.036
+% 设置目录深度为 2 (显示至 subsection).
+\setcounter{tocdepth}{2}
+% 设置图片路径为项目文件夹下 `image' `images' `figure' `figures'.
+\graphicspath{{image/}{images/}{figure/}{figures/}{resources/}}
+% 半透明化尚未出现的内容.
+\setbeamercovered{transparent}
+% 导航栏为空.
+\beamertemplatenavigationsymbolsempty
+% ----------------
+
+
+% ----------------
+% Beamer Theme Background Layout
+% Confirmed in v2.1c(2026/05/20).
+% Established in v1.0a(2021/12/03).
+% Updated in v1.1a(2021/12/31), v1.2a(2022/03/10), v1.3a(2022/03/16), v1.3c(2024/04/16), v2.1c(2026/05/20).
+% ----------------
+% 于 v2.1c(2026/05/20) 修改原 Background 选项 (boolean if), 为 Key-Value 形式, 且选项分支只负责定义 \bit@path@<name> 路径宏, 实际 \pgfdeclareimage 在选项配置外统一基于路径是否存在来配置.
+% ----------------
+% BIT-Full(原 Background=true):: 设置 \bit@path@bg, \bit@path@bgoftitle, \bit@path@bgofsubsectoc.
+% BIT-Lite(原 Background=false):: 仅设置 \bit@path@bgoftitle.
+% none:: 置空.
+% Custom:: 用户通过 \beamer@bit@backgroundextend 自行设置.
+% ----------------
+% 设置图片路径宏.
+% Resource path resolution: try ./resources/ first, then fall back to bare filename
+% (which TeX will search via TEXINPUTS / \input@path).
+\newcommand{\bit@def@resource}[2]{%
+  % #1 = control sequence to define, #2 = resource filename
+  \IfFileExists{./resources/#2}{\def#1{./resources/#2}}{\def#1{#2}}%
+}
+\if\EqualOptionsBeamer{Background}{BIT-Full}%
+  \bit@def@resource\bit@path@bg{backgroundoftitlepage(Empty).png}% 空白背景图.
+  \bit@def@resource\bit@path@bgoftitle{backgroundoftitlepage(Empty).png}% 空白背景图.
+  \bit@def@resource\bit@path@bgofsubsectoc{backgroundofsubsectiontocpage.png}% 小节目录背景图.
+\else\if\EqualOptionsBeamer{Background}{BIT-Lite}%
+  \bit@def@resource\bit@path@bgoftitle{backgroundoftitlepage(Empty).png}%
+\else\if\EqualOptionsBeamer{Background}{Custom}%
+  \relax%
+\else\if\EqualOptionsBeamer{Background}{none}%
+  \relax%
+\fi\fi\fi\fi
+
+% 定义图片.
+\ifcsname bit@path@bg\endcsname%
+  \pgfdeclareimage[width=\paperwidth]{bg}{\bit@path@bg}%
+  \usebackgroundtemplate{\pgfuseimage{bg}}% 定义背景为 bg 图片.
+\fi
+\ifcsname bit@path@bgoftitle\endcsname%
+  \pgfdeclareimage[width=\paperwidth]{bgoftitle}{\bit@path@bgoftitle}%
+\fi
+\ifcsname bit@path@bgofsubsectoc\endcsname%
+  \pgfdeclareimage[width=\paperwidth]{bgofsubsectoc}{\bit@path@bgofsubsectoc}%
+\fi
+\bit@def@resource\bit@tmp@emblem{BITemblem.png}%
+\pgfdeclareimage[width=.24\paperwidth]{emblem}{\bit@tmp@emblem}%
+\addtobeamertemplate{background}{%
+  \ifbeamer@plainframe\else%
+    \begin{tikzpicture}[remember picture,overlay]%
+      \node[anchor=south east, inner sep=0pt, outer sep=0pt, opacity=0.12]%
+        at ([xshift=-5mm,yshift=-22mm]current page.south east) {\pgfuseimage{emblem}};%
+    \end{tikzpicture}%
+  \fi%
+}{}%
+% ----------------
+
+
+% ----------------
+% Theme Layout
+% Confirmed in v2.1g(2026/06/26).
+% Established in v1.0a(2021/12/03).
+% Updated in v1.1a(2021/12/31), v1.2a(2022/03/10), v1.3a(2022/03/16), v1.3b(2022/04/13), v1.3c(2024/04/16), v2.1c(2026/05/20), v2.1e(2026/06/16), v2.1g(2026/06/26).
+% ----------------
+% 于 v2.1c(2026/05/20) 新增选项 VI, 可设置视觉识别内容, 支持自定义.
+% 于 v2.1e(2026/06/16) 修改 logo+name 文件名为 BITlogo+name.pdf, 修复 draft 模式下原文件名中下划线被识别为数学环境字符, 报错 Missing $ inserted.
+% ----------------
+% THEME:: 颜色主题 - bit | 外部主题 - bit | 内部主题 - bit | 字体主题 - bit.
+% ----------------
+% VI 视觉识别图像设置.
+\if\EqualOptionsBeamer{VI}{BIT}%
+  % Logo:: BIT name.
+  \bit@def@resource\bit@tmp@lg{BITname.pdf}%
+  \pgfdeclareimage[width=40pt]{lg}{\bit@tmp@lg}%
+  % Logo+Name:: BIT logo+name.
+  \bit@def@resource\bit@tmp@lgname{BITlogo+name.png}%
+  \pgfdeclareimage[height=36pt]{lg-name}{\bit@tmp@lgname}%
+  % Landmark:: BIT building.
+  \bit@def@resource\bit@tmp@landmark{BITbuilding.png}%
+  \pgfdeclareimage[width=.20\paperwidth]{landmark}{\bit@tmp@landmark}%
+  % Verify:: cover page only.
+  \bit@def@resource\bit@tmp@verify{BITverify.png}%
+  \pgfdeclareimage[height=110pt]{verify}{\bit@tmp@verify}
+\else\if\EqualOptionsBeamer{VI}{Custom}%
+  \ifcsname beamer@bit@viextend\endcsname%
+    \beamer@bit@viextend%
+  \else%
+    \PackageError{beamerthemebit}{%
+      Option [VI=Custom] is loaded. %
+      To extend the theme, define the command \string\beamer@bit@viextend}%
+  \fi%
+\fi\fi
+
+% 颜色主题 - bit.
+\usecolortheme{bit}
+% 外部主题 - bit.
+\useoutertheme{bit}
+% 内部主题 - bit.
+\useinnertheme{bit}
+% 字体主题 - bit.
+\usefonttheme{bit}
+% 取消 itemize 环境编号.
+\setbeamertemplate{itemize items}[square]
+% 设置 enumerate 环境编号为圆形.
+\setbeamertemplate{enumerate items}[square]
+% 设置目录中章节编号为圆形.
+\setbeamertemplate{sections/subsections in toc}[square]
+% 图标题编号.
+\setbeamertemplate{caption}[numbered]
+% 定理标题编号.
+\setbeamertemplate{theorems}[numbered]
+% 设置 blocks 区块为 rounded (圆形边框).
+\setbeamertemplate{blocks}[rounded]
+% 压缩模式.
+\beamer@compresstrue
+% ----------------
+
+
+% ----------------
+% Bibliography Layout
+% Confirmed in v1.3b(2022/04/13).
+% Established in v1.3b(2022/04/13).
+% Updated in v1.3d(2024/05/18).
+% ----------------
+\if\EqualOptionsBeamer{BIBMode}{biber}%
+  % 参考文献 bib 库.
+  \IfFileExists{ref.bib}{\addbibresource[location=local]{ref.bib}}{}%
+  % 参考文献设置.
+  \beamertemplatetextbibitems
+  % 设置 bibliography 列表为 text 显示模式.
+  \setbeamertemplate{bibliography item}[text]
+  % 设置 bibitem 间距.
+  \setlength{\bibitemsep}{0.75ex}
+  % 参考文献目录字号设置为6号.
+  \renewcommand*{\bibfont}{\footnotesize}
+\fi
+% 设置参考文献脚注引用.
+\newcommand{\footfullcitetext}[2][]{%
+  \footnotetext{%
+    \ifstrempty{#1}{\fullcite{#2}}{\fullcite[{[#1]}]{#2}}%
+  }}
+% ----------------
+
+
+% ----------------
+% Tcolorbox Style Layout
+% Confirmed in v1.3b(2022/04/13).
+% Established in v1.0a(2021/12/03).
+% Updated in v1.1a(2021/12/30), v1.2a(2022/03/10), v1.3a(2022/03/16).
+% ----------------
+% 定义了多种 Tcolorbox 盒子的基础样式. 修改自 Tcolorbox 手册.
+% ----------------
+% 盒子基础样式定义.
+% 普通盒子基础样式定义.
+\def\beamer@bit@tcbstyle#1#2#3{%
+% #1: 关键字 - 样式类型.
+% #2: 上部颜色.
+% #3: 下部颜色.
+  \tcbset{tcb#1style/.style={%
+    enhanced jigsaw,%
+    arc=1.5mm,%
+    toprule=1mm, leftrule=1mm,%
+    boxsep=-.5mm,%
+    left=1.8mm, right=2mm, top=2.5mm,%
+    fonttitle=\normalsize\bfseries,%
+    fontupper=\usebeamercolor[fg]{nomal text},%
+    fontlower=\usebeamercolor[fg]{nomal text},%
+    frame style={%
+      upper left=#2, upper right=#2!50,%
+      lower left=#3!50, lower right=#3%
+    },%
+    interior style={white, opacity=.8},%
+    segmentation style={%
+      black, solid,%
+      opacity=.2, line width=1pt%
+    },%
+    breakable, break at=.78\textheight,%
+    pad at break=.5ex
+  }}%
+}
+
+% 定理盒子基础样式定义.
+\def\beamer@bit@tcbstyletheo#1#2{%
+% #1: 关键字 - 样式类型.
+% #2: 颜色.
+  \tcbset{tcb#1style/.style={empty,%
+    attach boxed title to top left,%
+    boxed title style={empty,%
+%      colback=white!98!#2, opacityback=0.96, enhanced,%
+%      fuzzy shadow={-0.2mm}{0.2mm}{0mm}{0.2mm}{white!90!#2},%
+%      fuzzy shadow={0.2mm}{-0.2mm}{0mm}{0.2mm}{black!90!#2},%
+      size=minimal,%
+      toprule=2pt, top=4pt, left=1pt, right=1pt,%
+      overlay={%
+        \draw [#2, line width=2.5pt, rounded corners=1pt]%
+          ([yshift=-1pt]frame.north west) -- ([yshift=-1pt]frame.north east);
+        \draw [white!80!#2, line width=2.5pt, rounded corners=1pt]%
+          ([xshift=.25em,yshift=-1pt]frame.north west)%
+          -- ([xshift=.5em, yshift=-1pt]frame.north west);
+      },%
+    },%
+    coltitle=#2!90!black, fonttitle=\normalsize\bfseries,%
+    before=\par\medskip\noindent, vfill before first,%
+    parbox=false, boxsep=0pt,%
+    top=4pt, bottom=4pt, left=0pt, right=2mm,%
+    fontupper=\usebeamercolor[fg]{nomal text},%
+    fontlower=\usebeamercolor[fg]{nomal text},%
+    breakable, break at=.78\textheight,%
+    pad at break*=.5ex,%
+    overlay unbroken={%
+      \draw [#2, line width=1pt, rounded corners=1pt]%
+        ([yshift=-1pt]title.north east)%
+        -- ([xshift=-0.5pt,yshift=-1pt]title.north-|frame.east)%
+        -- ([xshift=-0.5pt]frame.south east) -- (frame.south west);
+      \draw [white!80!#2, line width=1pt, rounded corners=1pt]%
+        ([xshift=2em]frame.south west) -- ([xshift=5em]frame.south west);
+    },%
+    overlay first={%
+      \draw [#2, line width=1pt, rounded corners=1pt]%
+        ([yshift=-1pt]title.north east)%
+        -- ([xshift=-0.5pt,yshift=-1pt]title.north-|frame.east)%
+        -- ([xshift=-0.5pt]frame.south east);
+    },%
+    overlay middle={%
+      \draw [#2, line width=1pt, rounded corners=1pt]%
+        ([xshift=-0.5pt]frame.north east) -- ([xshift=-0.5pt]frame.south east);
+    },%
+    overlay last={%
+      \draw [#2, line width=1pt, rounded corners=1pt]%
+        ([xshift=-0.5pt]frame.north east) -- ([xshift=-0.5pt]frame.south east)%
+        -- (frame.south west);
+      \draw [white!80!#2, line width=1pt, rounded corners=1pt]%
+        ([xshift=2em]frame.south west) -- ([xshift=5em]frame.south west);
+    }%
+  }}%
+}
+
+% 代码盒子基础样式定义.
+\def\beamer@bit@tcbstylecode#1{%
+% #1: 关键字 - 样式类型.
+% #2: 颜色.
+  \tcbset{codestyle/.style={empty,%
+    attach boxed title to top left,%
+    boxed title style={empty,%
+%      colback=white!98!#1, opacityback=0.96, enhanced,%
+%      fuzzy shadow={-0.2mm}{0.2mm}{0mm}{0.2mm}{white!90!#1},%
+%      fuzzy shadow={0.2mm}{-0.2mm}{0mm}{0.2mm}{black!90!#1},%
+      size=minimal,%
+      toprule=2pt, top=4pt, left=1pt, right=1pt,%
+      overlay={%
+        \draw [#1, line width=2.5pt, rounded corners=1pt]%
+          ([yshift=-1pt]frame.north west) -- ([yshift=-1pt]frame.north east);
+        \draw [white!80!#1, line width=2.5pt, rounded corners=1pt]%
+          ([xshift=.25em,yshift=-1pt]frame.north west)%
+          -- ([xshift=.5em, yshift=-1pt]frame.north west);
+      },%
+    },%
+    coltitle=#1!90!black, fonttitle=\normalsize\bfseries,%
+    before=\par\medskip\noindent, vfill before first,%
+    parbox=false, boxsep=0pt,%
+    top=4pt, bottom=4pt, left=1pt, right=2mm,%
+    fontupper=\usebeamercolor[fg]{nomal text},%
+    fontlower=\usebeamercolor[fg]{nomal text},%
+    breakable, break at=.78\textheight,%
+    pad at break*=.5ex,%\\
+    listing only,%
+    overlay unbroken={%
+      \draw [#1, line width=1pt, rounded corners=1pt]%
+        ([yshift=-1pt]title.north east)%
+        -- ([xshift=-0.5pt,yshift=-1pt]title.north-|frame.east)%
+        -- ([xshift=-0.5pt]frame.south east) -- (frame.south west);
+      \draw [white!80!#1, line width=1pt, rounded corners=1pt]%
+        ([xshift=2em]frame.south west) -- ([xshift=5em]frame.south west);
+      \node [anchor=north east] at ([xshift=-1.5pt,yshift=-2pt]title.north-|frame.east) {%
+        \textcolor{#1}{\normalsize ##1}%\faCode\faFileCode[regular]
+      };
+    },%
+    overlay first={%
+      \draw [#1, line width=1pt, rounded corners=1pt]%
+        ([yshift=-1pt]title.north east)%
+        -- ([xshift=-0.5pt,yshift=-1pt]title.north-|frame.east)%
+        -- ([xshift=-0.5pt]frame.south east);
+    },%
+    overlay middle={%
+      \draw [#1, line width=1pt, rounded corners=1pt]%
+        ([xshift=-0.5pt]frame.north east) -- ([xshift=-0.5pt]frame.south east);
+    },%
+    overlay last={%
+      \draw [#1, line width=1pt, rounded corners=1pt]%
+        ([xshift=-0.5pt]frame.north east) -- ([xshift=-0.5pt]frame.south east)%
+        -- (frame.south west);
+      \draw [white!80!#1, line width=1pt, rounded corners=1pt]%
+        ([xshift=2em]frame.south west) -- ([xshift=5em]frame.south west);
+    }%
+  }}
+}
+
+% 基础样式应用.
+\beamer@bit@tcbstyle{rb}{bita}   {bitb}
+\beamer@bit@tcbstyle{yg}{bitd}{bitc}
+\if\EqualOptionsBeamer{BlockDisplay}{colorful}%
+  \beamer@bit@tcbstyletheo{theo}{PrimaryC}%
+  \beamer@bit@tcbstyletheo{exa} {BlockExampleC}%
+  \beamer@bit@tcbstyletheo{def} {BlockDefinitionC}%
+  \beamer@bit@tcbstyletheo{lem} {BlockLemmaC}%
+  \beamer@bit@tcbstyletheo{cond}{BlockConditionC}%
+  \beamer@bit@tcbstylecode{PrimaryC}%
+\else\if\EqualOptionsBeamer{BlockDisplay}{followtheme}%
+  \beamer@bit@tcbstyletheo{theo}{PrimaryC}%
+  \beamer@bit@tcbstyletheo{exa} {PrimaryC}%
+  \beamer@bit@tcbstyletheo{def} {PrimaryC}%
+  \beamer@bit@tcbstyletheo{lem} {PrimaryC}%
+  \beamer@bit@tcbstyletheo{cond}{PrimaryC}%
+  \beamer@bit@tcbstylecode{PrimaryC}%
+\else\if\EqualOptionsBeamer{BlockDisplay}{allgrey}%
+  \beamer@bit@tcbstyletheo{theo}{BlockExampleC}%
+  \beamer@bit@tcbstyletheo{exa} {BlockExampleC}%
+  \beamer@bit@tcbstyletheo{def} {BlockExampleC}%
+  \beamer@bit@tcbstyletheo{lem} {BlockExampleC}%
+  \beamer@bit@tcbstyletheo{cond}{BlockExampleC}%
+  \beamer@bit@tcbstylecode{BlockExampleC}%
+\fi\fi\fi
+% ----------------
+
+
+% ----------------
+% Tcolorbox Layout
+% Confirmed in v1.3a.
+% ----------------
+% 定义了两个渐变样式( rb 为红蓝渐变, yg 为黄绿渐变)的 Tcolorbox.
+% #1: <可选>附加参数.
+% #2: 标题.
+% ----------------
+\newtcolorbox{bittcbrb}[2][]{%
+  tcbrbstyle, title={#2}, #1%
+}
+\newtcolorbox{bittcbyg}[2][]{%
+  tcbygstyle, title={#2}, #1%
+}
+% ----------------
+
+
+% ----------------
+% Theorem Layout
+% Confirmed in v1.3b(2022/04/13).
+% Established in v1.0a(2021/12/03).
+% Updated in v1.1a(2021/12/30), v1.2a(2022/03/10), v1.3a(2022/03/16).
+% ----------------
+% 使用 tcolorbox 重定义定理环境, 原始的不带 bit 前缀的定理环境仍可使用.
+% ----------------
+% 定理区块名称设置.
+\if\EqualOptionsBeamer{LanguageMode}{cn}%
+	\def\beamer@bit@theonametheorem    {定理}
+	\def\beamer@bit@theonameexample    {例}
+	\def\beamer@bit@theonamealgorithm  {算法}
+	\def\beamer@bit@theonamedefinition {定义}
+	\def\beamer@bit@theonameaxiom      {公理}
+	\def\beamer@bit@theonameproperty   {性质}
+	\def\beamer@bit@theonameproposition{命题}
+	\def\beamer@bit@theonamelemma      {引理}
+	\def\beamer@bit@theonamecorollary  {推论}
+	\def\beamer@bit@theonamecondition  {条件}
+	\def\beamer@bit@theonameconclusion {结论}
+	\def\beamer@bit@theonameassumption {假设}
+	\def\beamer@bit@theonameremark     {注}
+	\def\beamer@bit@theonameproof      {证明}
+	%
+	\def\beamer@bit@theonametheorem@pl    {定理}
+	\def\beamer@bit@theonameexample@pl    {例}
+	\def\beamer@bit@theonamealgorithm@pl  {算法}
+	\def\beamer@bit@theonamedefinition@pl {定义}
+	\def\beamer@bit@theonameaxiom@pl      {公理}
+	\def\beamer@bit@theonameproperty@pl   {性质}
+	\def\beamer@bit@theonameproposition@pl{命题}
+	\def\beamer@bit@theonamelemma@pl      {引理}
+	\def\beamer@bit@theonamecorollary@pl  {推论}
+	\def\beamer@bit@theonamecondition@pl  {条件}
+	\def\beamer@bit@theonameconclusion@pl {结论}
+	\def\beamer@bit@theonameassumption@pl {假设}
+	\def\beamer@bit@theonameremark@pl     {注}
+	\def\beamer@bit@theonameproof@pl      {证明}
+\else\if\EqualOptionsBeamer{LanguageMode}{en}%
+  \def\beamer@bit@theonametheorem    {Theorem}
+  \def\beamer@bit@theonameexample    {Example}
+  \def\beamer@bit@theonamealgorithm  {Algorithm}
+  \def\beamer@bit@theonamedefinition {Definition}
+  \def\beamer@bit@theonameaxiom      {Axiom}
+  \def\beamer@bit@theonameproperty   {Property}
+  \def\beamer@bit@theonameproposition{Proposition}
+  \def\beamer@bit@theonamelemma      {Lemma}
+  \def\beamer@bit@theonamecorollary  {Corollary}
+  \def\beamer@bit@theonamecondition  {Condition}
+  \def\beamer@bit@theonameconclusion {Conclusion}
+  \def\beamer@bit@theonameassumption {Assumption}
+  \def\beamer@bit@theonameremark     {Remark}
+  \def\beamer@bit@theonameproof      {Proof}
+  %
+  \def\beamer@bit@theonametheorem@pl    {Theorems}
+  \def\beamer@bit@theonameexample@pl    {Examples}
+  \def\beamer@bit@theonamealgorithm@pl  {Algorithms}
+  \def\beamer@bit@theonamedefinition@pl {Definitions}
+  \def\beamer@bit@theonameaxiom@pl      {Axioms}
+  \def\beamer@bit@theonameproperty@pl   {Properties}
+  \def\beamer@bit@theonameproposition@pl{Propositions}
+  \def\beamer@bit@theonamelemma@pl      {Lemmas}
+  \def\beamer@bit@theonamecorollary@pl  {Corollaries}
+  \def\beamer@bit@theonamecondition@pl  {Conditions}
+  \def\beamer@bit@theonameconclusion@pl {Conclusions}
+  \def\beamer@bit@theonameassumption@pl {Assumptions}
+  \def\beamer@bit@theonameremark@pl     {Remarks}
+  \def\beamer@bit@theonameproof@pl      {Proofs}
+\fi\fi
+
+% theorem, example, algorithm, definition, axiom, property, proposition, lemma, corollary, condition, conclusion, assumption 设置.
+% 计数器 - 定理环境.
+\newcounter{beamer@bit@theorem@count}
+\newcounter{beamer@bit@example@count}
+\newcounter{beamer@bit@algorithm@count}
+\newcounter{beamer@bit@definition@count}
+\newcounter{beamer@bit@axiom@count}
+\newcounter{beamer@bit@property@count}
+\newcounter{beamer@bit@proposition@count}
+\newcounter{beamer@bit@lemma@count}
+\newcounter{beamer@bit@corollary@count}
+\newcounter{beamer@bit@condition@count}
+\newcounter{beamer@bit@conclusion@count}
+\newcounter{beamer@bit@assumption@count}
+% 定理区块参数设置.
+\def\beamer@bit@theo#1#2#3{%
+% #1: 后缀 - 环境名称.
+% #2: 前缀 - 样式类型.
+% #3: 前缀 - 标签.
+  % 无*环境.
+  \DeclareTColorBox[use counter=beamer@bit@#1@count,%
+  % ##1: <可选>附加参数 - Tcolorbox.
+  % ##2: 标题.
+  % ##3: <可选>模式选择 - 带 * 即不显示区块标题头.
+  % ##4: <可选>后缀 - 标签.
+  	number within=section, reset counter on overlays]%
+  	{beamberitoriginal#1}{ O{} m !s !O{} }{%
+  		title={%
+  			\IfBooleanTF{##3}{\ifstrempty{##2}{}{##2}}{%
+  				\csname beamer@bit@theoname#1\endcsname%
+  				~\thetcbcounter\ifstrempty{##2}{}{:~##2}%
+  			}%
+  		},%
+  		IfValueT={##4}{label={#3\kvtcb@label@sep##4}},%
+  		nameref={##2}, #2style, ##1%
+  }%
+  % 带*环境.
+  \DeclareTColorBox[no counter]%
+  % ##1: <可选>附加参数 - Tcolorbox.
+  % ##2: 标题.
+  % ##3: <可选>模式选择 - 带*即不显示区块标题头.
+  % ##4: <可选>后缀 - 标签.
+	  {beamberitoriginal#1*}{ O{} m !s !O{} }{%
+	  	title={%
+	  		\IfBooleanTF{##3}{\ifstrempty{##2}{}{##2}}{%
+	  			\csname beamer@bit@theoname#1\endcsname%
+	  			\ifstrempty{##2}{}{:~##2}%
+	  		}%
+	  	},%
+	  	IfValueT={##4}{label={#3\kvtcb@label@sep##4}},%
+	  	nameref={##2}, #2style, ##1%
+  }%
+  \DeclareDocumentEnvironment{bit#1}%
+  % ##1: <可选>模式选择 - 带 * 即不显示序号 (目前已实现带星号环境不参与计数器递进).
+  % ##2: <可选>Overlay选择 - Beamer.
+  % ##3: <可选>附加参数 - Tcolorbox.
+  % ##4: 标题.
+  % ##5: <可选>模式选择 - 带 * 即不显示区块标题前缀.
+  % ##6: <可选>后缀 - 标签.
+    { s D<>{1-} O{} m !s !O{} }{%
+      \begin{actionenv}<##2>%
+      \IfBooleanTF{##1}%
+        {\IfBooleanTF{##5}%
+        	{\begin{beamberitoriginal#1*}[##3]{##4}*[##6]}%
+        	{\begin{beamberitoriginal#1*}[##3]{##4}[##6]}}%
+        {\IfBooleanTF{##5}%
+        	{\begin{beamberitoriginal#1}[##3]{##4}*[##6]}%
+        	{\begin{beamberitoriginal#1}[##3]{##4}[##6]}}%
+  		}{\IfBooleanTF{##1}%
+				{\end{beamberitoriginal#1*}}%
+			  {\end{beamberitoriginal#1}}%
+			\end{actionenv}%
+	}%
+}
+\beamer@bit@theo{theorem}    {tcbtheo}{theo}
+\beamer@bit@theo{example}    {tcbexa} {exam}
+\beamer@bit@theo{algorithm}  {tcbexa} {algo}
+\beamer@bit@theo{definition} {tcbdef} {def}
+\beamer@bit@theo{axiom}      {tcbtheo}{axio}
+\beamer@bit@theo{property}   {tcbdef} {prope}
+\beamer@bit@theo{proposition}{tcbdef} {propo}
+\beamer@bit@theo{lemma}      {tcblem} {lemm}
+\beamer@bit@theo{corollary}  {tcblem} {coro}
+\beamer@bit@theo{condition}  {tcbcond}{cond}
+\beamer@bit@theo{conclusion} {tcblem} {conc}
+\beamer@bit@theo{assumption} {tcbcond}{assu}
+
+% bitremark 设置.
+% 计数器 - 定理环境.
+\newcounter{beamer@bit@remark@count}
+% 定理区块参数设置.
+\DeclareTColorBox[use counter=beamer@bit@remark@count,%
+% #1: <可选>附加参数 - Tcolorbox.
+% #2: 标题.
+% #3: <可选>后缀 - 标签.
+  no counter]{beamberitoriginalremark}{ O{} m !O{} }{%
+    title={\beamer@bit@theonameremark%
+      \ifstrempty{#2}{}{:~#2}%
+    },%
+    IfValueT={#3}{label={rema:#3}},%
+    nameref={#2}, tcbexastyle, #1%
+}
+\DeclareDocumentEnvironment{bitremark}%
+% #1: <可选>Overlay选择 - Beamer.
+% #2: <可选>附加参数 - Tcolorbox.
+% #3: 标题.
+% #4: <可选>后缀 - 标签.
+  { D<>{1-} O{} m !O{} }{%
+    \begin{actionenv}<#1>%
+    \begin{beamberitoriginalremark}[#2]{#3}[#4]%
+}{\end{beamberitoriginalremark}\end{actionenv}}%
+
+% bitproof 设置.
+% 计数器 - 定理环境.
+\newcounter{beamer@bit@proof@count}
+% 定理区块参数设置.
+\providecommand\pushQED{\def\beamer@qed}
+\DeclareTColorBox[use counter=beamer@bit@proof@count,%
+% #1: <可选>附加参数 - Tcolorbox.
+% #2: 标题.
+% #3: <可选>后缀 - 标签.
+  no counter]{beamberitoriginalproof}{ O{} m !O{} }{%
+    title={% \@addpunct: Be intelligently omitted when punctuation is already present.
+      \ifblank{#2}{\beamer@bit@theonameproof}{#2}\@addpunct{.}%
+    },%
+    IfValueT={#3}{label={rema:#3}},%
+    nameref={#2}, tcbexastyle, #1%
+}
+\DeclareDocumentEnvironment{bitproof}%
+% #1: <可选>Overlay选择 - Beamer.
+% #2: <可选>附加参数 - Tcolorbox.
+% #3: 标题.
+% #4: <可选>后缀 - 标签.
+  { D<>{1-} O{} m !O{} }{%
+    \begin{actionenv}<#1>%
+    \begin{beamberitoriginalproof}[#2]{#3}[#4]%
+    \pushQED{\qed}%
+}{\popQED\end{beamberitoriginalproof}\end{actionenv}}%
+% Beamer 下原始 proof 环境.
+%\renewenvironment<>{BITproof}[1][证明]{%
+%  \par
+%  \def\insertproofname{#1\@addpunct{.}}%
+%  \pushQED{\qed}
+%  \usebeamertemplate{proof begin}#2}
+%{\popQED\usebeamertemplate{proof end}}
+
+% 智能引用名称定义.
+\Crefname{beamer@bit@theorem@count}%
+  {\beamer@bit@theonametheorem}%
+  {\beamer@bit@theonametheorem@pl}
+\Crefname{beamer@bit@example@count}%
+  {\beamer@bit@theonameexample}%
+  {\beamer@bit@theonameexample@pl}
+\Crefname{beamer@bit@algorithm@count}%
+  {\beamer@bit@theonamealgorithm}%
+  {\beamer@bit@theonamealgorithm@pl}
+\Crefname{beamer@bit@definition@count}%
+  {\beamer@bit@theonamedefinition}%
+  {\beamer@bit@theonamedefinition@pl}
+\Crefname{beamer@bit@axiom@count}%
+  {\beamer@bit@theonameaxiom}%
+  {\beamer@bit@theonameaxiom@pl}
+\Crefname{beamer@bit@property@count}%
+  {\beamer@bit@theonameproperty}%
+  {\beamer@bit@theonameproperty@pl}
+\Crefname{beamer@bit@proposition@count}%
+  {\beamer@bit@theonameproposition}%
+  {\beamer@bit@theonameproposition@pl}
+\Crefname{beamer@bit@lemma@count}%
+  {\beamer@bit@theonamelemma}%
+  {\beamer@bit@theonamelemma@pl}
+\Crefname{beamer@bit@corollary@count}%
+  {\beamer@bit@theonamecorollary}%
+  {\beamer@bit@theonamecorollary@pl}
+\Crefname{beamer@bit@condition@count}%
+  {\beamer@bit@theonamecondition}%
+  {\beamer@bit@theonamecondition@pl}
+\Crefname{beamer@bit@conclusion@count}%
+  {\beamer@bit@theonameconclusion}%
+  {\beamer@bit@theonameconclusion@pl}
+\Crefname{beamer@bit@assumption@count}%
+  {\beamer@bit@theonameassumption}%
+  {\beamer@bit@theonameassumption@pl}
+\Crefname{beamer@bit@remark@count}%
+  {\beamer@bit@theonameremark}%
+  {\beamer@bit@theonameremark@pl}
+\Crefname{beamer@bit@proof@count}%
+  {\beamer@bit@theonameproof}%
+  {\beamer@bit@theonameproof@pl}
+% ----------------
+
+
+% ----------------
+% Listing Layout
+% Confirmed in v1.3c(2024/04/16), v2.1d(2026/06/15).
+% Established in v1.0a(2021/12/03).
+% Updated in v1.1a(2021/12/30), v1.2a(2022/03/10), v1.3a(2022/03/16), v1.3c(2024/04/16), v2.1d(2026/06/15).
+% ----------------
+% 定义了一个用作代码演示的 Listing, 和一个不带计数的 Listing.
+% ----------------
+% 代码区块名称设置.
+\if\EqualOptionsBeamer{LanguageMode}{cn}%
+  \def\beamer@bit@codename{源码}
+  \def\beamer@bit@codename@pl{源码}
+\else\if\EqualOptionsBeamer{LanguageMode}{en}%
+  \def\beamer@bit@codename{Source Code}
+  \def\beamer@bit@codename@pl{Source Codes}
+\fi\fi
+
+% bitcode 设置.
+% 计数器 - 定理环境.
+\newcounter{beamer@bit@code@count}
+% 定理区块参数设置.
+\ifboolexpr{
+  test {\ifdefstring{\beamer@bit@CodeTheme}{minted}}
+  or
+  test {\ifdefstring{\beamer@bit@CodeTheme}{minted2}}
+}{%
+  \if\EqualOptionsBeamer{MintedStyle}{lightmode}%
+    \tcbset{minted style=default}%
+  \else\if\EqualOptionsBeamer{MintedStyle}{darkmode}%
+    \tcbset{minted style=rrt}%
+  \else\if\EqualOptionsBeamer{MintedStyle}{\beamer@bit@MintedStyle}%
+    \edef\set@MintedStyle{\noexpand%
+      \pgfkeys{/tcb, minted style=\beamer@bit@MintedStyle}}%
+    \set@MintedStyle%
+  \fi\fi\fi
+  \renewcommand{\theFancyVerbLine}{%
+    \sffamily\textcolor{PrimaryC}{%
+      \tiny\oldstylenums{\arabic{FancyVerbLine}}%
+  }}%
+  \DeclareTCBListing[use counter=beamer@bit@code@count,%
+  % #1: <可选>附加参数 - Tcolorbox.
+  % #2: 标题.
+  % #3: <可选>模式选择 - 带 * 即不显示区块标题前缀.
+  % #4: <可选>后缀 - 标签.
+  % #5: 抄录语言.
+  % #6: <可选>附加参数 - minted.
+  % #7: 注释定界符.
+    number within=section, reset counter on overlays]%
+    {bitcode}{ O{} m s O{} m !O{} !D''{||} }{%
+      listing engine=minted,%
+      minted language={#5},%
+      minted options={%
+        autogobble, tabsize=2,%
+        highlightcolor=HighlightCodeLineC,%
+        beameroverlays, escapeinside=#7,%
+        mathescape, texcl,%
+        breaklines, breakbytokenanywhere,%
+        linenos, numbersep=2pt,%
+        fontsize=\scriptsize\ttfamily, #6%
+      },%
+      title={%
+        \IfBooleanTF{#3}{\ifstrempty{#2}{}{#2}}{%
+          \beamer@bit@codename~\thetcbcounter%
+          \ifstrempty{#2}{}{:~#2}%
+        }%
+      },%
+      IfValueT={#4}{label={code\kvtcb@label@sep#4}},%
+      nameref={#2}, codestyle={\faCode}, #1%
+  }%
+  \DeclareTCBListing[no counter]%
+  % #1: <可选>附加参数 - Tcolorbox.
+  % #2: 标题.
+  % #3: <可选>模式选择 - 带 * 即不显示区块标题前缀.
+  % #4: <可选>后缀 - 标签.
+  % #5: 抄录语言.
+  % #6: <可选>附加参数 - minted.
+  % #7: 注释定界符.
+	  {bitcode*}{ O{} m s O{} m !O{} !D''{||} }{%
+	  	listing engine=minted,%
+	  	minted language={#5},%
+	  	minted options={%
+	  		autogobble, tabsize=2,%
+	  		highlightcolor=HighlightCodeLineC,%
+	  		beameroverlays, escapeinside=#7,%
+	  		mathescape, texcl,%
+	  		breaklines, breakbytokenanywhere,%
+	  		linenos, numbersep=2pt,%
+	  		fontsize=\scriptsize\ttfamily, #6%
+	  	},%
+	  	title={%
+	  		\IfBooleanTF{#3}{\ifstrempty{#2}{}{#2}}{%
+	  			\beamer@bit@codename\ifstrempty{#2}{}{:~#2}%
+	  		}%
+	  	},%
+	  	IfValueT={#4}{label={code\kvtcb@label@sep#4}},%
+	  	nameref={#2}, codestyle={\faCode}, #1%
+  }%
+  \DeclareTCBInputListing[use counter=beamer@bit@code@count,%
+  % #1: <可选>附加参数 - Tcolorbox.
+  % #2: 标题.
+  % #3: <可选>模式选择 - 带 * 即不显示区块标题前缀.
+  % #4: <可选>后缀 - 标签.
+  % #5: 抄录语言.
+  % #6: <可选>附加参数 - minted.
+  % #7: 文件名.
+  % #8: 注释定界符.
+    number within=section, reset counter on overlays]%
+    {\bitcodeinput}{ O{} m s O{} m O{} m !D''{||} }{%
+      listing file={./sourcecode/#7},%
+      listing engine=minted,%
+      minted language={#5},%
+      minted options={%
+      	autogobble, tabsize=2,%
+      	highlightcolor=HighlightCodeLineC,%
+      	beameroverlays, escapeinside=#7,%
+      	mathescape, texcl,%
+      	breaklines, breakbytokenanywhere,%
+      	linenos, numbersep=2pt,%
+      	fontsize=\scriptsize\ttfamily, #6%
+      },%
+      title={%
+      	\IfBooleanTF{#3}{\ifstrempty{#2}{}{#2}}{%
+      		\beamer@bit@codename~\thetcbcounter%
+      		\ifstrempty{#2}{}{:~#2}%
+      	}%
+      },%
+      before upper=\scriptsize{以下是文件\texttt{#7}中包含的源码:\vspace{.75ex}},%
+      IfValueT={#4}{label={code\kvtcb@label@sep#4}},%
+      nameref={#2}, codestyle={\faFileCode[regular]}, #1%
+  }
+  \DeclareTCBInputListing[no counter]%
+  % #1: <可选>附加参数 - Tcolorbox.
+  % #2: 标题.
+  % #3: <可选>模式选择 - 带 * 即不显示区块标题前缀.
+  % #4: <可选>后缀 - 标签.
+  % #5: 抄录语言.
+  % #6: <可选>附加参数 - minted.
+  % #7: 文件名.
+  % #8: 注释定界符.
+	  {\bitcodeinputnocounter}{ O{} m s O{} m O{} m !D''{||} }{%
+	  	listing file={./sourcecode/#7},%
+	  	listing engine=minted,%
+	  	minted language={#5},%
+	  	minted options={%
+	  		autogobble, tabsize=2,%
+	  		highlightcolor=HighlightCodeLineC,%
+	  		beameroverlays, escapeinside=#8,%
+	  		mathescape, texcl,%
+	  		breaklines, breakbytokenanywhere,%
+	  		linenos, numbersep=2pt,%
+	  		fontsize=\scriptsize\ttfamily, #6%
+	  	},%
+	  	title={%
+	  		\IfBooleanTF{#3}{\ifstrempty{#2}{}{#2}}{%
+	  			\beamer@bit@codename\ifstrempty{#2}{}{:~#2}%
+	  		}%
+	  	},%
+	  	before upper=\scriptsize{以下是文件\texttt{#7}中包含的源码:\vspace{.75ex}},%
+	  	IfValueT={#4}{label={code\kvtcb@label@sep#4}},%
+	  	nameref={#2}, codestyle={\faFileCode[regular]}, #1%
+  }
+}{}
+\if\EqualOptionsBeamer{CodeTheme}{listing}%
+  \DeclareTCBListing[use counter=beamer@bit@code@count,%
+  % #1: <可选>附加参数 - Tcolorbox.
+  % #2: 标题.
+  % #3: <可选>模式选择 - 带 * 即不显示区块标题前缀.
+  % #4: <可选>后缀 - 标签.
+  % #5: 抄录语言.
+  % #6: <可选>附加参数 - minted.
+  % #7: 注释定界符.
+    number within=section, reset counter on overlays]%
+    {bitcode}{ O{} m s O{} m !O{} !D''{||} }{%
+      listing engine=listings,%
+      listing options={%
+        language={#5},%
+        breaklines, tabsize=2,%style=tcblatex,
+        columns=flexible,%
+        escapeinside=#7, texcl,%
+        numberstyle=\tiny\color{PrimaryC}\oldstylenums,%
+        basicstyle=\scriptsize\ttfamily,%
+        keywordstyle=\color{bita},%
+        commentstyle=\color{bitc},%
+        stringstyle=\color{bitd},%
+        numbers=left, numbersep=2pt,%
+        aboveskip=-2pt, belowskip=-2pt,%
+        xrightmargin=-2pt,%
+        extendedchars=true, #6%
+      },%
+      title={%
+      	\IfBooleanTF{#3}{\ifstrempty{#2}{}{#2}}{%
+      		\beamer@bit@codename~\thetcbcounter%
+      		\ifstrempty{#2}{}{:~#2}%
+      	}%
+      },%
+      IfValueT={#4}{label={code\kvtcb@label@sep#4}},%
+      nameref={#2}, codestyle={\faCode}, #1%
+  }%
+  \DeclareTCBListing[no counter]%
+  % #1: <可选>附加参数 - Tcolorbox.
+  % #2: 标题.
+  % #3: <可选>模式选择 - 带 * 即不显示区块标题前缀.
+  % #4: <可选>后缀 - 标签.
+  % #5: 抄录语言.
+  % #6: <可选>附加参数 - minted.
+  % #7: 注释定界符.
+	  {bitcode*}{ O{} m s O{} m !O{} !D''{||} }{%
+	  	listing engine=listings,%
+	  	listing options={%
+	  		language={#5},%
+	  		breaklines, tabsize=2,%style=tcblatex,
+	  		columns=flexible,%
+	  		escapeinside=#7, texcl,%
+	  		numberstyle=\tiny\color{PrimaryC}\oldstylenums,%
+	  		basicstyle=\scriptsize\ttfamily,%
+	  		keywordstyle=\color{bita},%
+	  		commentstyle=\color{bitc},%
+	  		stringstyle=\color{bitd},%
+	  		numbers=left, numbersep=2pt,%
+	  		aboveskip=-2pt, belowskip=-2pt,%
+	  		xrightmargin=-2pt,%
+	  		extendedchars=true, #6%
+	  	},%
+	  	title={%
+	  		\IfBooleanTF{#3}{\ifstrempty{#2}{}{#2}}{%
+	  			\beamer@bit@codename\ifstrempty{#2}{}{:~#2}%
+	  		}%
+	  	},%
+	  	IfValueT={#4}{label={code\kvtcb@label@sep#4}},%
+	  	nameref={#2}, codestyle={\faCode}, #1%
+  }%
+  \DeclareTCBInputListing[use counter=beamer@bit@code@count,%
+  % #1: <可选>附加参数 - Tcolorbox.
+  % #2: 标题.
+  % #3: <可选>模式选择 - 带 * 即不显示区块标题前缀.
+  % #4: <可选>后缀 - 标签.
+  % #5: 抄录语言.
+  % #6: <可选>附加参数 - minted.
+  % #7: 文件名.
+  % #8: 注释定界符.
+	  number within=section, reset counter on overlays]%
+	  {\bitcodeinput}{ O{} m s O{} m O{} m !D''{||} }{%
+	    listing file={./sourcecode/#7},%
+	    listing engine=listings,%
+	    listing options={%
+	      language={#5},%
+	      breaklines, tabsize=2,%style=tcblatex,
+	      columns=flexible,%
+	      escapeinside=#8, texcl,%
+	      numberstyle=\tiny\color{PrimaryC}\oldstylenums,%
+	      basicstyle=\scriptsize\ttfamily,%
+	      keywordstyle=\color{bita},%
+	      commentstyle=\color{bitc},%
+	      stringstyle=\color{bitd},%
+	      numbers=left, numbersep=2pt,%
+	      aboveskip=-2pt, belowskip=-2pt,%
+	      xrightmargin=-2pt,%
+	      extendedchars=true, #6%
+	    },%
+	    title={%
+	    	\IfBooleanTF{#3}{\ifstrempty{#2}{}{#2}}{%
+	    		\beamer@bit@codename~\thetcbcounter%
+	    		\ifstrempty{#2}{}{:~#2}%
+	    	}%
+	    },%
+	    before upper=\scriptsize{以下是文件\texttt{#7}中包含的源码:\vspace{.75ex}},%
+	    IfValueT={#4}{label={code\kvtcb@label@sep#4}},%
+	    nameref={#2}, codestyle={\faFileCode[regular]}, #1%
+  }
+  \DeclareTCBInputListing[no counter]%
+  % #1: <可选>附加参数 - Tcolorbox.
+  % #2: 标题.
+  % #3: <可选>模式选择 - 带 * 即不显示区块标题前缀.
+  % #4: <可选>后缀 - 标签.
+  % #5: 抄录语言.
+  % #6: <可选>附加参数 - minted.
+  % #7: 文件名.
+  % #8: 注释定界符.
+	  {\bitcodeinputnocounter}{ O{} m s O{} m O{} m !D''{||} }{%
+	  	listing file={./sourcecode/#7},%
+	  	listing engine=listings,%
+	  	listing options={%
+	  		language={#5},%
+	  		breaklines, tabsize=2,%style=tcblatex,
+	  		columns=flexible,%
+	  		escapeinside=#8, texcl,%
+	  		numberstyle=\tiny\color{PrimaryC}\oldstylenums,%
+	  		basicstyle=\scriptsize\ttfamily,%
+	  		keywordstyle=\color{bita},%
+	  		commentstyle=\color{bitc},%
+	  		stringstyle=\color{bitd},%
+	  		numbers=left, numbersep=2pt,%
+	  		aboveskip=-2pt, belowskip=-2pt,%
+	  		xrightmargin=-2pt,%
+	  		extendedchars=true, #6%
+	  	},%
+	  	title={%
+	  		\IfBooleanTF{#3}{\ifstrempty{#2}{}{#2}}{%
+	  			\beamer@bit@codename\ifstrempty{#2}{}{:~#2}%
+	  		}%
+	  	},%
+	  	before upper=\scriptsize{以下是文件\texttt{#7}中包含的源码:\vspace{.75ex}},%
+	  	IfValueT={#4}{label={code\kvtcb@label@sep#4}},%
+	  	nameref={#2}, codestyle={\faFileCode[regular]}, #1%
+  }
+\fi
+
+% 智能引用名称定义.
+\Crefname{beamer@bit@code@count}%
+  {\beamer@bit@codename}%
+  {\beamer@bit@codename@pl}
+% ----------------
+
+
+% ----------------
+% Automatic Frame Layout
+% Confirmed in v2.1g(2026/06/26).
+% Established in v1.0a(2021/12/03).
+% Updated in v1.1a(2021/12/30), v2.1c(2026/05/20), v2.1g(2026/06/26).
+% ----------------
+% 于 v2.1c(2026/05/20) 修改封面和小节背景设置.
+% ----------------
+% 添加封页.
+\AtBeginDocument{%
+  \begingroup%
+    \setbeamertemplate{headline}{}
+    \setbeamertemplate{footline}{}
+    \ifcsname bit@path@bgoftitle\endcsname%
+      \setbeamertemplate{background}{\pgfuseimage{bgoftitle}}%
+    \fi% 定义封面背景.
+    % 取消页眉残留空白.
+    % \vspace*{-\dimexpr\headheight+\topskip\relax}%
+    \begin{frame}[plain]
+      %\transfade 渐变
+      \titlepage% 显示 titlepage.
+    \end{frame}
+  \endgroup%
+}
+
+% 定义目录输入命令.
+\def\inserttableofcontent{
+  \ifbeamer@bit@contentmuticols%
+    \begin{multicols}{2}
+      \tableofcontents[%
+        sectionstyle=show/shaded,%
+        subsectionstyle=show/shaded/hide,%
+        subsubsectionstyle=show/shaded/hide]%
+    \end{multicols}
+  \else%
+    \tableofcontents[%
+      sectionstyle=show/shaded,%
+      subsectionstyle=show/shaded/hide,%
+      subsubsectionstyle=show/shaded/hide]%
+  \fi%
+}
+% 小节前加目录 (SubsectionTOC 选项控制).
+\if\EqualOptionsBeamer{SubsectionTOC}{on}%
+  \AtBeginSubsection[]{%
+    \begingroup%
+      \ifcsname bit@path@bgofsubsectoc\endcsname%
+        \setbeamertemplate{background}{\pgfuseimage{bgofsubsectoc}}%
+      \else%
+        \setbeamertemplate{background}{}%
+      \fi%
+      \if\EqualOptionsBeamer{LanguageMode}{cn}
+	\begin{frame}{目录}
+	  \inserttableofcontent%
+	\end{frame}
+      \else\if\EqualOptionsBeamer{LanguageMode}{en}
+	\begin{frame}{Outline}
+	  \inserttableofcontent%
+	\end{frame}
+      \fi\fi
+    \endgroup%
+  }
+\else\if\EqualOptionsBeamer{SubsectionTOC}{first-only}%
+  \newif\ifbit@first@subsection
+  \bit@first@subsectiontrue
+  \AtBeginSubsection[]{%
+    \ifbit@first@subsection%
+      \begingroup%
+        \ifcsname bit@path@bgofsubsectoc\endcsname%
+          \setbeamertemplate{background}{\pgfuseimage{bgofsubsectoc}}%
+        \else%
+          \setbeamertemplate{background}{}%
+        \fi%
+        \if\EqualOptionsBeamer{LanguageMode}{cn}
+	\begin{frame}{目录}
+	  \inserttableofcontent%
+	\end{frame}
+        \else\if\EqualOptionsBeamer{LanguageMode}{en}
+	\begin{frame}{Outline}
+	  \inserttableofcontent%
+	\end{frame}
+        \fi\fi
+      \endgroup%
+      \bit@first@subsectionfalse%
+    \fi%
+  }
+\fi\fi
+% SubsectionTOC=off: 不注册任何 \AtBeginSubsection 钩子
+% ----------------
+
+
+% ----------------
+% Ref Layout
+% Confirmed in v1.3e(2024/10/31).
+% Established in v1.0a(2021/12/03).
+% Updated in v1.1a(2021/12/30), v1.3a(2022/03/16), v1.3b(2022/04/13), v1.3e(2024/10/31).
+% ----------------
+% 重定义了 \vref & \cref 命令, 实现跳转.
+% 重定义了页码计数器 page, 实现环境 frame 输出后值与计数器 framenumber 相同, 从而实现引用时页码不为 pdf 页码.
+% 定义了中文下的 varioref 和 cleveref 包的显示项. (部分具体定义未知, 故未翻译)
+% ----------------
+% Button.
+\NewTotalTCBox{\bitminijump}{ O{} m O{PrimaryC} m }{%
+  standard jigsaw, nobeforeafter, size=fbox, boxsep=.6pt,%
+  IfEmptyF={#4}{after upper={\hskip.8pt\textcolor{#3}{#4}}},%
+  fontupper=\ttfamily\tiny, colframe=#3, opacityback=0, #1%
+}{#2}
+\def\bitgoto#1#2{%
+  % #1:: labeluse - goto:xx.
+  % #2:: info.
+  \hyperlink{#1}{\bitminijump{#2}{\setfontbit{5}\faExternalLinkSquare*}}%
+}
+\def\bitgoback#1#2{%
+  % #1:: labeluse - back:xx.
+  % #2:: info.
+  \hyperlink{#1}{\bitminijump{#2}{\setfontbit{5}\faReply}}%
+}
+
+% 重定义 \vref & \cref.
+\let\soscref\cref % 储存 \cref 原始命令.
+\let\sosvref\vref % 储存 \vref 原始命令.
+\renewcommand{\cref}[1]{\hyperlink{#1}{\soscref{#1}}}
+\renewcommand{\vref}[1]{\hyperlink{#1}{\sosvref{#1}}}
+
+% 重定义计数器 page.
+\AtBeginEnvironment{beamer@framepauses}{\setcounter{page}{\c@framenumber}}
+
+% 定义 varioref 和 cleveref 包的中文显示项.
+\if\EqualOptionsBeamer{LanguageMode}{cn}%
+  \vref@addto\extraschinese{%
+    \def\reftextfaceafter {见\reftextvario{对}{下}页}%
+    \def\reftextfacebefore{见\reftextvario{对}{前}页}%
+    \def\reftextafter     {见\reftextvario{下}{后}页}%
+    \def\reftextbefore    {见\reftextvario{上}{前}页}%
+    \def\reftextcurrent   {见\reftextvario{本}{此}页}%
+    \def\reftextfaraway#1{见第\pageref{#1}~页}%
+    \def\reftextpagerange#1#2{见第\pageref{#1}~到第\pageref{#2}~页}%
+    \def\reftextlabelrange#1#2{\ref{#1}到~\ref{#2}}%
+    \def\vrefformat#1#2{\ref{#2}（\vpageref[#1]{#2}）}%
+    \def\Vrefformat#1#2{\Ref{#2}（\vpageref[#1]{#2}）}%
+    \def\fullrefformat#1{\ref{#1}（\reftextfaraway{#1}）}%
+    \def\vrefrangeformat#1#2#3{\reftextlabelrange{#2}{#3}%
+      （\vpagerefrange[{#1}]{#2}{#3}）}%
+  }
+    %\cref@addlanguagedefs\extraschinese{%
+    \newcommand{\crefrangeconjunction}{ 到\nobreakspace}%
+    \newcommand\crefrangepreconjunction{}%
+    \newcommand\crefrangepostconjunction{}%
+    \newcommand{\crefpairconjunction}{ 和\nobreakspace}%
+    \newcommand{\crefmiddleconjunction}{, }%
+    \newcommand{\creflastconjunction}{ 和\nobreakspace}%
+    \newcommand{\crefpairgroupconjunction}{ 和\nobreakspace}%
+    \newcommand{\crefmiddlegroupconjunction}{, }%
+    \newcommand{\creflastgroupconjunction}{, 和\nobreakspace}%
+  % crefname
+  \Crefname{framenumber}{幻灯}{幻灯}
+  \Crefname{equation}{式}{式}%
+  \Crefname{figure}{图}{图}%
+  \Crefname{subfigure}{图}{图}%
+  \Crefname{table}{表}{表}%
+  \Crefname{subtable}{表}{表}%
+  \Crefname{page}{页}{页}%
+  \Crefname{part}{Part}{Parts}%
+  \Crefname{chapter}{章}{章}%
+  \Crefname{section}{节}{节}%
+  \Crefname{subsection}{节}{节}%
+  \Crefname{subsubsection}{节}{节}%
+  \Crefname{appendix}{附录}{附录}%
+  \Crefname{subappendix}{附录}{附录}%
+  \Crefname{subsubappendix}{附录}{附录}%
+  \Crefname{subsubsubappendix}{附录}{附录}%
+  \Crefname{enumi}{点}{点}%
+  \Crefname{enumii}{点}{点}%
+  \Crefname{enumiii}{点}{点}%
+  \Crefname{enumiv}{点}{点}%
+  \Crefname{enumv}{点}{点}%
+  \Crefname{footnote}{脚注}{脚注}%
+  \Crefname{theorem}{定理}{定理}%
+  \Crefname{lemma}{引理}{引理}%
+  \Crefname{corollary}{推论}{推论}%
+  \Crefname{proposition}{命题}{命题}%
+  \Crefname{definition}{定义}{定义}%
+  \Crefname{result}{结果}{结果}%
+  \Crefname{example}{例}{例}%
+  \Crefname{remark}{注}{注}%
+  \Crefname{note}{注}{注}%
+  \Crefname{algorithm}{算法}{算法}%
+  \Crefname{listing}{代码}{代码}%
+  \Crefname{line}{Line}{Lines}%
+  %}
+\else\EqualOptionsBeamer{LanguageMode}{en}%
+  \Crefname{framenumber}{Slide}{Slides}
+\fi
+% ----------------
+
+
+%%%% ----------------------------------------------------------------
+\endinput
+%%%% ----------------------------------------------------------------
+% End of file `beamerthemebit.sty'.

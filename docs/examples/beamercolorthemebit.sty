@@ -1,0 +1,256 @@
+% This is file `beamercolorthemebit.sty'.
+% Copyright (C) 2021-2026 by Zirui Chen.
+% Version: 2026/05/20 v2.1c (Original Version: 2022/03/10 v1.2a).
+%
+% This file may be distributed and/or modified
+%
+% 1. under the LaTeX Project Public License and/or
+% 2. under the GNU Public License.
+%
+% See the file doc/licenses/LICENSE for more details.
+%
+% 本文件为 BIT Beamer Theme 颜色主题宏包文件.
+% !请勿轻易改动此文档中代码.
+%%%% ----------------------------------------------------------------
+\NeedsTeXFormat{LaTeX2e}[1995/12/01]
+\ProvidesPackage{beamercolorthemebit}[2026/05/20 v2.1c, BIT Beamer Theme(Color Theme)]
+%%%% ----------------------------------------------------------------
+
+
+% ----------------
+% Declare of Options
+% Confirmed in v1.3c(2024/04/16).
+% Established in v1.2a(2022/03/10).
+% Updated in v1.3a(2022/03/16), v1.3b(2022/04/13).
+% ----------------
+% CMD:: \DeclareOptionBeamer  - 声明参数.
+% CMD:: \ExecuteOptionsBeamer - 预执行参数.
+% CMD:: \ProcessOptionsBeamer - 处理参数.
+% ----------------
+% KEY:: ColorDisplay.
+% VALUE:: BITA | BITB | Custom.
+\DeclareOptionBeamer{ColorDisplay}{\def\beamer@bit@ColorDisplay{#1}}
+% KEY:: ShadedIntensity.
+% VALUE:: <percent> (default: 60).
+\DeclareOptionBeamer{ShadedIntensity}{\def\beamer@bit@ShadedIntensity{#1}}
+
+\ExecuteOptionsBeamer{ColorDisplay=BITA, ShadedIntensity=60}
+\ProcessOptionsBeamer
+% ----------------
+
+
+% ----------------
+% Declare of Packages
+% Confirmed in v1.3c(2024/04/16).
+% Established in v1.3b(2022/04/13).
+% ----------------
+% CMD:: \RequirePackage - 调用宏包.
+% ----------------
+\RequirePackage{xcolor}% xcolor: 设置颜色.
+% ----------------
+
+
+% ----------------
+% Declare of Colors
+% Confirmed in v1.3c(2024/04/16).
+% Established in v1.2a(2022/03/10).
+% Updated in v1.3a(2022/03/16).
+% ----------------
+% 依据北京理工大学校徽视觉元素, 定义了主题色 bita, 与辅助色 bitb, bitc, bitd, bite.
+% 上述定义颜色均采用 CMYK 颜色模式.
+% 注: 常用的颜色模式有 RGB 与 CMYK, 对应 LaTeX 中 rgb(0-1小数制, x/255), RGB(原始数值), cmyk(0-1小数制, x/100).
+% ----------------
+% CMD:: \definecolor - 依据颜色代码定义新颜色.
+% CMD:: \colorlet    - 依据已有颜色延申新颜色.
+% ----------------
+% COLOR:: 校徽外圈红褐 - bita    - CMYK(0,53,76,44).
+\definecolor{bita}   {cmyk}{0.00,0.53,0.76,0.44}
+\colorlet{bita10}   {bita!10!white}
+\colorlet{bita20}   {bita!20!white}
+\colorlet{bita30}   {bita!30!white}
+\colorlet{bita40}   {bita!40!white}
+\colorlet{bita50}   {bita!50!white}
+\colorlet{bita60}   {bita!60!white}
+\colorlet{bita70}   {bita!70!white}
+\colorlet{bita80}   {bita!80!white}
+\colorlet{bita90}   {bita!90!white}
+
+% COLOR:: 中性灰 - bite    - CMYK(47,37,37,0).
+\definecolor{bite}   {cmyk}{0.47,0.37,0.37,0.00}
+\colorlet{bite10}   {bite!10!white}
+\colorlet{bite20}   {bite!20!white}
+\colorlet{bite30}   {bite!30!white}
+\colorlet{bite40}   {bite!40!white}
+\colorlet{bite50}   {bite!50!white}
+\colorlet{bite60}   {bite!60!white}
+\colorlet{bite70}   {bite!70!white}
+\colorlet{bite80}   {bite!80!white}
+\colorlet{bite90}   {bite!90!white}
+
+% COLOR:: 校徽内圈深绿 - bitb    - CMYK(98,0,48,59).
+\definecolor{bitb}   {cmyk}{0.98,0.00,0.48,0.59}
+\colorlet{bitb10}   {bitb!10!white}
+\colorlet{bitb20}   {bitb!20!white}
+\colorlet{bitb30}   {bitb!30!white}
+\colorlet{bitb40}   {bitb!40!white}
+\colorlet{bitb50}   {bitb!50!white}
+\colorlet{bitb60}   {bitb!60!white}
+\colorlet{bitb70}   {bitb!70!white}
+\colorlet{bitb80}   {bitb!80!white}
+\colorlet{bitb90}   {bitb!90!white}
+
+% COLOR:: 校徽叶片亮绿 - bitc    - CMYK(100,0,56,40).
+\definecolor{bitc}   {cmyk}{1.00,0.00,0.56,0.40}
+\colorlet{bitc10}   {bitc!10!white}
+\colorlet{bitc20}   {bitc!20!white}
+\colorlet{bitc30}   {bitc!30!white}
+\colorlet{bitc40}   {bitc!40!white}
+\colorlet{bitc50}   {bitc!50!white}
+\colorlet{bitc60}   {bitc!60!white}
+\colorlet{bitc70}   {bitc!70!white}
+\colorlet{bitc80}   {bitc!80!white}
+\colorlet{bitc90}   {bitc!90!white}
+
+% COLOR:: 校徽描边金褐 - bitd    - CMYK(0,20,32,14).
+\definecolor{bitd}   {cmyk}{0.00,0.20,0.32,0.14}
+\colorlet{bitd10}   {bitd!10!white}
+\colorlet{bitd20}   {bitd!20!white}
+\colorlet{bitd30}   {bitd!30!white}
+\colorlet{bitd40}   {bitd!40!white}
+\colorlet{bitd50}   {bitd!50!white}
+\colorlet{bitd60}   {bitd!60!white}
+\colorlet{bitd70}   {bitd!70!white}
+\colorlet{bitd80}   {bitd!80!white}
+\colorlet{bitd90}   {bitd!90!white}
+% ----------------
+
+
+\mode<presentation>
+
+
+% ----------------
+% Beamer Theme Color Mode Layout
+% Confirmed in v2.1c(2026/05/20).
+% Established in v1.3a(2022/03/16).
+% Updated in v1.3c(2024/04/16), v2.1c(2026/05/20).
+% ----------------
+% | PrimaryC | AuxiliaryC | SecondaryAuxiliaryC | IntersperseC ||
+% | 主题色    | 辅助色     | 第二辅助色           | 点缀色        |
+% --------------------------------------------------------------
+% | NormalTextC | AlertedTextC | BackgroundC | BlockExampleC  |
+% | 普通文本色  | 强调文本色    | 背景主体色   | Example 区块色 |
+% ------------------------------------------------------------
+% | BlockDefinitionC | BlockLemmaC | BlockConditionC |
+% | Definition 区块色 | Lemma 区块色| Condition 区块色 |
+% ----------------
+\if\EqualOptionsBeamer{ColorDisplay}{BITA}%
+	\colorlet{PrimaryC}           {bita}
+	\colorlet{AuxiliaryC}         {bite50}
+	\colorlet{SecondaryAuxiliaryC}{bite}
+	\colorlet{IntersperseC}       {bita40}
+	\colorlet{NormalTextC}         {black}
+	\colorlet{AlertedTextC}       {bita90}
+	\colorlet{BackgroundC}        {white}
+	\colorlet{BlockExampleC}      {bite!80!black}
+	\colorlet{BlockDefinitionC}   {bitb}
+	\colorlet{BlockLemmaC}        {bitc}
+	\colorlet{BlockConditionC}    {bitd}
+	\colorlet{HighlightCodeLineC} {bita10}
+\else\if\EqualOptionsBeamer{ColorDisplay}{BITB}%
+	\colorlet{PrimaryC}           {bitb}
+	\colorlet{AuxiliaryC}         {bite50}
+	\colorlet{SecondaryAuxiliaryC}{bite}
+	\colorlet{IntersperseC}       {bitb40}
+	\colorlet{NormalTextC}         {black}
+	\colorlet{AlertedTextC}       {bitb90}
+	\colorlet{BackgroundC}        {white}
+	\colorlet{BlockExampleC}      {bite!80!black}
+	\colorlet{BlockDefinitionC}   {bita}
+	\colorlet{BlockLemmaC}        {bitc}
+	\colorlet{BlockConditionC}    {bitd}
+	\colorlet{HighlightCodeLineC} {bitb10}
+\else\if\EqualOptionsBeamer{ColorDisplay}{Custom}%
+	\def\beamer@bit@colorprovide#1#2{%
+		% #1:: colorname.
+		% #2:: set color.
+		\@ifundefined{\string\color@#1}{\colorlet{#1}{#2}}{}%
+	}
+	\beamer@bit@colorprovide{PrimaryC}           {bita}
+	\beamer@bit@colorprovide{AuxiliaryC}         {bite50}
+	\beamer@bit@colorprovide{SecondaryAuxiliaryC}{bite}
+	\beamer@bit@colorprovide{IntersperseC}       {bita60}
+	\beamer@bit@colorprovide{NormalTextC}         {black}
+	\beamer@bit@colorprovide{AlertedTextC}       {bita90}
+	\beamer@bit@colorprovide{BackgroundC}        {white}
+	\beamer@bit@colorprovide{BlockExampleC}      {bite!80!black}
+	\beamer@bit@colorprovide{BlockDefinitionC}   {bitb}
+	\beamer@bit@colorprovide{BlockLemmaC}        {bitc}
+	\beamer@bit@colorprovide{BlockConditionC}    {bitd}
+	\beamer@bit@colorprovide{HighlightCodeLineC} {bita10}
+\fi\fi\fi
+% ----------------
+
+
+% ----------------
+% Beamer Theme Color Layout
+% Confirmed in v1.3e(2024/10/31).
+% Established in v1.2a(2022/03/10).
+% Updated in v1.3a(2022/03/16), v1.3c(2024/04/16), v1.3e(2024/10/31).
+% ----------------
+% 基本颜色设置.
+\setbeamercolor{structure}{fg=PrimaryC}
+\setbeamercolor{background canvas}{bg=BackgroundC}
+
+% 调色板颜色设置.
+\setbeamercolor{palette primary}   {fg=BackgroundC, bg=PrimaryC}
+\setbeamercolor{palette secondary} {fg=NormalTextC}
+\setbeamercolor{palette tertiary}  {fg=AlertedTextC}
+\setbeamercolor{palette quaternary}{fg=AuxiliaryC, bg=IntersperseC}
+
+% 页眉页脚颜色设置.
+\setbeamercolor{section in head/foot}    {parent=palette primary}
+\setbeamercolor{section in head/foot highlighted}{parent=palette primary, fg=white, bg=PrimaryC}
+\setbeamercolor{subsection in head/foot} {parent=structure}
+\setbeamercolor{frametitle}              {parent=structure}
+\setbeamercolor{framesubtitle}           {parent=palette tertiary}
+\setbeamercolor{author in head/foot}     {parent=palette secondary}
+\setbeamercolor{title in head/foot}      {parent=structure}
+\setbeamercolor{framenumber in head/foot}{parent=structure}
+
+% 自定义 TOC 中未选中项的灰色强度
+% 默认使用 60% 前景色 + 40% 背景色，比 Beamer 默认的 30% 更明显
+\setbeamercolor{beamer@shaded}{fg=NormalTextC!\beamer@bit@ShadedIntensity!BackgroundC}
+
+% 封页颜色设置.
+\setbeamercolor{title}          {bg=BackgroundC, fg=PrimaryC}
+\setbeamercolor{subtitle}       {bg=BackgroundC, fg=PrimaryC}
+%\setbeamercolor{author}         {fg=white,bg=}
+%\setbeamercolor{date}           {fg=white,bg=}
+\setbeamercolor{titlepageheader}{bg=white, fg=black}
+\setbeamercolor{titlepagefooter}{bg=white, fg=black}
+
+% 区块颜色设置.
+\setbeamercolor*{block title}        {parent=palette primary}
+\setbeamercolor*{block body}         {fg=, bg=bita40}
+\setbeamercolor*{block title example}{fg=white, bg=bitb}
+\setbeamercolor*{block body example} {fg=, bg=bitb40}
+\setbeamercolor*{block title alerted}{parent=palette primary}
+\setbeamercolor*{block body alerted} {fg=, bg=bita40}
+
+% 列表颜色设置.
+\setbeamercolor{item}                {parent=structure}
+\setbeamercolor{item projected}      {parent=structure}
+\setbeamercolor{enumerate item}      {parent=structure}
+\setbeamercolor{enumerate subitem}   {parent=structure}
+\setbeamercolor{enumerate subsubitem}{parent=structure}
+
+% 文本颜色设置.
+\setbeamercolor*{normal text} {parent=palette secondary}
+\setbeamercolor*{alerted text}{parent=palette tertiary}
+% ----------------
+
+
+%%%% ----------------------------------------------------------------
+\endinput
+%%%% ----------------------------------------------------------------
+% End of file `beamercolorthemebit.sty'.

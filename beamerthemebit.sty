@@ -1266,7 +1266,15 @@
 
 % 定义目录输入命令.
 \def\inserttableofcontent{
-  \ifbeamer@bit@contentmuticols%
+  % 自动检测章节数，> 5 时启用双栏
+  \ifnum\value{section}>5%
+    \begin{multicols}{2}
+      \tableofcontents[%
+        sectionstyle=show/shaded,%
+        subsectionstyle=show/shaded/hide,%
+        subsubsectionstyle=show/shaded/hide]%
+    \end{multicols}
+  \else\ifbeamer@bit@contentmuticols%
     \begin{multicols}{2}
       \tableofcontents[%
         sectionstyle=show/shaded,%
@@ -1278,7 +1286,7 @@
       sectionstyle=show/shaded,%
       subsectionstyle=show/shaded/hide,%
       subsubsectionstyle=show/shaded/hide]%
-  \fi%
+  \fi\fi%
 }
 % 小节前加目录 (SubsectionTOC 选项控制).
 \if\EqualOptionsBeamer{SubsectionTOC}{on}%

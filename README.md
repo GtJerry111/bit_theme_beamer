@@ -484,6 +484,31 @@ BIT Beamer 主题需要 `resources/` 和 `image/` 目录中的图片资源来渲
 
 **默认值：** `ShadedIntensity=60` — 比 Beamer 默认的 30% 更清晰可读。
 
+### OverlayMode 选项
+
+`OverlayMode` 选项控制逐行显示效果：
+
+```latex
+\usetheme[OverlayMode=direct]{bit}  % 默认，所有内容直接显示
+\usetheme[OverlayMode=fade]{bit}    % 逐行出现，未出现的行显示为灰色半透明
+\usetheme[OverlayMode=none]{bit}    % 逐行出现，但未出现的行完全隐藏
+```
+
+| 模式 | 行为 |
+|------|------|
+| `direct` | **默认。** 所有内容直接显示，没有动画（适合快速浏览/打印讲义） |
+| `fade` | 逐行出现，未出现的行显示为灰色半透明（传统演讲模式） |
+| `none` | 逐行出现，但未出现的行完全隐藏（无灰色干扰） |
+
+**默认值：** `OverlayMode=direct` — 所有内容直接显示，无动画。
+
+### TOC 自动双栏
+
+当章节数 > 5 时，主题自动启用双栏目录，左右平衡分布章节。
+用户无需手动设置 `ContentMuticols` 选项。
+
+**阈值：** > 5 章节（6 个章节开始双栏）
+
 ### SubsectionTOC 选项
 
 `SubsectionTOC` 选项控制小节目录的显示行为。

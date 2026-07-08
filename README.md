@@ -91,9 +91,9 @@ git clone https://github.com/GtJerry111/bit_theme_beamer.git
 	% ShadedIntensity=, % 60 ⚙️ → TOC 灰色强度 (0-100)
 	% SubsectionTOC=, % on ⚙️ | off | first-only → 小节目录显示控制
 	% Background=, % BIT-Full ⚙️ | BIT-Lite | Custom | none → 背景显示设置
-	% SectionNavStyle=, % full ⚙️ | current | none → 页眉章节导航样式
-	% SecBarWidth=, % 0.4\paperwidth ⚙️ | <dimen> → 章节栏宽度
-	% overflowguard=, % off ⚙️ | on → 溢出保护 (paper2beamer 集成)
+	% SectionNavStyle=, % auto ⚙️ | full | current | none → 页眉章节导航样式
+	% SecBarWidth=, % auto ️ | <dimen> → 章节栏宽度
+	% overflowguard=, % on ⚙️ | off → 溢出保护 (paper2beamer 集成)
 ]{bit}
 
 % -------- Packages --------

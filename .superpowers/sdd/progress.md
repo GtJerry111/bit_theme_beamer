@@ -13,6 +13,6 @@ BASE: b50cabf2e9ad093cbe81e0604765a4269d695b7b
 - [x] Task 7: 更新 resource-deployment.md 文档 (commit 53d03a5)
 - [x] Task 8: 更新 README.md (commit b7d50ed)
 - [x] Task 9: 端到端验证 (commit 1c9e01e)
-- [ ] Task 10: OverlayMode 选项（direct/fade/none）
-- [ ] Task 11: TOC 自动双栏（章节数 > 5 时启用）
-- [ ] Task 12: 更新 README.md — 添加 OverlayMode 和 TOC 自动双栏说明
+- [x] Task 10: OverlayMode 选项（direct/fade/none）(commit ff29258)
+- [x] Task 11: TOC 自动双栏（章节数 > 5 时启用）(commit 7061931)
+- [x] Task 12: 更新 README.md — 添加 OverlayMode 和 TOC 自动双栏说明 (commit efa283d)

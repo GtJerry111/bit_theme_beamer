@@ -335,6 +335,9 @@ grep "Output written" main.log
 | 推荐的 \usetheme 选项 | 推荐 `NavigationTool=1-2-3`、`BIBMode=none` 等 |
 | 帧密度与页数预算 | 说明 overlay 膨胀因子，页数按 PDF 物理页计算 |
 | 图片命名 | 建议将 Docling 哈希文件名重命名为 `figure-NNN.png` |
+| 章节导航 | 默认 `SectionNavStyle=auto`，自动适应章节数量 |
+| TOC 处理 | pipeline 不应生成 TOC frame，主题自动处理 |
+| Intent 阶段问题 | 必须询问语言偏好、面向人群、演讲时间、框架偏好 |
 
 ### 自定义 paper2beamer ISA 路径
 
@@ -426,18 +429,20 @@ BIT Beamer 主题需要 `resources/` 和 `image/` 目录中的图片资源来渲
 
 **用法：**
 ```latex
-\usetheme[SectionNavStyle=full]{bit}    % 默认
+\usetheme[SectionNavStyle=auto]{bit}     % 默认
+\usetheme[SectionNavStyle=full]{bit}
 \usetheme[SectionNavStyle=current]{bit}
 \usetheme[SectionNavStyle=none]{bit}
 ```
 
 | 模式 | 行为 |
 |------|------|
+| `auto` | **默认。** 自动检测：章节名总宽度 ≤ secbar 宽度时显示全部，超出时回退到仅当前章节 |
 | `full` | 在页眉中显示所有章节名称，用 PrimaryC 背景高亮当前章节 |
 | `current` | 仅显示当前章节名称 |
 | `none` | 完全隐藏章节导航 |
 
-**默认值：** `SectionNavStyle=full` — 匹配之前的 `LanguageMode=cn` 行为。
+**默认值：** `SectionNavStyle=auto` — 自动适应章节数量，避免溢出。
 
 **向后兼容性：** 之前，`LanguageMode=cn` 显示完整章节导航，`LanguageMode=en` 仅显示当前章节。现在：
 - `LanguageMode` 仅控制文本本地化（中文字符串 vs 英文字符串）
@@ -450,11 +455,12 @@ BIT Beamer 主题需要 `resources/` 和 `image/` 目录中的图片资源来渲
 章节栏宽度可以独立配置：
 
 ```latex
-\usetheme[SecBarWidth=0.4\paperwidth]{bit}   % 默认
+\usetheme[SecBarWidth=auto]{bit}              % 默认，自适应
+\usetheme[SecBarWidth=0.5\paperwidth]{bit}   % 固定宽度
 \usetheme[SecBarWidth=0.3\paperwidth]{bit}   % 更窄
 ```
 
-默认值为 `0.4\paperwidth`。当有多个章节且名称较长时使用更宽的值。
+默认值为 `auto`（等价于 `0.4\paperwidth`）。当有多个章节且名称较长时使用更宽的值。
 
 ### ContentMuticols 选项
 
@@ -498,7 +504,7 @@ BIT Beamer 主题需要 `resources/` 和 `image/` 目录中的图片资源来渲
 
 ### overflowguard 选项
 
-`overflowguard` 选项用于 paper2beamer 集成和密集幻灯片：
+默认已启用（`overflowguard=on`）。对于 paper2beamer 集成和密集幻灯片：
 
 ```latex
 \usetheme[overflowguard=on]{bit}
@@ -525,6 +531,15 @@ BIT Beamer 主题需要 `resources/` 和 `image/` 目录中的图片资源来渲
 
 
 ## 更新记录
+
+### v2.1j (2026-07-08)
+- 新增 `SectionNavStyle=auto` 模式：自动检测章节数量，超出时回退到 current 样式
+- 新增 `SecBarWidth=auto` 选项：自适应章节栏宽度
+- 新增 `OverlayMode` 选项：控制逐行显示效果（direct/fade/none）
+- 新增 TOC 自动双栏：章节数 > 5 时自动启用双栏目录
+- 默认值变更：`SectionNavStyle=auto`、`SecBarWidth=auto`、`overflowguard=on`
+- ISA 同步：添加新选项到 `BIT.yaml`，更新 prose 指导 paper2beamer
+- 更新文档：README、section-nav-style.md、resource-deployment.md
 
 ### v2.1i (2026-07-04)
 - 新增 `ShadedIntensity` 选项：控制 TOC 中未选中项的灰色强度（默认 60，比 Beamer 默认的 30% 更清晰）

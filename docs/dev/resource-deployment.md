@@ -46,8 +46,9 @@ This installs resources to `$TEXMF_HOME/tex/latex/bit-beamer-theme/resources/`, 
 The theme defines a `\bit@resolve@resource` macro:
 
 ```latex
-\def\bit@resolve@resource#1{%
-  \IfFileExists{./resources/#1}{./resources/#1}{#1}%
+\newcommand{\bit@def@resource}[2]{%
+  % #1 = control sequence to define, #2 = resource filename
+  \IfFileExists{./resources/#2}{\def#1{./resources/#2}}{\def#1{#2}}%
 }
 ```
 

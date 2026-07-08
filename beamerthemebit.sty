@@ -97,6 +97,10 @@
 \newif\ifbeamer@bit@contentmuticols
 \newif\ifbeamer@bit@overflowguard
 
+% KEY:: OverlayMode.
+% VALUE:: direct | fade | none.
+\DeclareOptionBeamer{OverlayMode}{\def\beamer@bit@OverlayMode{#1}}
+
 % KEY:: ColorDisplay [PASSTO:: beamercolorthemebit.sty].
 % VALUE:: BITA | BITB.
 \DeclareOptionBeamer{ColorDisplay}{\PassOptionsToPackage{ColorDisplay={#1}}{beamercolorthemebit}}
@@ -176,7 +180,8 @@
   SectionNavStyle=auto,
   ShadedIntensity=60,%
   SubsectionTOC=on,%
-  SecBarWidth=auto%
+  SecBarWidth=auto,%
+  OverlayMode=direct%
 }
 \ProcessOptionsBeamer
 \if\EqualOptionsBeamer{CodeTheme}{minted}%
@@ -301,8 +306,17 @@
 \setcounter{tocdepth}{2}
 % 设置图片路径为项目文件夹下 `image' `images' `figure' `figures'.
 \graphicspath{{image/}{images/}{figure/}{figures/}{resources/}}
-% 半透明化尚未出现的内容.
-\setbeamercovered{transparent}
+% Overlay mode: 控制逐行显示效果.
+\if\EqualOptionsBeamer{OverlayMode}{direct}%
+  % 直接显示所有内容，无动画
+  \setbeamercovered{invisible}%
+\else\if\EqualOptionsBeamer{OverlayMode}{fade}%
+  % 逐行出现，未出现的行显示为灰色半透明（传统模式）
+  \setbeamercovered{transparent}%
+\else\if\EqualOptionsBeamer{OverlayMode}{none}%
+  % 逐行出现，但未出现的行完全隐藏
+  \setbeamercovered{invisible}%
+\fi\fi\fi%
 % 导航栏为空.
 \beamertemplatenavigationsymbolsempty
 % ----------------

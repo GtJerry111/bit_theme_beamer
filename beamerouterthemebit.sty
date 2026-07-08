@@ -34,13 +34,13 @@
 % VALUE:: none | 1 | 2 | 3 | 1-2 | 1-3 | 2-3 | 1-2-3.
 \DeclareOptionBeamer{NavigationTool}{\def\beamer@bit@NavigationTool{#1}}
 % KEY:: LogoWidth.
-% VALUE:: <dimen>.
+% VALUE:: auto | <dimen>.
 \DeclareOptionBeamer{LogoWidth}{\def\beamer@bit@LogoWidth{#1}}
 % KEY:: SectionNavStyle.
 % VALUE:: auto | full | current | none.
 \DeclareOptionBeamer{SectionNavStyle}{\def\beamer@bit@SectionNavStyle{#1}}
 % KEY:: SecBarWidth.
-% VALUE:: <dimen>.
+% VALUE:: auto | <dimen>.
 \DeclareOptionBeamer{SecBarWidth}{\def\beamer@bit@SecBarWidth{#1}}
 
 \ExecuteOptionsBeamer{%
@@ -95,7 +95,11 @@
 \bit@wd@headlineskip=9pt
 % DIMEN:: 章节导航栏宽度 - wd@secbar.
 \newdimen\bit@wd@secbar
-\bit@wd@secbar=\beamer@bit@SecBarWidth\relax
+\if\EqualOptionsBeamer{SecBarWidth}{auto}%
+  \bit@wd@secbar=0.4\paperwidth\relax
+\else%
+  \bit@wd@secbar=\beamer@bit@SecBarWidth\relax%
+\fi%
 % DIMEN:: 小节-标题分隔线宽度 - wd@sectotitleline.
 \newdimen\bit@wd@sectotitleline
 \bit@wd@sectotitleline=\dimexpr\the\paperwidth-\bit@wd@secbar-30pt\relax

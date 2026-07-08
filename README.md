@@ -91,6 +91,7 @@ git clone https://github.com/GtJerry111/bit_theme_beamer.git
 	% ShadedIntensity=, % 60 ⚙️ → TOC 灰色强度 (0-100)
 	% SubsectionTOC=, % on ⚙️ | off | first-only → 小节目录显示控制
 	% Background=, % BIT-Full ⚙️ | BIT-Lite | Custom | none → 背景显示设置
+	% OverlayMode=, % direct ⚙️ | fade | none → 逐行显示效果控制
 	% SectionNavStyle=, % auto ⚙️ | full | current | none → 页眉章节导航样式
 	% SecBarWidth=, % auto ️ | <dimen> → 章节栏宽度
 	% overflowguard=, % on ⚙️ | off → 溢出保护 (paper2beamer 集成)
@@ -557,7 +558,7 @@ BIT Beamer 主题需要 `resources/` 和 `image/` 目录中的图片资源来渲
 
 ## 更新记录
 
-### v2.1j (2026-07-08)
+### v2.2 (2026-07-08)
 - 新增 `SectionNavStyle=auto` 模式：自动检测章节数量，超出时回退到 current 样式
 - 新增 `SecBarWidth=auto` 选项：自适应章节栏宽度
 - 新增 `OverlayMode` 选项：控制逐行显示效果（direct/fade/none）
